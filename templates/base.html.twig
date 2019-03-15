@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}MBD{% endblock %}</title>
+<link rel="stylesheet" href="\CSSFiles\stylesbootswatch.css">
+<link rel="stylesheet" href="\CSSFiles\app.css">
+<link rel="icon" type="image/png" href="\imgs\cpu.png">
+{% block stylesheets %}
+{% endblock %}
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<a class="navbar-brand" href="{{ path('patients') }}">MoliBourDuss</a>
+
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav mr-auto">
+{# 				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}#}
+				
+				<li class="nav-item active"><a class="nav-link"
+					href="{{ path('patients') }}">Home</a>
+					</li>
+{# 					{% if is_granted('ROLE_SUPERADMIN') %}#}
+{# 					<li class="nav-item"><a class="nav-link"#}
+{# 					href="{{ path('db_Users') }}">Users</a>#}
+{# 					</li>#}
+{# 				    {% endif %}#}
+{# 				{% endif %}#}
+{# 				{% if not app.user %}#}
+{# 				<li class="nav-item"><a class="nav-link"#}
+{# 					href="{{ path('security_login') }}">Connexion/Inscription</a></li>#}
+{# 				{% else %}#}
+{# 				<li class="nav-item"><a class="nav-link"#}
+{# 					href="{{ path('security_logout') }}">Déconnexion</a></li>#}
+{# 				{% endif %}#}
+			</ul>
+		</div>
+	</nav>
+	<div class="content">
+		{% block body %}{% endblock %}
+	</div>
+
+	{% block javascripts %}{% endblock %}
+</body>
 </html>

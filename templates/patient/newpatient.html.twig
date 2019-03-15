@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PatientController!{% endblock %}
+
+{% block body %}
+
+{% if editMode %}
+<h1>Modifiquation d'une fiche patient!!!</h1>
+	{% else %}
+<h1>Création d'une fiche patient!!!</h1>
+	{% endif %}
+ 
+{{ form_start(formPatient) }}
+
+{{ form_row(formPatient.nom, {'attr' : {'placeholder' : "Nom du patient"}}) }}
+{{ form_row(formPatient.prenom, {'attr' : {'placeholder' : "Prénom du patient"}}) }}
+{{ form_row(formPatient.birthdate, {'attr' : {'placeholder' : "Date de naissance"}}) }}
+
+<button type="submit" class="btn btn-success">
+	{% if editMode %}
+	Modifier la fiche patient
+	{% else %}
+	Ajouter une fiche patient
+	{% endif %}
+</button>
+
+{{ form_end(formPatient) }}
+{% endblock %}

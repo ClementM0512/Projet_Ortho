@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PatientController!{% endblock %}
+
+{% block body %}
+<section class="patients">
+{# 	<a href="{{ path('database_createArticle')}}" class="btn btn-success btn-lg btn-create">Ajouter un article</a>#}
+	
+	{% for patient in patient %}
+		<div class="metadata">
+		<h2>
+			{{ patient.nom}}
+			{{ patient.prenom}}
+			{{ patient.birthdate | date('d/m/y')}}
+		</h2>
+		</div>
+	{% endfor %}
+
+</section>
+{% endblock %}
