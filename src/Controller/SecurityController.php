@@ -2,59 +2,57 @@
 
 namespace App\Controller;
 
-use App\Form\UserType;
-use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
+use App\Form\UserType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-
-class SecurityController extends Controller
+class SecurityController extends AbstractController
 {
+    
     /**
-     * @Route("/security", name="security")
+     * @Route("/", name="security_login")
      */
-    public function index()
+    public function login()
     {
-        return $this->render('security/index.html.twig', [
-            'controller_name' => 'SecurityController',
+        return $this->render('security/login.html.twig', [
         ]);
     }
     
+    
     /**
-     * @Route("/register", name="user_registration")
+     * @Route("/register", name="security_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function registration(Request $request, UserPasswordEncoderInterface $encoder)
     {
-        // 1) build the form
         $user = new User();
         $form = $this->createForm(UserType::class);
-        
-        // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
+            $user->setUsername($form->getData()['Username']);
+            $user->setEmail($form->getData()['Email']);
+            $user->setRoles(array($form->getData()['Roles']));
+            $user->setChangePass(true);
             
-            $user = $form->getData();
-            // 3) Encode the password (you could also do this via Doctrine listener)
-            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
+           
+            $encoded = $encoder->encodePassword($user, '123456789');
+            $user->setPassword($encoded);
             
-            // 4) save the User!
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
             
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
-            
-            return $this->redirectToRoute('user_registration');
         }
         
-        return $this->render(
-            'security/register.html.twig',
-            array('form' => $form->createView())
-            );
+        return $this->render('security/register.html.twig', [
+            'formUser' => $form->createView(),
+        ]);
     }
+    
+        
+   
 }

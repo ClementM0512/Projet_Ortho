@@ -1,14 +1,15 @@
 <?php
-// src/Entity/User.php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class User implements UserInterface
 {
@@ -22,47 +23,37 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Email;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $Username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     */
+    private $Email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8",minMessage="trop court")
      */
     private $Password;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $ChangePass;
+    private $ChangePass = true;
+
+    /**
+     * @Assert\EqualTo(propertyPath="Password", message="test")
+     */
+    private $Confirm_Password;
 
     /**
      * @ORM\Column(type="json")
      */
     private $Roles = [];
 
-    public function __construct() {
-        $this->roles = array('ROLE_USER');
-    }
-    
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->Email;
-    }
-
-    public function setEmail(string $Email): self
-    {
-        $this->Email = $Email;
-
-        return $this;
     }
 
     public function getUsername(): ?string
@@ -73,6 +64,18 @@ class User implements UserInterface
     public function setUsername(string $Username): self
     {
         $this->Username = $Username;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->Email;
+    }
+
+    public function setEmail(string $Email): self
+    {
+        $this->Email = $Email;
 
         return $this;
     }
@@ -101,6 +104,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getConfirmPassword(): ?string
+    {
+        return $this->Confirm_Password;
+    }
+
+    public function setConfirmPassword(string $Confirm_Password): self
+    {
+        $this->Confirm_Password = $Confirm_Password;
+
+        return $this;
+    }
+
     public function getRoles(): ?array
     {
         return $this->Roles;
@@ -112,15 +127,21 @@ class User implements UserInterface
 
         return $this;
     }
+    
+    /**
+     * @see UserInterface
+     */
     public function getSalt()
     {
-        // The bcrypt and argon2i algorithms don't require a separate salt.
-        // You *may* need a real salt if you choose a different encoder.
-        return null;
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
     
-    
+    /**
+     * @see UserInterface
+     */
     public function eraseCredentials()
     {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

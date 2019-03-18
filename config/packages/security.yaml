@@ -4,13 +4,22 @@ security:
        App\Entity\User: bcrypt
     providers:
         in_memory: { memory: ~ }
+        in_database:
+           entity:
+              class: App\Entity\User
+              property: Username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
-
+            provider: in_database
+              
+            form_login:
+               login_path: security_login
+               check_path: security_login
+            
             # activate different ways to authenticate
 
             # http_basic: true
