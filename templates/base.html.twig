@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>{% block title %}MBD{% endblock %}</title>
+<title>{% block title %}Bouge tes yeux{% endblock %}</title>
 <link rel="stylesheet" href="\CSSFiles\stylesbootswatch.css">
 <link rel="stylesheet" href="\CSSFiles\app.css">
 {% block stylesheets %}
@@ -10,14 +10,17 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<a class="navbar-brand" href="{{ path('patients') }}">MoliBourDuss</a>
+		<a class="navbar-brand" href="{{ path('home') }}">Bouge tes yeux</a>
 
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav mr-auto">
 {# 				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}#}
 				
 				<li class="nav-item active"><a class="nav-link"
-					href="{{ path('patients') }}">Home</a>
+					href="{{ path('home') }}">Home</a>
+					</li>
+					<li class="nav-item active"><a class="nav-link"
+					href="{{ path('patients') }}">Patients</a>
 					</li>
 {# 					{% if is_granted('ROLE_SUPERADMIN') %}#}
 {# 					<li class="nav-item"><a class="nav-link"#}
