@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<section class="bilans">
+{# 	<a href="{{ path('database_createArticle')}}" class="btn btn-success btn-lg btn-create">Ajouter un article</a>#}
+	
+	{% for bilan in bilan %}
+		<div class="metadata">
+
+			OD {{ bilan.od}}
+			OG {{ bilan.og}}
+
+
+		</div>
+	{% endfor %}
+
+</section>
+{% endblock %}
+
