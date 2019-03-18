@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
+{% form_theme formUser 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-{{ form_start(form) }}
-	{{ form_row(form.Username) }}
-	{{ form_row(form.Email) }}
-	{{ form_row(form.Password) }}
-	{{ form_row(form.Roles) }}
-	{{ form_errors(form) }}
+{{ form_start(formUser) }}
+	{{ form_row(formUser.Username) }}
+	{{ form_row(formUser.Email) }}
+	{{ form_row(formUser.Password) }}
+	{{ form_row(formUser.Roles) }}
+	{{ form_errors(formUser) }}
 	
 	<button type="submit">Register!</button>
 {{ form_end(form) }}
