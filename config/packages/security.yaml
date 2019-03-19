@@ -20,6 +20,10 @@ security:
                login_path: security_login
                check_path: security_login
             
+            logout:
+               path: security_logout
+               target: security_login
+            
             # activate different ways to authenticate
 
             # http_basic: true
@@ -33,3 +37,6 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+       
+ 
+        

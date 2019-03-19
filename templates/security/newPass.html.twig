@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% form_theme formPass 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+{{ form_start(formPass) }}
+    {{ form_row(formPass.oldPass) }}
+	{{ form_row(formPass.newPass) }}
+ 	{{ form_row(formPass.newPassconfirm) }}
+
+	<button type="submit">Enregistrer!</button>
+    {{ form_end(formPass) }}
+    
+	Message: {{ message }}
+
+{% endblock %}
