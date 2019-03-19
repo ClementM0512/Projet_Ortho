@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
@@ -10,12 +8,6 @@ use App\Form\NewPassType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
-
-
-
-
-
-
 class SecurityController extends AbstractController
 {
     
@@ -24,16 +16,16 @@ class SecurityController extends AbstractController
      */
     public function login(Request $request)
     {
-       
+        
         if ($this->getUser() != null) {                                 #on v�rifie si on est identifier
             if ($this->getUser()->getChangePass() == true) {            #on verifie si c'est �a premiere connexion et on le redirige ver la bonne page
                 return $this->redirectToRoute('security_newPassword');  #on l'envoie a la page pour changer le mot de passe
             }else {
                 return $this->redirectToRoute('patients');              #on le redirige vers la list des patients
             }
-        } 
+        }
         return $this->render('security/login.html.twig', [              #creation de la vue
-           
+            
         ]);
     }
     
@@ -54,7 +46,7 @@ class SecurityController extends AbstractController
             $user->setRoles(array($form->getData()['Roles']));
             $user->setChangePass(true);                                 #on definie sur true car il devra obligatoirement changer le mot de passe lors de sa premiere connexion
             
-           
+            
             $encoded = $encoder->encodePassword($user, '123456789');    #on definie le mot de passe temporaire du compte
             $user->setPassword($encoded);
             
@@ -85,7 +77,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {                                             #on verifie la validiter du formulaire
             
             $ispasswordValid = $encoder->isPasswordValid($user, $form->getData()['oldPass']);       #on verifie que l'acien mot de passe correspond
-//             $encoded = $encoder->encodePassword($user, $form->getData()['oldPass']);
+            //             $encoded = $encoder->encodePassword($user, $form->getData()['oldPass']);
             if ($ispasswordValid) {                                                                 #si il est valide
                 
                 if ($form->getData()['newPass'] == $form->getData()['newPassconfirm']) {            #on verifie que le mot de passe soit ecrie 2 fois a l'identique
@@ -119,11 +111,11 @@ class SecurityController extends AbstractController
             'message' => null,
         ]);
     }
-        
+    
     /**
      * @Route("/logout", name="security_logout")
      */
     public function logout(){                           #permet la deconexion de l'utilisateur
-                                                        #symfony gere tout seul
+        #symfony gere tout seul
     }
 }
