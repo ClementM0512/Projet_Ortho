@@ -9,9 +9,9 @@
 <h1>Création d'une fiche patient!!!</h1>
 	{% endif %}
  
-{{ form_start(formPatient) }}
+{{ form_start(formPatient) }}		{# Début du formulaire #}
 
-{{ form_row(formPatient.nom, {'attr' : {'placeholder' : "Nom du patient"}}) }}
+{{ form_row(formPatient.nom, {'attr' : {'placeholder' : "Nom du patient"}}) }}	{# Rend la ligne d'origine #}
 {{ form_row(formPatient.prenom, {'attr' : {'placeholder' : "Prénom du patient"}}) }}
 {{ form_row(formPatient.birthdate, {'attr' : {'placeholder' : "Date de naissance"}}) }}
 
@@ -23,5 +23,5 @@
 	{% endif %}
 </button>
 
-{{ form_end(formPatient) }}
+{{ form_end(formPatient) }}		{# Fin du formulaire #}
 {% endblock %}

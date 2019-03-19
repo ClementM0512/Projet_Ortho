@@ -25,8 +25,8 @@ class SecurityController extends AbstractController
     public function login(Request $request)
     {
        
-        if ($this->getUser() != null) {                                 #on vérifie si on est identifier
-            if ($this->getUser()->getChangePass() == true) {            #on verifie si c'est ça premiere connexion et on le redirige ver la bonne page
+        if ($this->getUser() != null) {                                 #on vï¿½rifie si on est identifier
+            if ($this->getUser()->getChangePass() == true) {            #on verifie si c'est ï¿½a premiere connexion et on le redirige ver la bonne page
                 return $this->redirectToRoute('security_newPassword');  #on l'envoie a la page pour changer le mot de passe
             }else {
                 return $this->redirectToRoute('patients');              #on le redirige vers la list des patients
@@ -43,13 +43,13 @@ class SecurityController extends AbstractController
      */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder)
     {
-        $user = new User();                                             #on crée un nouveau utilisateur
-        $form = $this->createForm(UserType::class);                     #on crée un formulaire avec la classe UserType
-        $form->handleRequest($request);                                 #on récupere les donné entrer dans le formulaire
+        $user = new User();                                             #on crï¿½e un nouveau utilisateur
+        $form = $this->createForm(UserType::class);                     #on crï¿½e un formulaire avec la classe UserType
+        $form->handleRequest($request);                                 #on rï¿½cupere les donnï¿½ entrer dans le formulaire
         
         if ($form->isSubmitted() && $form->isValid()) {                 #on verifie la validiter du formulaire
             
-            $user->setUsername($form->getData()['Username']);           #on remplie les champs d'utilisateur avec les donnés du formulaire
+            $user->setUsername($form->getData()['Username']);           #on remplie les champs d'utilisateur avec les donnï¿½s du formulaire
             $user->setEmail($form->getData()['Email']);
             $user->setRoles(array($form->getData()['Roles']));
             $user->setChangePass(true);                                 #on definie sur true car il devra obligatoirement changer le mot de passe lors de sa premiere connexion
@@ -59,14 +59,14 @@ class SecurityController extends AbstractController
             $user->setPassword($encoded);
             
             
-            $entityManager = $this->getDoctrine()->getManager();        #on eregistre l'utilisateur sur la base donnée
+            $entityManager = $this->getDoctrine()->getManager();        #on eregistre l'utilisateur sur la base donnï¿½e
             $entityManager->persist($user);
             $entityManager->flush();
             
         }
         
-        return $this->render('security/register.html.twig', [           #création de la vue
-            'formUser' => $form->createView(),                          #parametre envoyer pour crée la vue
+        return $this->render('security/register.html.twig', [           #crï¿½ation de la vue
+            'formUser' => $form->createView(),                          #parametre envoyer pour crï¿½e la vue
         ]);
     }
     
@@ -75,13 +75,13 @@ class SecurityController extends AbstractController
      */
     public function newPass(Request $request, UserPasswordEncoderInterface $encoder)
     {
-        $id = $this->getUser()->getId();                                                            #on recupere l'id du compte dans la base de donnée
+        $id = $this->getUser()->getId();                                                            #on recupere l'id du compte dans la base de donnï¿½e
         $repo = $this->getDoctrine()->getRepository(User::class);                                   #on recherche la fiche complete de l'utilisateur
         $user = $repo->find($id);                                                                   #on met la fiche dans la variable $user
-        $form = $this->createForm(NewPassType::class);                                              #création du formulaire pour changer les mot de passe
+        $form = $this->createForm(NewPassType::class);                                              #crï¿½ation du formulaire pour changer les mot de passe
         
         
-        $form->handleRequest($request);                                                             #on récupere les données du formulaire
+        $form->handleRequest($request);                                                             #on rï¿½cupere les donnï¿½es du formulaire
         if ($form->isSubmitted() && $form->isValid()) {                                             #on verifie la validiter du formulaire
             
             $ispasswordValid = $encoder->isPasswordValid($user, $form->getData()['oldPass']);       #on verifie que l'acien mot de passe correspond
@@ -94,7 +94,7 @@ class SecurityController extends AbstractController
                     $user->setPassword($encoded);                                                   #on change le mot de passe dans la fiche
                     $user->setChangePass(false);                                                    #on annule le faite que l'utilisateur doit changer le mot de passe a la prochaine connexion
                     
-                    $entityManager = $this->getDoctrine()->getManager();                            #on synchronise les donné avec la base de donnée
+                    $entityManager = $this->getDoctrine()->getManager();                            #on synchronise les donnï¿½ avec la base de donnï¿½e
                     $entityManager->persist($user);
                     $entityManager->flush();
                     

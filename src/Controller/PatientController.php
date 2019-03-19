@@ -20,7 +20,7 @@ class PatientController extends AbstractController
      */
     public function indexPatient(PatientRepository $repo)
     {
-        $patient = $repo->findAll();
+        $patient = $repo->findAll();        //Sert à trouver tout les objets du type passé en param
         
         return $this->render('patient/indexPatient.html.twig', [
             'controller_name' => 'PatientController',
@@ -39,24 +39,19 @@ class PatientController extends AbstractController
             $patient = new Patient();
         }
         
-        $form = $this->createForm(PatientType::class, $patient); //constructeur form article
+        $form = $this->createForm(PatientType::class, $patient); //Crée un formulaire de type patient
         
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-//             if (!$patient->getId()){
-//                 $patient->setCreateAt(new \DateTime());
-//             }
+        $form->handleRequest($request);             //Sert pour le traitement des données du formulaire
             
-            $manager->persist($patient);
-            $manager->flush();
+            $manager->persist($patient);            //Dit a doctrine que l'on veut save l'objet
+            $manager->flush();                      //Execute la querie pour sauvegarder les données dans la table
             
             return $this->redirectToRoute('patients', ['id' => $patient->getId()]);
         }
         
         return $this->render('patient/newpatient.html.twig', [
-            'formPatient' => $form->createView(),
-            'editMode' => $patient->getId() !== null    //si on est en mode édition true/false
+            'formPatient' => $form->createView(),       
+            'editMode' => $patient->getId() !== null    //Si on est en mode édition true/false
         ]);
     }
     
@@ -86,12 +81,7 @@ class PatientController extends AbstractController
         
         $form = $this->createForm(BilanType::class, $bilan); //constructeur form article
         
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            //             if (!$patient->getId()){
-            //                 $patient->setCreateAt(new \DateTime());
-            //             }
+        $form->handleRequest($request);        
             
             $manager->persist($bilan);
             $manager->flush();

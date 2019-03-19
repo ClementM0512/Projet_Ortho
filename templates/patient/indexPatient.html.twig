@@ -10,7 +10,7 @@
 		<h2>
 			{{ patient.nom}}
 			{{ patient.prenom}}
-			{{ patient.birthdate | date('d/m/y')}}
+			{{ patient.birthdate | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}
 		</h2>
 		</div>
 	{% endfor %}
