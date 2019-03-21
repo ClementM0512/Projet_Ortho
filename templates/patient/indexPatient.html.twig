@@ -1,17 +1,18 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
 <section class="patients">
-	<a href="{{ path('patientCreate')}}" class="btn btn-success btn-lg btn-create">Ajouter un patient</a>
+	<a href="{{ path('patientCreate')}}" class="btn btn-success btn-lg btn-create btn-addpatient">Ajouter un patient</a>
 	
-	{% for patient in patient %}
+	{% for patient in patients %}
 		<div class="metadata">
-		<h2>
+		<a href="{{ path('patient_show', {'id': patient.id}) }}">
+			<button type="submit" class="btn btn-outline-primary btn-patient" >
 			{{ patient.nom}}
 			{{ patient.prenom}}
-			{{ patient.birthdate | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}
-		</h2>
+			{{ patient.birthdate | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}			
+			</button>
+			</a>
 		</div>
 	{% endfor %}
 
