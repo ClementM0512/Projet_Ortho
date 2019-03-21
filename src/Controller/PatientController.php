@@ -47,7 +47,7 @@ class PatientController extends AbstractController
             $manager->flush();                      //Execute la querie pour sauvegarder les données dans la table
             
             return $this->redirectToRoute('patients', ['id' => $patient->getId()]);
-        }
+
         
         return $this->render('patient/newpatient.html.twig', [
             'formPatient' => $form->createView(),       
@@ -87,7 +87,7 @@ class PatientController extends AbstractController
             $manager->flush();
             
             return $this->redirectToRoute('bilans', ['id' => $bilan->getId()]);
-        }
+
         
         return $this->render('patient/newbilan.html.twig', [
             'formBilan' => $form->createView(),

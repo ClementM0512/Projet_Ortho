@@ -5,11 +5,22 @@
 {{ form_start(formPass) }}
     {{ form_row(formPass.oldPass) }}
 	{{ form_row(formPass.newPass) }}
+	
  	{{ form_row(formPass.newPassconfirm) }}
 
 	<button type="submit">Enregistrer!</button>
     {{ form_end(formPass) }}
-    
-	Message: {{ message }}
+
+    {{ message }}
+	
+	
+	
+	
+{% endblock %}
+
+{% block javascripts %}
+
+
 
 {% endblock %}
+	
