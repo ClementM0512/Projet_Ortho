@@ -1,5 +1,5 @@
-<?php
 
+<?php
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,11 +20,11 @@ class PatientController extends AbstractController
      */
     public function indexPatient(PatientRepository $repo)
     {
-        $patient = $repo->findAll();        //Sert Ã  trouver tout les objets du type passÃ© en param
+        $patient = $repo->findAll();        #Sert à trouver tout les objets du type passé en param
         
         return $this->render('patient/indexPatient.html.twig', [
             'controller_name' => 'PatientController',
-            'patient' => $patient
+            'patients' => $patient
         ]);
     }
     
@@ -39,19 +39,21 @@ class PatientController extends AbstractController
             $patient = new Patient();
         }
         
-        $form = $this->createForm(PatientType::class, $patient); //CrÃ©e un formulaire de type patient
+        $form = $this->createForm(PatientType::class, $patient); #Crée un formulaire de type patient
         
-        $form->handleRequest($request);             //Sert pour le traitement des donnÃ©es du formulaire
+        $form->handleRequest($request);             #Sert pour le traitement des données du formulaire
             
-            $manager->persist($patient);            //Dit a doctrine que l'on veut save l'objet
-            $manager->flush();                      //Execute la querie pour sauvegarder les donnÃ©es dans la table
+        if ($form->isSubmitted() && $form->isValid()) {
+                  
+            $manager->persist($patient);            #Dit a doctrine que l'on veut save l'objet
+            $manager->flush();                      #Execute la querie pour sauvegarder les données dans la table
             
             return $this->redirectToRoute('patients', ['id' => $patient->getId()]);
-
+        }
         
         return $this->render('patient/newpatient.html.twig', [
             'formPatient' => $form->createView(),       
-            'editMode' => $patient->getId() !== null    //Si on est en mode Ã©dition true/false
+            'editMode' => $patient->getId() !== null    #Si on est en mode édition true/false
         ]);
     }
     
@@ -64,7 +66,7 @@ class PatientController extends AbstractController
         
         return $this->render('patient/indexBilan.html.twig', [
             'controller_name' => 'BilanController',
-            'bilan' => $bilan
+            'bilans' => $bilan
         ]);
     }
     
@@ -79,19 +81,38 @@ class PatientController extends AbstractController
             $bilan = new Bilan();
         }
         
-        $form = $this->createForm(BilanType::class, $bilan); //constructeur form article
+        $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
         
-        $form->handleRequest($request);        
+        $form->handleRequest($request);    
+        
+        if ($form->isSubmitted() && $form->isValid()) {
             
             $manager->persist($bilan);
             $manager->flush();
             
             return $this->redirectToRoute('bilans', ['id' => $bilan->getId()]);
-
-        
+        }
         return $this->render('patient/newbilan.html.twig', [
             'formBilan' => $form->createView(),
-            'editMode' => $bilan->getId() !== null    //si on est en mode Ã©dition true/false
+            'editMode' => $bilan->getId() !== null    #si on est en mode édition true/false
         ]);
     }
+    
+    /**
+     * @Route("/patient/{id}", name="patient_show")
+     */
+    public function patientShow($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(Patient::class);
+        
+        $patient = $repo->find($id);
+        
+        return $this->render('patient/patientShow.html.twig',[
+            'patient' => $patient
+        ]);
+    }
+        
+    
+    
+    
 }
