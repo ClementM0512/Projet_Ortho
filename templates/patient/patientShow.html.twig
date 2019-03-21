@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="patients">
+
+		<div class="metadata">
+
+			{{ patient.nom}}
+			{{ patient.prenom}}
+			{{ patient.birthdate | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}
+
+		</div>
+
+</section>
+{% endblock %}

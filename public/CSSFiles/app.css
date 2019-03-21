@@ -1,0 +1,17 @@
+.btn-patient{
+	margin: 5px;
+	width:75%;
+}
+
+.metadata{
+	text-align: center;
+}
+
+.patients{
+	text-align: center;
+}
+
+.btn-addpatient{
+	width:25%;
+	margin:5px;
+}

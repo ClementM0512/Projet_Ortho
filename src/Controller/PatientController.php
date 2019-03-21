@@ -24,7 +24,7 @@ class PatientController extends AbstractController
         
         return $this->render('patient/indexPatient.html.twig', [
             'controller_name' => 'PatientController',
-            'patient' => $patient
+            'patients' => $patient
         ]);
     }
     
@@ -43,10 +43,13 @@ class PatientController extends AbstractController
         
         $form->handleRequest($request);             #Sert pour le traitement des données du formulaire
             
+        if ($form->isSubmitted() && $form->isValid()) {
+                  
             $manager->persist($patient);            #Dit a doctrine que l'on veut save l'objet
             $manager->flush();                      #Execute la querie pour sauvegarder les données dans la table
             
             return $this->redirectToRoute('patients', ['id' => $patient->getId()]);
+        }
         
         return $this->render('patient/newpatient.html.twig', [
             'formPatient' => $form->createView(),       
@@ -63,7 +66,7 @@ class PatientController extends AbstractController
         
         return $this->render('patient/indexBilan.html.twig', [
             'controller_name' => 'BilanController',
-            'bilan' => $bilan
+            'bilans' => $bilan
         ]);
     }
     
@@ -80,16 +83,36 @@ class PatientController extends AbstractController
         
         $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
         
-        $form->handleRequest($request);        
+        $form->handleRequest($request);    
+        
+        if ($form->isSubmitted() && $form->isValid()) {
             
             $manager->persist($bilan);
             $manager->flush();
             
             return $this->redirectToRoute('bilans', ['id' => $bilan->getId()]);
-        
+        }
         return $this->render('patient/newbilan.html.twig', [
             'formBilan' => $form->createView(),
             'editMode' => $bilan->getId() !== null    #si on est en mode édition true/false
         ]);
     }
+    
+    /**
+     * @Route("/patient/{id}", name="patient_show")
+     */
+    public function patientShow($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(Patient::class);
+        
+        $patient = $repo->find($id);
+        
+        return $this->render('patient/patientShow.html.twig',[
+            'patient' => $patient
+        ]);
+    }
+        
+    
+    
+    
 }
