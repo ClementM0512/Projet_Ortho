@@ -6,6 +6,9 @@ use App\Entity\Patient;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class PatientType extends AbstractType
 {
@@ -14,7 +17,9 @@ class PatientType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('birthdate')
+            ->add('birthdate', BirthdayType::class,  [
+                'label' => 'Date de naissance',
+            ])
         ;
     }
 
