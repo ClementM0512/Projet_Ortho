@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Liste Appli
+{% endblock %}
+
+{% block javascripts %}
+<script src="include.js" />
+{% endblock %}
+
+
+{% block body %}
+<h1>Liste Applications</h1>
+<ul>
+	<li><a href="{{ path('chronomots') }}">Chronomots</a></li>
+</ul>
+{% endblock %}

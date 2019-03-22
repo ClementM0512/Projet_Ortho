@@ -16,4 +16,23 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+    
+    /**
+     * @Route("/exercices", name="listeExos")
+     */
+    public function list_exos()
+    {
+        return $this->render('main/listeExos.html.twig', [
+            'controller_name' => 'MainController',
+        ]);
+    }
+    /**
+     * @Route("/exercice/chronomots", name="chronomots")
+     */
+    public function chronomots()
+    {
+        return $this->render('main/chronomots.html.twig', [
+            'controller_name' => 'MainController',
+        ]);
+    }
 }

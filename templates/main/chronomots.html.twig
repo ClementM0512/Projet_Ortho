@@ -1,15 +1,19 @@
-<html>
-<head>
-	  <meta charset="UTF-8">
-      <title>Chronomots</title>      
-      <script src="include.js"/>
-      
-</head>
-<body>
-	  <h1>Chronomots</h1>
-      <p>Combien de mot dans le texte?</p>
-      <input type="text" id="nbMotsSouhaite" /><br /><br />
-      <input type="button" value="Lancer l'application" />
-    <script src="chronomots.js"/>
-</body>
-</html>
+{% extends 'base.html.twig' %}
+
+{% block title %}Chronomots{% endblock %}
+
+{# {% block javascripts %}<script src="include.js" />{% endblock %}#}
+
+
+{% block body %}
+
+<h1>Chronomots</h1>
+<p>Combien de mot dans le texte?</p>
+<input type="text" id="nbMotsSouhaite" />
+<br />
+<br />
+<input type="button" value="Lancer l'application" />
+
+{% block javascripts %}<script src="chronomots.js" />{% endblock %}
+
+{% endblock %}
