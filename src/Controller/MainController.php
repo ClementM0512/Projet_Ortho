@@ -27,7 +27,7 @@ class MainController extends AbstractController
         ]);
     }
     /**
-     * @Route("/exercice/chronomots", name="chronomots")
+     * @Route("/exercices/chronomots", name="chronomots")
      */
     public function chronomots()
     {

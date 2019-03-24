@@ -68,10 +68,12 @@ function TexteDecoupage(nbMotsSouhaite)
 }
 function RedirectionApplication()
 {
-	document.location.href="chronomots.html";
+	//window.location.reload();
+	document.location.href="/chonomots";
 }
 function RedirectionListeApplications()
 {
+	alert("fff");
 	document.location.href="C:/Users/Pc/Documents/Cours/Projet/javascript/listeappli/listeappli.html";
 }
 var histoire ="Quand un soldat allemand s'attaque à la fouille d'une maison qu'il soupçonne d'abriter des Juifs, où cherche le faucon ? Il cherche dans la grange, il cherche dans le grenier, il cherche dans la cave, il cherche dans tous les endroits où lui se cacherait. Mais il s'en trouve tellement d'autres où un faucon n'aurait jamais l'idée de se cacher. La raison pour laquelle le Führer m'a enlevé à mes Alpes autrichiennes et envoyé en pleine campagne française aujourd'hui, c'est parce que j'en ai l'idée, moi. Parce que je me rends compte des prouesses extraordinaires dont l'homme est capable une fois qu'il a abandonné toute dignité."
@@ -94,19 +96,29 @@ function ResultatExercice(){
     document.body.appendChild(paraElem);									//Affichage résultat
     
     
-    elementsHtml=[new ElementHtml("input","Recommencer"), new ElementHtml("input","Quitter")];
+    elementsHtml=[
+    	new ElementHtml("input","Recommencer"), 
+    	new ElementHtml("input","Quitter")
+    	];
     
+    var aLien1 = document.createElement("a");
+    aLien1.href = "/exercices/chronomots";
+    var aLien2 = document.createElement("a");
+    aLien2.href = "/exercices";
+   
     //Creation boutons recommencer et quitter associes à des evenement "click" qui redirige vers la page voulue
     CreationElement(elementsHtml);
     
     var inputs = document.querySelectorAll("input");
-    inputs[0].addEventListener("click",RedirectionApplication);
-    inputs[1].addEventListener("click",RedirectionListeApplications);
+    aLien1.appendChild(inputs[0]);
+    aLien2.appendChild(inputs[1]);
+    document.body.appendChild(aLien1);
+    document.body.appendChild(aLien2);
+    
 }
 
 function ExecutionExercice()
 {
-	alert("ddd");
 	premierTemps = new Date().getTime();	//Enregistrement du temps actuel
 	var editNbMotsSouhaite = document.getElementById("nbMotsSouhaite");
 	nbMotsSouhaite = editNbMotsSouhaite.value;		//Recuperation du nombre de mots
@@ -121,7 +133,6 @@ function ExecutionExercice()
 		new ElementHtml('p',texteExercice),
 		new ElementHtml('input', 'Fini')
 	];
-	alert("ff");
 	CreationElement(elementsHtml);
 	
 	btFin = document.querySelector("input");    
