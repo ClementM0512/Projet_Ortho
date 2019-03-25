@@ -32,7 +32,7 @@ class Patient
     private $birthdate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Bilan", inversedBy="patient")
+     * @ORM\OneToMany(targetEntity="App\Entity\Bilan", mappedBy="bilan")
      */
     private $bilan;
 

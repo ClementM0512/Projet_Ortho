@@ -5,12 +5,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\PatientRepository;
 use App\Repository\BilanRepository;
 use App\Form\PatientType;
 use App\Form\BilanType;
 use App\Entity\Patient;
 use App\Entity\Bilan;
+
 
 class PatientController extends AbstractController
 {
@@ -54,6 +56,35 @@ class PatientController extends AbstractController
             'formPatient' => $form->createView(),       
             'editMode' => $patient->getId() !== null    #Si on est en mode édition true/false
         ]);
+    }
+    
+    /**
+     * @Route("/delete/{id}/delete", name="patientDelete")
+     */
+    public function deletePatient(Patient $patient, Request $request, ObjectManager $manager){
+        
+        $form = $this->createFormBuilder()
+        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer cet article', 'attr' => ['class' => 'Btn-delete-Article']])
+        ->add('NoDelete', SubmitType::class, ['label' => 'Retour', 'attr' => ['class' => 'Btn-back-listArticles']])
+        ->getForm();
+        
+        $form->handleRequest($request);
+        
+        if (($form->getClickedButton() && 'Delete' === $form->getClickedButton()->getName()))
+        {
+            $manager->remove($patient);        //Pour supprimer un article.
+            $manager->flush();
+            
+            
+            return $this->redirectToRoute('patients', ['id' => $patient->getId()]);
+        }
+        if (($form->getClickedButton() && 'NoDelete' === $form->getClickedButton()->getName()))
+        {
+            
+            return $this->redirectToRoute('patients');
+        }
+        return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
+        
     }
     
     /**

@@ -29,7 +29,7 @@ class Bilan
     private $og;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Patient", mappedBy="bilan")
+     * @ORM\OneToOne(targetEntity="App\Entity\Patient")
      */
     private $patient;
 

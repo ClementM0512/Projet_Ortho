@@ -8,7 +8,8 @@
 			{{ patient.nom}}
 			{{ patient.prenom}}
 			{{ patient.birthdate | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}
-
+			<a href="{{ path('PatientEdit', {'id': patient.id})}}" class="btn btn-primary">modifier</a>
+			<a href="{{ path('patientDelete', {'id': patient.id})}}" class="btn btn-danger">supprimer</a>
 		</div>
 
 </section>
