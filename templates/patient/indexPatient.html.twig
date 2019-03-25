@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block titre %}
+<h1 class="indicator">Sélection patient</h1>
+{% endblock %}
+
 {% block body %}
 <section class="patients">
 	<a href="{{ path('patientCreate')}}" class="btn btn-success btn-lg btn-create btn-addpatient">Ajouter un patient</a>

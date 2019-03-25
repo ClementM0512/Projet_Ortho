@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="\CSSFiles\stylesbootswatch.css">
 <link rel="stylesheet" href="\CSSFiles\app.css">
 {% endblock %}
-
 </head>
 <body>
 {% if app.user %}
@@ -15,16 +14,16 @@
 		<a class="navbar-brand" href="{{ path('home') }}">Bouge tes yeux</a>
 
 		<div class="collapse navbar-collapse" id="navbarColor01">
-			<ul class="navbar-nav mr-auto">
+			<ul class="navbar-nav mr-auto" id="change-active">
 {# 				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}#}
 				
-				<li class="nav-item active"><a class="nav-link"
+				<li class="nav-item active change-item"><a class="nav-link"
 					href="{{ path('home') }}">Home</a>
 					</li>
-					<li class="nav-item active"><a class="nav-link"
+					<li class="nav-item "><a class="nav-link"
 					href="{{ path('patients') }}">Patients</a>
 					</li>
-					<li class="nav-item active"><a class="nav-link"
+					<li class="nav-item "><a class="nav-link"
 					href="{{ path('listeExos') }}">Exercices</a>
 					</li>
 {# 					{% if is_granted('ROLE_SUPERADMIN') %}#}
@@ -37,13 +36,14 @@
 					href="{{ path('security_logout') }}">Déconnexion</a></li>
 			</ul>
 		</div>
-
+{% block titre %}{% endblock %}
 	</nav>
+	
 {% endif %}
 	<div class="content">
 		{% block body %}{% endblock %}
 	</div>
 
-	{% block javascripts %}{% endblock %}
+	{% block javascripts %}<script src="/JS/app.js" />{% endblock %}
 </body>
 </html>
