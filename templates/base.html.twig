@@ -20,10 +20,10 @@
 				<li class="nav-item active change-item"><a class="nav-link"
 					href="{{ path('home') }}">Home</a>
 					</li>
-					<li class="nav-item "><a class="nav-link"
+					<li class="nav-item change-item"><a class="nav-link"
 					href="{{ path('patients') }}">Patients</a>
 					</li>
-					<li class="nav-item "><a class="nav-link"
+					<li class="nav-item change-item"><a class="nav-link"
 					href="{{ path('listeExos') }}">Exercices</a>
 					</li>
 {# 					{% if is_granted('ROLE_SUPERADMIN') %}#}
@@ -32,7 +32,7 @@
 {# 					</li>#}
 {# 				    {% endif %}#}
 {# 				{% endif %}#}
-				<li class="nav-item"><a class="nav-link"
+				<li class="nav-item change-item"><a class="nav-link"
 					href="{{ path('security_logout') }}">Déconnexion</a></li>
 			</ul>
 		</div>
@@ -44,6 +44,6 @@
 		{% block body %}{% endblock %}
 	</div>
 
-	{% block javascripts %}<script src="/JS/app.js" />{% endblock %}
+	
 </body>
 </html>
