@@ -4,9 +4,7 @@
 <h1 class="indicator">Sélection patient</h1>
 {% endblock %}
 
-
 {% block body %}
-
 <section class="patients">
 	<a href="{{ path('patientCreate')}}" class="btn btn-success btn-lg btn-create btn-addpatient">Ajouter un patient</a>
 	
@@ -21,14 +19,6 @@
 			</a>
 		</div>
 	{% endfor %}
-</section>
-{% block javascripts %}
-<script>	
-	var header = document.getElementById("change-active");
-	var btns = document.body.querySelectorAll("li");
-    btns[0].className = "nav-item change-item";
-    btns[1].className = "nav-item active change-item"
-</script>
-{% endblock %}
-{% endblock %}
 
+</section>
+{% endblock %}

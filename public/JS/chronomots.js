@@ -139,6 +139,7 @@ function ExecutionExercice()
     btFin.addEventListener("click",ResultatExercice);
     
 }
+
 var premierTemps = new Date().getTime();
 var nbMotsSouhaite = 0;
 
