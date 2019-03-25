@@ -3,6 +3,8 @@
 
 {% block body %}
 {{ form_start(formUser) }}
+    {{ form_row(formUser.Nom) }}
+    {{ form_row(formUser.Prenom) }}
 	{{ form_row(formUser.Username) }}
 	{{ form_row(formUser.Email) }}
  	{{ form_row(formUser.Roles) }}
@@ -10,4 +12,18 @@
 	<button type="submit">Register!</button>
 {{ form_end(formUser) }}
 {{ Message }}
+
+<center>liste des utilisateur</center>
+
+{% for user in Users %}
+		<div class="metadata">
+{# 		<a href="{{ path('patient_show', {'id': patient.id}) }}">#}
+			<button type="submit" class="btn btn-outline-primary btn-patient" >
+			{{ user.username}}	
+			{{ user.email}}			
+			</button>
+{# 			</a>#}
+		</div>
+	{% endfor %}
+	
 {% endblock %}

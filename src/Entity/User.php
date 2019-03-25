@@ -23,6 +23,16 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $Nom;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Prenom;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $Username;
 
     /**
@@ -31,40 +41,51 @@ class User implements UserInterface
     private $Email;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8",minMessage="trop court")
+     * @ORM\OneToOne(targetEntity="App\Entity\Permission", mappedBy="id_User", cascade={"persist", "remove"})
      */
-    private $Password;
+    private $permission;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\OneToOne(targetEntity="App\Entity\Security", mappedBy="id_User", cascade={"persist", "remove"})
      */
-    private $ChangePass = true;
-
-    /**
-     * @Assert\EqualTo(propertyPath="Password", message="test")
-     */
-    private $Confirm_Password;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $Roles = [];
+    private $security;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    public function getNom(): ?string
+    {
+        return $this->Nom;
+    }
+
+    public function setNom(string $Nom): self
+    {
+        $this->Nom = $Nom;
+
+        return $this;
+    } 
+    public function getPrenom(): ?string
+    {
+        return $this->Prenom;
+    }
+    
+    public function setPrenom(string $Prenom): self
+    {
+        $this->Prenom = $Prenom;
+        
+        return $this;
+    }
     public function getUsername(): ?string
     {
         return $this->Username;
     }
-
+    
     public function setUsername(string $Username): self
     {
         $this->Username = $Username;
-
+        
         return $this;
     }
 
@@ -80,52 +101,13 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->Password;
-    }
-
-    public function setPassword(string $Password): self
-    {
-        $this->Password = $Password;
-
-        return $this;
-    }
-
-    public function getChangePass(): ?bool
-    {
-        return $this->ChangePass;
-    }
-
-    public function setChangePass(bool $ChangePass): self
-    {
-        $this->ChangePass = $ChangePass;
-
-        return $this;
-    }
-
-    public function getConfirmPassword(): ?string
-    {
-        return $this->Confirm_Password;
-    }
-
-    public function setConfirmPassword(string $Confirm_Password): self
-    {
-        $this->Confirm_Password = $Confirm_Password;
-
-        return $this;
-    }
-
     public function getRoles(): ?array
     {
-        return $this->Roles;
+        return $this->getPermission()->getRoles();
     }
-
-    public function setRoles(array $Roles): self
+    public function getPassword(): ?string
     {
-        $this->Roles = $Roles;
-
-        return $this;
+        return $this->getSecurity()->getPassword();
     }
     
     /**
@@ -143,5 +125,39 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getPermission(): ?Permission
+    {
+        return $this->permission;
+    }
+
+    public function setPermission(Permission $permission): self
+    {
+        $this->permission = $permission;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $permission->getIdUser()) {
+            $permission->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getSecurity(): ?Security
+    {
+        return $this->security;
+    }
+
+    public function setSecurity(Security $security): self
+    {
+        $this->security = $security;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $security->getIdUser()) {
+            $security->setIdUser($this);
+        }
+
+        return $this;
     }
 }
