@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 
@@ -44,13 +44,12 @@ class SecurityController extends AbstractController
     
     /**
      * @Route("/register", name="security_register")
+//      * @IsGranted("ROLE_USER")
      */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
     {
         
-//         if (false === $authChecker->isGranted('ROLE_SUPERADMIN')) {
-//             return $this->redirectToRoute('security_login');
-//         }
+
         $user = new User();                                                                         #on cree un nouveau utilisateur
         
         $repo = $this->getDoctrine()->getRepository(User::class);
@@ -123,12 +122,11 @@ class SecurityController extends AbstractController
     
     /**
      * @Route("/newPassword", name="security_newPassword")
+     * @IsGranted("ROLE_USER")
      */
     public function newPass(Request $request, UserPasswordEncoderInterface $encoder, AuthorizationCheckerInterface $authChecker)
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security_login');
-        }
+        
         $id = $this->getUser()->getId();                                                            #on recupere l'id du compte dans la base de donnee
         $repo = $this->getDoctrine()->getRepository(User::class);                                   #on recherche la fiche complete de l'utilisateur
         $user = $repo->find($id);                                                                   #on met la fiche dans la variable $user
@@ -232,6 +230,7 @@ class SecurityController extends AbstractController
     
     /**
      * @Route("/deleteUser/{id}", name="security_DeleteUser")
+     * @IsGranted("ROLE_SUPERADMIN")
      */
     public function deleteuser(User $user, Request $request){                           
         

@@ -12,8 +12,12 @@ use App\Form\PatientType;
 use App\Form\BilanType;
 use App\Entity\Patient;
 use App\Entity\Bilan;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-
+/**
+ * @IsGranted("ROLE_USER")
+ * 
+ */
 class PatientController extends AbstractController
 {
     /**
@@ -21,9 +25,7 @@ class PatientController extends AbstractController
      */
     public function indexPatient(PatientRepository $repo)
     {
-        if (false === $authChecker->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('security_login');
-        }
+
         $patient = $repo->findAll();        #Sert à trouver tout les objets du type passé en param
         
         return $this->render('patient/indexPatient.html.twig', [
@@ -35,12 +37,10 @@ class PatientController extends AbstractController
     /**
      * @Route("/newpatient", name="patientCreate")
      * @Route("/patient/{id}/edit", name="PatientEdit")
+     * 
      */
     public function _formPatient(Patient $patient = null, Request $request, ObjectManager $manager)
     {
-        if (false === $authChecker->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('patients');
-        }
         if (!$patient)
         {
             $patient = new Patient();
@@ -66,12 +66,10 @@ class PatientController extends AbstractController
     
     /**
      * @Route("/delete/{id}/delete", name="patientDelete")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function deletePatient(Patient $patient, Request $request, ObjectManager $manager){
         
-        if (false === $authChecker->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('patients');
-        }
         $form = $this->createFormBuilder()
         ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer cet article', 'attr' => ['class' => 'Btn-delete-Article']])
         ->add('NoDelete', SubmitType::class, ['label' => 'Retour', 'attr' => ['class' => 'Btn-back-listArticles']])
@@ -101,9 +99,6 @@ class PatientController extends AbstractController
      */
     public function indexBilan(BilanRepository $repo)
     {
-        if (false === $authChecker->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('security_login');
-        }
         $bilan = $repo->findAll();
         
         return $this->render('patient/indexBilan.html.twig', [
@@ -115,12 +110,10 @@ class PatientController extends AbstractController
     /**
      * @Route("/newbilan", name="bilanCreate")
      * @Route("/bilan/{id}/edit", name="bilanEdit")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function _formBilan(Bilan $bilan = null, Request $request, ObjectManager $manager)
     {
-        if (false === $authChecker->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('patients');
-        }
         if (!$bilan)
         {
             $bilan = new Bilan();
@@ -148,9 +141,6 @@ class PatientController extends AbstractController
      */
     public function patientShow($id)
     {
-        if (false === $authChecker->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('security_login');
-        }
         $repo = $this->getDoctrine()->getRepository(Patient::class);
         
         $patient = $repo->find($id);
