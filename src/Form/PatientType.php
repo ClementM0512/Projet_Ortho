@@ -17,7 +17,7 @@ class PatientType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('birthdate', BirthdayType::class,  [
+            ->add('dateDeNaissance', BirthdayType::class,  [
                 'label' => 'Date de naissance',
             ])
         ;

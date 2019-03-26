@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,12 +31,22 @@ class Patient
     /**
      * @ORM\Column(type="date")
      */
-    private $birthdate;
+    private $dateDeNaissance;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bilan", mappedBy="bilan")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $bilan;
+    private $adresse;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Bilan", mappedBy="patient")
+     */
+    private $bilans;
+
+    public function __construct()
+    {
+        $this->bilans = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -65,26 +77,57 @@ class Patient
         return $this;
     }
 
-    public function getBirthdate(): ?\DateTimeInterface
+    public function getDateDeNaissance(): ?\DateTimeInterface
     {
-        return $this->birthdate;
+        return $this->dateDeNaissance;
     }
 
-    public function setBirthdate(\DateTimeInterface $birthdate): self
+    public function setDateDeNaissance(\DateTimeInterface $dateDeNaissance): self
     {
-        $this->birthdate = $birthdate;
+        $this->dateDeNaissance = $dateDeNaissance;
 
         return $this;
     }
 
-    public function getBilan(): ?Bilan
+    public function getAdresse(): ?string
     {
-        return $this->bilan;
+        return $this->adresse;
     }
 
-    public function setBilan(?Bilan $bilan): self
+    public function setAdresse(?string $adresse): self
     {
-        $this->bilan = $bilan;
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bilan[]
+     */
+    public function getBilans(): Collection
+    {
+        return $this->bilans;
+    }
+
+    public function addBilan(Bilan $bilan): self
+    {
+        if (!$this->bilans->contains($bilan)) {
+            $this->bilans[] = $bilan;
+            $bilan->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBilan(Bilan $bilan): self
+    {
+        if ($this->bilans->contains($bilan)) {
+            $this->bilans->removeElement($bilan);
+            // set the owning side to null (unless already changed)
+            if ($bilan->getPatient() === $this) {
+                $bilan->setPatient(null);
+            }
+        }
 
         return $this;
     }

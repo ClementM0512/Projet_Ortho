@@ -18,7 +18,8 @@ class PatientFixtures extends Fixture
             $patient = new Patient();
             $patient->setNom('jean')
                     ->setPrenom('michel')
-                    ->setBirthdate($faker->dateTime);
+                    ->setDateDeNaissance($faker->dateTime)
+                    ->setAdresse($faker->address);
             
             
             $manager->persist($patient);

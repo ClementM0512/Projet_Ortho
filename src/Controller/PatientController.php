@@ -142,9 +142,10 @@ class PatientController extends AbstractController
     public function patientShow($id)
     {
         $repo = $this->getDoctrine()->getRepository(Patient::class);
+
         
         $patient = $repo->find($id);
-        
+
         return $this->render('patient/patientShow.html.twig',[
             'patient' => $patient
         ]);

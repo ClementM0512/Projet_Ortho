@@ -14,7 +14,8 @@
 			<button type="submit" class="btn btn-outline-primary btn-patient" >
 			{{ patient.nom}}
 			{{ patient.prenom}}
-			{{ patient.birthdate | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}			
+			{{ patient.dateDeNaissance | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}
+						
 			</button>
 			</a>
 		</div>

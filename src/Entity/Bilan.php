@@ -29,9 +29,11 @@ class Bilan
     private $og;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Patient")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Patient", inversedBy="bilans")
      */
     private $patient;
+
+
 
     public function __construct()
     {
@@ -67,34 +69,17 @@ class Bilan
         return $this;
     }
 
-    /**
-     * @return Collection|Patient[]
-     */
-    public function getPatient(): Collection
+    public function getPatient(): ?Patient
     {
         return $this->patient;
     }
 
-    public function addPatient(Patient $patient): self
+    public function setPatient(?Patient $patient): self
     {
-        if (!$this->patient->contains($patient)) {
-            $this->patient[] = $patient;
-            $patient->setBilan($this);
-        }
+        $this->patient = $patient;
 
         return $this;
     }
 
-    public function removePatient(Patient $patient): self
-    {
-        if ($this->patient->contains($patient)) {
-            $this->patient->removeElement($patient);
-            // set the owning side to null (unless already changed)
-            if ($patient->getBilan() === $this) {
-                $patient->setBilan(null);
-            }
-        }
 
-        return $this;
-    }
 }
