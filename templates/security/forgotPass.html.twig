@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% form_theme formforgot 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+{{ form_start(formforgot) }}
+
+    {{ form_row(formforgot.nom) }}
+    {{ form_row(formforgot.prenom) }}
+	{{ form_row(formforgot.username) }}
+	{{ form_row(formforgot.email) }}
+		
+	<button type="submit">valider!</button>
+{{ form_end(formforgot) }}
+
+{{ message }}
+
+
+
+{% endblock %}

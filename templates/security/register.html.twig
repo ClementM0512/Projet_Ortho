@@ -17,12 +17,12 @@
 
 {% for user in Users %}
 		<div class="metadata">
-{# 		<a href="{{ path('patient_show', {'id': patient.id}) }}">#}
+		<a href="{{ path('security_DeleteUser', {'id': user.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient" >
 			{{ user.username}}	
 			{{ user.email}}			
 			</button>
-{# 			</a>#}
+			</a>
 		</div>
 	{% endfor %}
 	

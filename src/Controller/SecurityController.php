@@ -9,12 +9,13 @@ use App\Entity\Security;
 use App\Entity\Permission;
 use App\Form\UserType;
 use App\Form\NewPassType;
+use App\Form\ForgotPassType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 
@@ -51,8 +52,10 @@ class SecurityController extends AbstractController
 //             return $this->redirectToRoute('security_login');
 //         }
         $user = new User();                                                                         #on cree un nouveau utilisateur
+        
         $repo = $this->getDoctrine()->getRepository(User::class);
         $listusers = $repo->findAll();
+        
         $form = $this->createForm(UserType::class);                                                 #on cree un formulaire avec la classe UserType
         $form->handleRequest($request);                                                             #on recupere les donne entrer dans le formulaire
         
@@ -83,7 +86,7 @@ class SecurityController extends AbstractController
             }
             $security->setChangePass(true);                                                         #on definie sur true car il devra obligatoirement changer le mot de passe lors de sa premiere connexion
             
-            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';         #création d'un mot de passe randome
+            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #création d'un mot de passe randome
             $longueurMax = strlen($caracteres);
             $chaineAleatoire = '';
             $longueur = 10;
@@ -171,14 +174,92 @@ class SecurityController extends AbstractController
     }
      
     /**
-     * @Route("/recuperation_motdepass", name="security_recup")
+     * @Route("/forgotPassword", name="security_recup")
      */
-    public function recuperation(AuthorizationCheckerInterface $authChecker){         
+    public function recuperation(Request $request, \Swift_Mailer $mailer, UserPasswordEncoderInterface $encoder){         
         
-        if (false === $authChecker->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('security_login');
+        $form = $this->createForm(ForgotPassType::class);                                           #creation du formulaire pour changer les mot de passe
+        $form->handleRequest($request); 
+        
+        if ($form->isSubmitted() && $form->isValid()) {  
+            $repo = $this->getDoctrine()->getRepository(User::class);                               #on recherche la fiche complete de l'utilisateur
+            $user = $repo->findOneBy([
+                'Username' => $form->getData()['username'],
+                'Nom' => $form->getData()['nom'],
+                'Prenom' => $form->getData()['prenom'],
+                'Email' => $form->getData()['email'],
+            ]);
+            
+            if ($user == null) {
+                return $this->render('security/forgotPass.html.twig', [                             #on evoie la vue avec le formulaire et le message d'erreur
+                    'formforgot' => $form->createView(),
+                    'message' => 'ce compte n\'existe pas reverifié les champs',
+                ]);
+            }
+            
+            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #création d'un mot de passe randome
+            $longueurMax = strlen($caracteres);
+            $chaineAleatoire = '';
+            $longueur = 10;
+            for ($i = 0; $i < $longueur; $i++)
+            {
+                $chaineAleatoire .= $caracteres[rand(0, $longueurMax - 1)];
+            }
+            
+            $message = (new \Swift_Message('Voici votre nouveau mot de passe'))
+            ->setFrom('bougetesyeux@gmail.com')
+            ->setTo($user->getEmail())
+            ->setBody($chaineAleatoire,'text')
+            ;
+            $mailer->send($message);
+            
+            $encoded = $encoder->encodePassword($user, $chaineAleatoire);                           #on definie le mot de passe temporaire du compte
+            $user->getSecurity()->setPassword($encoded);
+            $user->getSecurity()->setChangePass(true);                                     
+            
+            $entityManager = $this->getDoctrine()->getManager();                                    #on synchronise les donnes avec la base de donnee
+            $entityManager->persist($user);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('security_login');                                        #on l'envoie a la page login
+            
         }
+        return $this->render('security/forgotPass.html.twig', [                                     #on evoie la vue avec le formulaire et le message d'erreur
+            'formforgot' => $form->createView(),
+            'message' => null,
+        ]);
     }
+    
+    /**
+     * @Route("/deleteUser/{id}", name="security_DeleteUser")
+     */
+    public function deleteuser(User $user, Request $request){                           
+        
+        $form = $this->createFormBuilder()
+        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer cet utilisateur', 'attr' => ['class' => 'Btn-delete-Article']])
+        ->add('NoDelete', SubmitType::class, ['label' => 'Annuler', 'attr' => ['class' => 'Btn-back-listArticles']])
+        ->getForm();
+        
+        $form->handleRequest($request);
+        
+        if (($form->getClickedButton() && 'Delete' === $form->getClickedButton()->getName()))
+        {
+            $entityManager = $this->getDoctrine()->getManager(); 
+            $entityManager->remove($user);        //Pour supprimer l'utilisateur.
+            $entityManager->flush();
+            
+            
+            return $this->redirectToRoute('security_register');
+        }
+        if (($form->getClickedButton() && 'NoDelete' === $form->getClickedButton()->getName()))
+        {
+            
+            return $this->redirectToRoute('security_register');
+        }
+        return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
+        
+    }
+        
     
     
     /**
