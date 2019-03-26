@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
     
     /**
      * @Route("/register", name="security_register")
-//      * @IsGranted("ROLE_USER")
+     * 
      */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
     {
@@ -78,11 +78,12 @@ class SecurityController extends AbstractController
             $security = new Security();
             
             $permision->setRoles(array($form->getData()['Roles']));
-            if ($permision->getRoles() == 'ROLE_ADMIN') {
+            if ($form->getData()['Roles'] == 'ROLE_ADMIN') {
                 $permision->setRoles(array('ROLE_ADMIN','ROLE_USER'));
-            }elseif ($permision->getRoles() == 'ROLE_SUPERADMIN'){
+            }elseif ($form->getData()['Roles'] == 'ROLE_SUPERADMIN'){
                 $permision->setRoles(array('ROLE_SUPERADMIN','ROLE_ADMIN','ROLE_USER'));
             }
+            
             $security->setChangePass(true);                                                         #on definie sur true car il devra obligatoirement changer le mot de passe lors de sa premiere connexion
             
             $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #création d'un mot de passe randome
