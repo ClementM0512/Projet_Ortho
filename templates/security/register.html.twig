@@ -13,17 +13,6 @@
 {{ form_end(formUser) }}
 {{ Message }}
 
-<center>liste des utilisateur</center>
 
-{% for user in Users %}
-		<div class="metadata">
-		<a href="{{ path('security_DeleteUser', {'id': user.id}) }}">
-			<button type="submit" class="btn btn-outline-primary btn-patient" >
-			{{ user.username}}	
-			{{ user.email}}			
-			</button>
-			</a>
-		</div>
-	{% endfor %}
 	
 {% endblock %}

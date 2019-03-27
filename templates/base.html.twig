@@ -26,11 +26,14 @@
 					<li class="nav-item "><a class="nav-link"
 					href="{{ path('listeExos') }}">Exercices</a>
 					</li>
-{# 					{% if is_granted('ROLE_SUPERADMIN') %}#}
-{# 					<li class="nav-item"><a class="nav-link"#}
-{# 					href="{{ path('db_Users') }}">Users</a>#}
-{# 					</li>#}
-{# 				    {% endif %}#}
+					<li class="nav-item "><a class="nav-link"
+					href="{{ path('security_newPassword') }}">changer le mot de passe</a>
+					</li>
+					{% if is_granted('ROLE_SUPERADMIN') %}
+					<li class="nav-item"><a class="nav-link"
+					href="{{ path('security_admin') }}">Admin</a>
+					</li>
+				    {% endif %}
 {# 				{% endif %}#}
 				<li class="nav-item"><a class="nav-link"
 					href="{{ path('security_logout') }}">Déconnexion</a></li>
