@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+	<a href="{{ path('security_register') }}">
+			<button type="submit">
+				Cree un nouvelle utilisateur
+			</button>
+			</a>
+		<a href="{{ path('security_gestion') }}">
+			<button type="submit">
+				gestion des utilisateur
+			</button>
+			</a>
+	
+
+
+{% endblock %}
