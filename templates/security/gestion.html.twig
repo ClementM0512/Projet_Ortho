@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+		<button type="submit">valider!</button>
+    {{ form_end(form) }}
+    {{ message }}
+    
+    
+<center>liste des utilisateur</center>
+
+{% for Resultat in rechercheResultat %}
+<div class="metadata">
+		<a href="{{ path('security_DeleteUser', {'id': Resultat.id}) }}">
+			<button type="submit" class="btn btn-outline-primary btn-patient" >
+	{{ Resultat.username }}/ {{ Resultat.email }}/ {{ Resultat.nom }}/{{ Resultat.prenom }}
+	</button>
+			</a>
+		</div>
+{% endfor %}
+    
+	
+    {% for user in Users %}
+		<div class="metadata">
+		<a href="{{ path('security_DeleteUser', {'id': user.id}) }}">
+			<button type="submit" class="btn btn-outline-primary btn-patient" >
+			{{ user.username}}	
+			{{ user.email}}			
+			</button>
+			</a>
+		</div>
+    {% endfor %}
+{% endblock %}
