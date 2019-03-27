@@ -14,6 +14,7 @@
 {{ form_row(formPatient.nom, {'attr' : {'placeholder' : "Nom du patient"}}) }}	{# Rend la ligne d'origine #}
 {{ form_row(formPatient.prenom, {'attr' : {'placeholder' : "Prénom du patient"}}) }}
 {{ form_row(formPatient.dateDeNaissance, {'attr' : {'placeholder' : "Date de naissance"}}) }}
+{{ form_row(formPatient.adresse, {'attr' : {'placeholder' : "Adresse du patient"}}) }}
 
 <button type="submit" class="btn btn-success">
 	{% if editMode %}

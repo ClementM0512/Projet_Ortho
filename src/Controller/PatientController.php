@@ -4,6 +4,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\PatientRepository;
@@ -116,12 +117,13 @@ class PatientController extends AbstractController
     {
         if (!$bilan)
         {
-            $bilan = new Bilan();
+            $bilan = new Bilan();       
         }
         
         $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
         
         $form->handleRequest($request);    
+        
         
         if ($form->isSubmitted() && $form->isValid()) {
             
