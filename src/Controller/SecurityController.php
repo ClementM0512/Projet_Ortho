@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
 
 
@@ -40,32 +41,33 @@ class SecurityController extends AbstractController
            
         ]);
     }
-    
+    /**
+     * @Route("/admin", name="security_admin")
+     * @IsGranted("ROLE_SUPERADMIN")
+     */
+    public function admin()
+    {
+        return $this->render('security/admin.html.twig', []);                               #creation de la vue              
+    }
     
     /**
      * @Route("/register", name="security_register")
-     * 
      */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
-    {
-        
-
-        $user = new User();                                                                         #on cree un nouveau utilisateur
-        
-        $repo = $this->getDoctrine()->getRepository(User::class);
-        $listusers = $repo->findAll();
-        
+    {   
+             
         $form = $this->createForm(UserType::class);                                                 #on cree un formulaire avec la classe UserType
         $form->handleRequest($request);                                                             #on recupere les donne entrer dans le formulaire
         
         if ($form->isSubmitted() && $form->isValid()) {                                             #on verifie la validiter du formulaire
             
+            $repo = $this->getDoctrine()->getRepository(User::class); 
             $compare = $repo->findOneBy(['Username' => $form->getData()['Username']]);              #on recherche si il y a deja un utilisateur qui porte le meme $Username
+            
             if ($compare) {
                 return $this->render('security/register.html.twig', [                               #creation de la vue
                     'formUser' => $form->createView(),                                              #parametre envoyer pour cree la vue
                     'Message'  => 'ce nom est deja utilise',                                        #Mesage d'erreur
-                    'Users'    => $listusers,                                                       #on passe tout les utilisateur pour la gestion
                 ]);
             }
             
@@ -86,7 +88,7 @@ class SecurityController extends AbstractController
             
             $security->setChangePass(true);                                                         #on definie sur true car il devra obligatoirement changer le mot de passe lors de sa premiere connexion
             
-            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #création d'un mot de passe randome
+            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #crï¿½ation d'un mot de passe randome
             $longueurMax = strlen($caracteres);
             $chaineAleatoire = '';
             $longueur = 10;
@@ -117,8 +119,79 @@ class SecurityController extends AbstractController
         return $this->render('security/register.html.twig', [                                       #creation de la vue
             'formUser' => $form->createView(),                                                      #parametre envoyer pour cree la vue
             'Message'  => '',
-            'Users'    => $listusers,                                                       #on passe tout les utilisateur pour la gestion
         ]);
+    }
+    /**
+     * @Route("/gestionuser", name="security_gestion")
+     * @IsGranted("ROLE_SUPERADMIN")
+     */
+    public function getionuser(Request $request){
+        
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $listusers = $repo->findAll();
+        
+        $form = $this->createFormBuilder()
+        ->add('Recherche', SearchType::class, ['required'=> false])
+        ->getForm();
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $resultat =$form->getData()['Recherche'];
+            if (!$resultat) {
+                return $this->render('security/gestion.html.twig', [                                #creation de la vue
+                    'Users'    => $listusers,                                                       #on passe tout les utilisateur pour la gestion
+                    'form' => $form->createView(),
+                    'rechercheResultat' => null,
+                    'message' => null,
+                ]);
+            }
+            
+            
+            $rechercheResultatsNom = $repo->findBy(['Nom' => $resultat]);
+            $rechercheResultatsPrenom = $repo->findBy(['Prenom'=> $resultat]);
+            $rechercheResultatsMail = $repo->findBy(['Email'=> $resultat]);
+            $rechercheResultats = [];
+            
+            
+            foreach($rechercheResultatsNom as $recherche)
+            {
+                $rechercheResultats[] = $recherche;
+            }
+            foreach($rechercheResultatsPrenom as $recherche)
+            {
+                $rechercheResultats[] = $recherche;
+            }
+            foreach($rechercheResultatsMail as $recherche)
+            {
+                $rechercheResultats[] = $recherche;
+            }
+            
+            if (!$rechercheResultats) {
+                return $this->render('security/gestion.html.twig', [
+                    'Users'    => null,
+                    'form' => $form->createView(),
+                    'rechercheResultat' => $rechercheResultats,
+                    'message' => 'pas de resultat, incomplet ou innexistant',
+                ]);
+            }
+            
+            return $this->render('security/gestion.html.twig', [
+                'Users'    => null, 
+                'form' => $form->createView(), 
+                'rechercheResultat' => $rechercheResultats,
+                'message' => null,
+            ]);
+        }
+        
+        return $this->render('security/gestion.html.twig', [                                #creation de la vue
+            'Users'    => $listusers,                                                       #on passe tout les utilisateur pour la gestion
+            'form' => $form->createView(), 
+            'rechercheResultat' => null,
+            'message' => null,
+        ]);
+        
     }
     
     /**
@@ -192,11 +265,11 @@ class SecurityController extends AbstractController
             if ($user == null) {
                 return $this->render('security/forgotPass.html.twig', [                             #on evoie la vue avec le formulaire et le message d'erreur
                     'formforgot' => $form->createView(),
-                    'message' => 'ce compte n\'existe pas reverifié les champs',
+                    'message' => 'ce compte n\'existe pas reverifiï¿½ les champs',
                 ]);
             }
             
-            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #création d'un mot de passe randome
+            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #crÃ©ation d'un mot de passe randome
             $longueurMax = strlen($caracteres);
             $chaineAleatoire = '';
             $longueur = 10;
@@ -229,6 +302,15 @@ class SecurityController extends AbstractController
         ]);
     }
     
+//     /**
+//      * @Route("/gestionuser/{id}/edit", name="security_userEdit")
+//      * @IsGranted("ROLE_SUPERADMIN")
+//      */
+//     public function EditUser(User $user, Request $request)
+//     {
+        
+//     }
+    
     /**
      * @Route("/deleteUser/{id}", name="security_DeleteUser")
      * @IsGranted("ROLE_SUPERADMIN")
@@ -245,7 +327,7 @@ class SecurityController extends AbstractController
         if (($form->getClickedButton() && 'Delete' === $form->getClickedButton()->getName()))
         {
             $entityManager = $this->getDoctrine()->getManager(); 
-            $entityManager->remove($user);        //Pour supprimer l'utilisateur.
+            $entityManager->remove($user);                                                          #Pour supprimer l'utilisateur.
             $entityManager->flush();
             
             
@@ -254,14 +336,12 @@ class SecurityController extends AbstractController
         if (($form->getClickedButton() && 'NoDelete' === $form->getClickedButton()->getName()))
         {
             
-            return $this->redirectToRoute('security_register');
+            return $this->redirectToRoute('security_gestion');
         }
         return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
         
     }
-        
-    
-    
+
     /**
      * @Route("/logout", name="security_logout")
      */
