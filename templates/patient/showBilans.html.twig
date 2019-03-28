@@ -2,25 +2,27 @@
 
 {% block titre %}
 <a href="{{ path('patient_show', {'id': patient.id}) }}">
-	<h2 class="indicator">{{ patient.nom }} {{ patient.prenom }}</h2>
+	<h2 class="indicator">
+		{{ patient.nom }}
+		{{ patient.prenom }}
+	</h2>
 </a>
 {% endblock %}
 
 
 {% block body %}
 <section class="bilans">
-	
+
 	{% for bilan in bilans %}
-		<div class="listes">
-			<a href="{{ path('bilan_show', {'idP': patient.id, 'idB': bilan.id}) }}">
-    			<button type="submit" class="btn btn-outline-primary btn-patient" >
-    				OD {{ bilan.od}}
-    				OG {{ bilan.og}}
-    			</button>
-			</a>
-		</div>
+	<div class="listes">
+		<a href="{{ path('bilan_show', {'idP': patient.id, 'idB': bilan.id}) }}">
+			<button type="submit" class="btn btn-outline-primary btn-patient">
+				OD {{ bilan.od}}
+				OG {{ bilan.og}}
+			</button>
+		</a>
+	</div>
 	{% endfor %}
-	
 </section>
 {% endblock %}
 

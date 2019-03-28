@@ -2,26 +2,27 @@
 {% form_theme formBilan 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-
-{% if editMode %}
-<h1>Modifiquation d'un bilan!!!</h1>
-	{% else %}
-<h1>Création d'un bilan!!!</h1>
-	{% endif %}
- 
-{{ form_start(formBilan) }}
-
-{{ form_row(formBilan.od) }}
-{{ form_row(formBilan.og) }}
-
-
-<button type="submit" class="btn btn-success">
+<div class="form-app">
 	{% if editMode %}
-	Modifier le bilan
+	<h1 class="center">Modification d'un bilan!</h1>
 	{% else %}
-	Ajouter un bilan
+	<h1 class="center">Création d'un bilan!</h1>
 	{% endif %}
-</button>
 
-{{ form_end(formBilan) }}
+	{{ form_start(formBilan) }}
+
+	{{ form_row(formBilan.od) }}
+	{{ form_row(formBilan.og) }}
+
+
+	<button type="submit" class="btn btn-success">
+		{% if editMode %}
+		Modifier le bilan
+		{% else %}
+		Ajouter un bilan
+		{% endif %}
+	</button>
+
+	{{ form_end(formBilan) }}
+</div>
 {% endblock %}

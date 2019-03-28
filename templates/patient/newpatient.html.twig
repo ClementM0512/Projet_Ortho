@@ -3,27 +3,30 @@
 
 {% block body %}
 <div class="form-app">
-{% if editMode %}
-<h1 class="center">Modifiquation d'une fiche patient!</h1>
-	{% else %}
-<h1 class="center">Création d'une fiche patient!</h1>
-	{% endif %}
- 
-{{ form_start(formPatient) }}		{# Début du formulaire #}
-
-{{ form_row(formPatient.nom, {'attr' : {'placeholder' : "Nom du patient"}}) }}	{# Rend la ligne d'origine #}
-{{ form_row(formPatient.prenom, {'attr' : {'placeholder' : "Prénom du patient"}}) }}
-{{ form_row(formPatient.dateDeNaissance, {'attr' : {'placeholder' : "Date de naissance"}}) }}
-{{ form_row(formPatient.adresse, {'attr' : {'placeholder' : "Adresse du patient"}}) }}
-
-<button type="submit" class="btn btn-success">
 	{% if editMode %}
-	Modifier la fiche patient
+	<h1 class="center">Modification d'une fiche patient!</h1>
 	{% else %}
-	Ajouter une fiche patient
+	<h1 class="center">Création d'une fiche patient!</h1>
 	{% endif %}
-</button>
 
-{{ form_end(formPatient) }}		{# Fin du formulaire #}
+	{{ form_start(formPatient) }}
+	{# Début du formulaire #}
+
+	{{ form_row(formPatient.nom, {'attr' : {'placeholder' : "Nom du patient"}}) }}
+	{# Rend la ligne d'origine #}
+	{{ form_row(formPatient.prenom, {'attr' : {'placeholder' : "Prénom du patient"}}) }}
+	{{ form_row(formPatient.dateDeNaissance, {'attr' : {'placeholder' : "Date de naissance"}}) }}
+	{{ form_row(formPatient.adresse, {'attr' : {'placeholder' : "Adresse du patient"}}) }}
+
+	<button type="submit" class="btn btn-success">
+		{% if editMode %}
+		Modifier la fiche patient
+		{% else %}
+		Ajouter une fiche patient
+		{% endif %}
+	</button>
+
+	{{ form_end(formPatient) }}
+	{# Fin du formulaire #}
 </div>
 {% endblock %}

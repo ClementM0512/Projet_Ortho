@@ -20,7 +20,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * 
  */
 class PatientController extends AbstractController
-{
+{    
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //------------------------------------- PATIENT -------------------------------------//
+    ///////////////////////////////////////////////////////////////////////////////////////
+    
+    // Affichage de tout les patient dans la BD
     /**
      * @Route("/patients", name="patients")
      */
@@ -35,6 +40,7 @@ class PatientController extends AbstractController
         ]);
     }
     
+    //Formulaire de création et édition du patient
     /**
      * @Route("/newpatient", name="patientCreate")
      * @Route("/patient/{id}/edit", name="PatientEdit")
@@ -65,6 +71,7 @@ class PatientController extends AbstractController
         ]);
     }
     
+    //Suppression du patient sélectionné
     /**
      * @Route("/patient/{id}/delete", name="patientDelete")
      * @IsGranted("ROLE_ADMIN")
@@ -72,8 +79,8 @@ class PatientController extends AbstractController
     public function deletePatient(Patient $patient, Request $request, ObjectManager $manager){
         
         $form = $this->createFormBuilder()
-        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer cet article', 'attr' => ['class' => 'Btn-delete-Article']])
-        ->add('NoDelete', SubmitType::class, ['label' => 'Retour', 'attr' => ['class' => 'Btn-back-listArticles']])
+        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer ce patient', 'attr' => ['class' => 'btn btn-danger btn-confirm']])
+        ->add('NoDelete', SubmitType::class, ['label' => 'Retour', 'attr' => ['class' => 'btn btn-primary btn-confirm']])
         ->getForm();
         
         $form->handleRequest($request);
@@ -94,6 +101,8 @@ class PatientController extends AbstractController
         return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
         
     }
+    
+    //Affichage du patient en détail
     /**
      * @Route("/patient/{id}", name="patient_show")
      */
@@ -109,6 +118,11 @@ class PatientController extends AbstractController
         ]);
     }
     
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //-------------------------------------- BILAN --------------------------------------//
+    ///////////////////////////////////////////////////////////////////////////////////////
+    
+    //Affichage de tout les bilans du patient sélectionné
     /**
      * @Route("/{id}/bilansPatient", name="bilansPatient")
      */
@@ -126,11 +140,43 @@ class PatientController extends AbstractController
         ]);
     }
     
+    //Formulaire pour la création d'un nouveau bilan
+    /**
+     * @Route("/{id}/bilan/newbilan", name="bilanCreate")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function _formCreateBilan(Patient $patient, Request $request, ObjectManager $manager)
+    {
+
+        $bilan = new Bilan();
+        
+        $bilan->setPatient($patient);
+        
+        $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
+        
+        $form->handleRequest($request);
+        
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $manager->persist($bilan);
+            $manager->flush();
+            
+            return $this->redirectToRoute('bilansPatient', ['id' => $patient->getId()]);
+        }
+        return $this->render('patient/newBilan.html.twig', [
+            'formBilan' => $form->createView(),
+            'editMode' => $bilan->getId() !== null    #si on est en mode édition true/false
+        ]);
+    }
+    
+    //Affichage d'un bilan en détail
     /**
      * @Route("/{idP}/bilan/{idB}", name="bilan_show")
      */
     public function bilanShow($idP, $idB)
     {
+
         $repo = $this->getDoctrine()->getRepository(Bilan::class);      
         $bilan = $repo->find($idB);
         
@@ -141,38 +187,10 @@ class PatientController extends AbstractController
             'bilan' => $bilan,
             'patient' => $patient
         ]);
-    }
-    
+    }   
+   
+    //Formulaire pour l'édition d'un bilan
     /**
-     * @Route("/{id}/bilan/newbilan", name="bilanCreate")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function _formCreateBilan(Patient $patient, Request $request, ObjectManager $manager)
-    {
-        $bilan = new Bilan();
-        
-        $bilan->setPatient($patient);
-            
-        $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
-        
-        $form->handleRequest($request);    
-        
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            $manager->persist($bilan);
-            $manager->flush();
-            
-            return $this->redirectToRoute('bilansPatient', ['id' => $patient->getId()]);
-        }
-        return $this->render('patient/newbilan.html.twig', [
-            'formBilan' => $form->createView(),
-            'editMode' => $bilan->getId() !== null    #si on est en mode édition true/false
-        ]);
-    }
-    
-    /**
-
      * @Route("/{idP}/bilan/{idB}/edit", name="bilanEdit")
      * @IsGranted("ROLE_ADMIN")
      */
@@ -201,6 +219,7 @@ class PatientController extends AbstractController
         ]);
     }
     
+    //Suppression d'un bilan
     /**
      * @Route("/{idP}/bilan/{idB}/delete", name="bilanDelete")
      * @IsGranted("ROLE_ADMIN")
@@ -208,8 +227,8 @@ class PatientController extends AbstractController
     public function deleteBilan($idP, $idB, Request $request, ObjectManager $manager){
         
         $form = $this->createFormBuilder()
-        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer ce bilan', 'attr' => ['class' => 'Btn-delete-Article']])
-        ->add('NoDelete', SubmitType::class, ['label' => 'Retour', 'attr' => ['class' => 'Btn-back-listArticles']])
+        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer ce bilan', 'attr' => ['class' => 'btn btn-danger btn-confirm']])
+        ->add('NoDelete', SubmitType::class, ['label' => 'Retour', 'attr' => ['class' => 'btn btn-primary btn-confirm']])
         ->getForm();
         
         $repo = $this->getDoctrine()->getRepository(Bilan::class);
@@ -235,11 +254,7 @@ class PatientController extends AbstractController
         }
         return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
         
-    }
-    
-
+    }    
         
-    
-    
     
 }
