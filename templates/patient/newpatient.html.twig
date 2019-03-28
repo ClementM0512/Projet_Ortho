@@ -2,11 +2,11 @@
 {% form_theme formPatient 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-
+<div class="form-app">
 {% if editMode %}
-<h1>Modifiquation d'une fiche patient!!!</h1>
+<h1 class="center">Modifiquation d'une fiche patient!</h1>
 	{% else %}
-<h1>Création d'une fiche patient!!!</h1>
+<h1 class="center">Création d'une fiche patient!</h1>
 	{% endif %}
  
 {{ form_start(formPatient) }}		{# Début du formulaire #}
@@ -25,4 +25,5 @@
 </button>
 
 {{ form_end(formPatient) }}		{# Fin du formulaire #}
+</div>
 {% endblock %}
