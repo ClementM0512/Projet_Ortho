@@ -41,14 +41,7 @@ class SecurityController extends AbstractController
            
         ]);
     }
-    /**
-     * @Route("/admin", name="security_admin")
-     * @IsGranted("ROLE_SUPERADMIN")
-     */
-    public function admin()
-    {
-        return $this->render('security/admin.html.twig', []);                               #creation de la vue              
-    }
+   
     
     /**
      * @Route("/register", name="security_register")
@@ -121,11 +114,12 @@ class SecurityController extends AbstractController
             'Message'  => '',
         ]);
     }
+    
     /**
-     * @Route("/gestionuser", name="security_gestion")
+     * @Route("/admin", name="security_admin")
      * @IsGranted("ROLE_SUPERADMIN")
      */
-    public function getionuser(Request $request){
+    public function admin(Request $request){
         
         $repo = $this->getDoctrine()->getRepository(User::class);
         $listusers = $repo->findAll();
@@ -185,8 +179,8 @@ class SecurityController extends AbstractController
             ]);
         }
         
-        return $this->render('security/gestion.html.twig', [                                #creation de la vue
-            'Users'    => $listusers,                                                       #on passe tout les utilisateur pour la gestion
+        return $this->render('security/gestion.html.twig', [                                        #creation de la vue
+            'Users'    => $listusers,                                                               #on passe tout les utilisateur pour la gestion
             'form' => $form->createView(), 
             'rechercheResultat' => null,
             'message' => null,
@@ -302,14 +296,52 @@ class SecurityController extends AbstractController
         ]);
     }
     
-//     /**
-//      * @Route("/gestionuser/{id}/edit", name="security_userEdit")
-//      * @IsGranted("ROLE_SUPERADMIN")
-//      */
-//     public function EditUser(User $user, Request $request)
-//     {
+    /**
+     * @Route("/gestionuser/{id}/edit", name="security_userEdit")
+     * @IsGranted("ROLE_SUPERADMIN")
+     */
+    public function EditUser(User $user, Request $request)
+    {
         
-//     }
+        $form = $this->createForm(UserType::class);                                           #creation du formulaire pour changer les mot de passe
+        $form->handleRequest($request); 
+        
+        
+        $repo = $this->getDoctrine()->getRepository(User::class);                                   #on recherche la fiche complete de l'utilisateur
+        $usertest = $repo->find($user->getId());
+        
+        $role = $usertest->getPermission()->getRoles();
+        $nbroles = count($role);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $repo = $this->getDoctrine()->getRepository(User::class);
+            $compare = $repo->findOneBy(['Username' => $form->getData()['Username']]);              #on recherche si il y a deja un utilisateur qui porte le meme $Username
+            
+            if ($compare) {
+                return $this->render('security/gestionuser.html.twig', [                               #creation de la vue
+                    'form' => $form->createView(),
+                    'user' => $user,
+                    'role' => $nbroles,
+                ]);
+            }
+            
+            $entityManager = $this->getDoctrine()->getManager();                                    #on synchronise les donnes avec la base de donnee
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
+        
+        
+        
+        
+        return $this->render('security/gestionuser.html.twig', [                                     #on evoie la vue avec le formulaire et le message d'erreur
+            'form' => $form->createView(),
+            'user' => $user,
+            'role' => $nbroles,
+        ]);
+    }
+    
+    
     
     /**
      * @Route("/deleteUser/{id}", name="security_DeleteUser")
@@ -345,7 +377,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout", name="security_logout")
      */
-    public function logout(){                           #permet la deconexion de l'utilisateur
-                                                        #symfony gere tout seul
+    public function logout(){                                                                       #permet la deconexion de l'utilisateur
+                                                                                                    #symfony gere tout seul
     }
 }

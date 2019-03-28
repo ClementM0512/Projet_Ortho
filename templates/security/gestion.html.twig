@@ -9,11 +9,16 @@
     {{ message }}
     
     
+    <a href="{{ path('security_register') }}">
+			<button type="submit">
+				Crée un nouvel utilisateur
+			</button>
+			</a>
 <center>liste des utilisateur</center>
 
 {% for Resultat in rechercheResultat %}
 <div class="metadata">
-		<a href="{{ path('security_DeleteUser', {'id': Resultat.id}) }}">
+		<a href="{{ path('security_userEdit', {'id': Resultat.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient" >
 	{{ Resultat.username }}/ {{ Resultat.email }}/ {{ Resultat.nom }}/{{ Resultat.prenom }}
 	</button>
@@ -24,7 +29,7 @@
 	
     {% for user in Users %}
 		<div class="metadata">
-		<a href="{{ path('security_DeleteUser', {'id': user.id}) }}">
+		<a href="{{ path('security_userEdit', {'id': user.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient" >
 			{{ user.username}}	
 			{{ user.email}}			

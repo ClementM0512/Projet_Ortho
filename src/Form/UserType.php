@@ -22,9 +22,9 @@ class UserType extends AbstractType
             ->add('Email', EmailType::class)
             ->add('Roles',ChoiceType::class,[
                 'choices' => [
-                        'Standard' =>'ROLE_USER',
-                        'Admin' => 'ROLE_ADMIN',
-                        'SuperAdmin'=> 'ROLE_SUPERADMIN'
+                        'Secretaire' =>'ROLE_USER',
+                        'Orthoptiste' => 'ROLE_ADMIN',
+                        'Administrateur'=> 'ROLE_SUPERADMIN'
                     ],
             ]);
     }
