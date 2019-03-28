@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="patients">
+		<div class="metadata">
+
+			{{ bilan.OD}}
+			{{ bilan.OG}}
+			<a href="{{ path('bilanEdit', {'idB': bilan.id, 'idP': patient.id})}}" class="btn btn-primary">modifier</a>
+			<a href="{{ path('bilanDelete', {'idB': bilan.id, 'idP': patient.id})}}" class="btn btn-danger">supprimer</a>
+		</div>
+</section>
+{% endblock %}

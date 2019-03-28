@@ -66,7 +66,7 @@ class PatientController extends AbstractController
     }
     
     /**
-     * @Route("/delete/{id}/delete", name="patientDelete")
+     * @Route("/patient/{id}/delete", name="patientDelete")
      * @IsGranted("ROLE_ADMIN")
      */
     public function deletePatient(Patient $patient, Request $request, ObjectManager $manager){
@@ -94,32 +94,65 @@ class PatientController extends AbstractController
         return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
         
     }
-    
     /**
-     * @Route("/bilans", name="bilans")
+     * @Route("/patient/{id}", name="patient_show")
      */
-    public function indexBilan(BilanRepository $repo)
+    public function patientShow($id)
     {
-        $bilan = $repo->findAll();
+        $repo = $this->getDoctrine()->getRepository(Patient::class);
         
-        return $this->render('patient/indexBilan.html.twig', [
-            'controller_name' => 'BilanController',
-            'bilans' => $bilan
+        
+        $patient = $repo->find($id);
+        
+        return $this->render('patient/patientShow.html.twig',[
+            'patient' => $patient
         ]);
     }
     
     /**
-     * @Route("/newbilan", name="bilanCreate")
-     * @Route("/bilan/{id}/edit", name="bilanEdit")
+     * @Route("/{id}/bilansPatient", name="bilansPatient")
+     */
+    public function showBilans(Patient $patient)
+    {
+        $repo = $this->getDoctrine()->getRepository(Bilan::class);
+        
+        $bilan = $repo->findBy(
+            ['patient' => $patient->getId()]);
+        
+        return $this->render('patient/showBilans.html.twig', [
+            'controller_name' => 'BilanController',
+            'bilans' => $bilan,
+            'patient' => $patient
+        ]);
+    }
+    
+    /**
+     * @Route("/{idP}/bilan/{idB}", name="bilan_show")
+     */
+    public function bilanShow($idP, $idB)
+    {
+        $repo = $this->getDoctrine()->getRepository(Bilan::class);      
+        $bilan = $repo->find($idB);
+        
+        $repo = $this->getDoctrine()->getRepository(Patient::class);
+        $patient = $repo->find($idP);
+        
+        return $this->render('patient/bilanShow.html.twig',[
+            'bilan' => $bilan,
+            'patient' => $patient
+        ]);
+    }
+    
+    /**
+     * @Route("/{id}/bilan/newbilan", name="bilanCreate")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function _formBilan(Bilan $bilan = null, Request $request, ObjectManager $manager)
+    public function _formCreateBilan(Patient $patient, Request $request, ObjectManager $manager)
     {
-        if (!$bilan)
-        {
-            $bilan = new Bilan();       
-        }
+        $bilan = new Bilan();
         
+        $bilan->setPatient($patient);
+            
         $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
         
         $form->handleRequest($request);    
@@ -130,7 +163,7 @@ class PatientController extends AbstractController
             $manager->persist($bilan);
             $manager->flush();
             
-            return $this->redirectToRoute('bilans', ['id' => $bilan->getId()]);
+            return $this->redirectToRoute('bilansPatient', ['id' => $patient->getId()]);
         }
         return $this->render('patient/newbilan.html.twig', [
             'formBilan' => $form->createView(),
@@ -139,19 +172,72 @@ class PatientController extends AbstractController
     }
     
     /**
-     * @Route("/patient/{id}", name="patient_show")
+
+     * @Route("/{idP}/bilan/{idB}/edit", name="bilanEdit")
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function patientShow($id)
+    public function _formEditBilan($idP, $idB, Request $request, ObjectManager $manager)
     {
-        $repo = $this->getDoctrine()->getRepository(Patient::class);
-
+        $repo = $this->getDoctrine()->getRepository(Bilan::class);
+        $bilan = $repo->find($idB);
         
-        $patient = $repo->find($id);
-
-        return $this->render('patient/patientShow.html.twig',[
-            'patient' => $patient
+        $repo = $this->getDoctrine()->getRepository(Patient::class);
+        $patient = $repo->find($idP);
+        
+        $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $manager->persist($bilan);
+            $manager->flush();
+            
+            return $this->redirectToRoute('bilansPatient', ['id' => $patient->getId()]);
+        }
+        return $this->render('patient/newbilan.html.twig', [
+            'formBilan' => $form->createView(),
+            'editMode' => $bilan->getId() !== null    #si on est en mode édition true/false
         ]);
     }
+    
+    /**
+     * @Route("/{idP}/bilan/{idB}/delete", name="bilanDelete")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function deleteBilan($idP, $idB, Request $request, ObjectManager $manager){
+        
+        $form = $this->createFormBuilder()
+        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer ce bilan', 'attr' => ['class' => 'Btn-delete-Article']])
+        ->add('NoDelete', SubmitType::class, ['label' => 'Retour', 'attr' => ['class' => 'Btn-back-listArticles']])
+        ->getForm();
+        
+        $repo = $this->getDoctrine()->getRepository(Bilan::class);
+        $bilan = $repo->find($idB);
+        
+        $repo = $this->getDoctrine()->getRepository(Patient::class);
+        $patient = $repo->find($idP);
+        
+        $form->handleRequest($request);
+        
+        if (($form->getClickedButton() && 'Delete' === $form->getClickedButton()->getName()))
+        {
+            $manager->remove($bilan);        //Pour supprimer un article.
+            $manager->flush();
+            
+            
+            return $this->redirectToRoute('bilansPatient', ['id' => $patient->getId()]);
+        }
+        if (($form->getClickedButton() && 'NoDelete' === $form->getClickedButton()->getName()))
+        {
+            
+            return $this->redirectToRoute('bilansPatient', ['id' => $patient->getId()]);
+        }
+        return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
+        
+    }
+    
+
         
     
     

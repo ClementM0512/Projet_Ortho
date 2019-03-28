@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block titre %}
+	<h2 class="indicator">{{ patient.nom }} {{ patient.prenom }}</h2>
+{% endblock %}
+
 {% block body %}
 <section class="patients">
-<a href="{{ path('bilanCreate')}}" class="btn btn-success btn-lg btn-create">Ajouter un bilan</a>
 		<div class="metadata">
 
 			{{ patient.nom}}
@@ -12,6 +15,7 @@
 			<a href="{{ path('PatientEdit', {'id': patient.id})}}" class="btn btn-primary">modifier</a>
 			<a href="{{ path('patientDelete', {'id': patient.id})}}" class="btn btn-danger">supprimer</a>
 		</div>
-
+		<a href="{{ path('bilanCreate', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create">Ajouter un bilan</a>
+		<a href="{{ path('bilansPatient', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create">Voir les bilans</a>
 </section>
 {% endblock %}
