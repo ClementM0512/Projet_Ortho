@@ -5,17 +5,22 @@
 {% endblock %}
 
 {% block body %}
+	
 <section class="patients">
 		<div class="metadata">
 
 			{{ patient.nom}}
 			{{ patient.prenom}}
-			{{ patient.dateDeNaissance | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}
+			{{ patient.dateDeNaissance | date('d/m/Y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}
 			{{ patient.adresse}}
-			<a href="{{ path('PatientEdit', {'id': patient.id})}}" class="btn btn-primary">modifier</a>
-			<a href="{{ path('patientDelete', {'id': patient.id})}}" class="btn btn-danger">supprimer</a>
+			
 		</div>
-		<a href="{{ path('bilanCreate', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create">Ajouter un bilan</a>
-		<a href="{{ path('bilansPatient', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create">Voir les bilans</a>
+
+		<div class="btns-bilan">
+			<a href="{{ path('PatientEdit', {'id': patient.id})}}" class="btn btn-primary btn-bilan">modifier</a>
+			<a href="{{ path('patientDelete', {'id': patient.id})}}" class="btn btn-danger btn-bilan">supprimer</a>
+			<a href="{{ path('bilanCreate', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Ajouter un bilan</a>
+			<a href="{{ path('bilansPatient', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Voir les bilans</a>
+		</div>
 </section>
 {% endblock %}

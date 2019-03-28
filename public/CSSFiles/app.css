@@ -3,7 +3,7 @@
 	width:75%;
 }
 
-.metadata{
+.listes{
 	text-align: center;
 }
 
@@ -19,3 +19,45 @@
 .indicator{
 	color:#fff;
 }
+
+.btns-bilan{
+	position: fixed;
+	right: 0%;
+	display: grid;
+	width: 250px;
+}
+
+.btn-bilan{
+	margin: 5px 10px 5px 10px;
+}
+
+.metadata{
+	width: 85%;
+    position: absolute;
+}
+
+.btns-edition{
+	position: relastive;
+}
+
+.btn-admin{
+	text-align: center;
+    margin: 10px;
+}
+
+.form-srch{
+	width: 30%;
+    margin-left: 20px;
+}
+
+.form-app{
+	width: 76%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center{
+	text-align: center;
+}
+
+

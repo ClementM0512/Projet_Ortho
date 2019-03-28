@@ -1,18 +1,19 @@
 {% extends 'base.html.twig' %}
-
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+<div class="form-srch">
     {{ form_start(form) }}
         {{ form_widget(form) }}
-		<button type="submit">valider!</button>
+        <button type="submit" class="btn btn-primary">valider!</button>
     {{ form_end(form) }}
     {{ message }}
+</div>
     
-    
-<center>liste des utilisateur</center>
+<center>Liste des utilisateurs</center>
 
 {% for Resultat in rechercheResultat %}
-<div class="metadata">
+<div class="listes">
 		<a href="{{ path('security_DeleteUser', {'id': Resultat.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient" >
 	{{ Resultat.username }}/ {{ Resultat.email }}/ {{ Resultat.nom }}/{{ Resultat.prenom }}
@@ -23,7 +24,7 @@
     
 	
     {% for user in Users %}
-		<div class="metadata">
+		<div class="listes">
 		<a href="{{ path('security_DeleteUser', {'id': user.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient" >
 			{{ user.username}}	
