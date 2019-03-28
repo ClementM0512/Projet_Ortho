@@ -7,13 +7,23 @@
 
 {% block body %}
 
-<h1>Chronomots</h1>
-<p>Combien de mot dans le texte?</p>
-<input type="text" id="nbMotsSouhaite" />
-<br />
-<br />
-<input type="button" value="Lancer l'application" />
 
-{% block javascripts %}<script src="/JS/chronomots.js" />{% endblock %}
+ <h1>Chronomots</h1>
+ 
+ <form>
+      <label for="histoires">Choississez l'histoire!</label>
+      <select id="histoire" name="histoire">
+      {% for histoire in histoires %}
+        <option>{{histoire.id}}. {{ histoire.name}}</option>        
+      {% endfor %}
+      </select>
+ </form>
+ <p>Combien de mot dans le texte?</p>
+ <input type="text" id="nbMotsSouhaite" />
+ <br />
+ <br />
+ <input type="button" value="Lancer l'application" />
+
+{% block javascripts %}<script src="/JS/chronomots.js"></script>{% endblock %}
 
 {% endblock %}

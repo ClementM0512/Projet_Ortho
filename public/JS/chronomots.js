@@ -1,3 +1,24 @@
+var req;
+function request(callback) {
+	var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+					return callback(xhr.responseText);	
+				}
+			};		
+	xhr.open("GET", "/sendarticle", false);
+	xhr.send(null);	
+}
+function readData(sData) {
+	req = JSON.parse(sData);
+	return JSON.parse(sData);
+	
+}
+request(readData);
+
+
+
+
 function ElementHtml(type, texte){		//constructeur d'objet ElementHTML
   this.type = type;
   this.texte = texte;
@@ -76,7 +97,6 @@ function RedirectionListeApplications()
 	alert("fff");
 	document.location.href="C:/Users/Pc/Documents/Cours/Projet/javascript/listeappli/listeappli.html";
 }
-var histoire ="Quand un soldat allemand s'attaque à la fouille d'une maison qu'il soupçonne d'abriter des Juifs, où cherche le faucon ? Il cherche dans la grange, il cherche dans le grenier, il cherche dans la cave, il cherche dans tous les endroits où lui se cacherait. Mais il s'en trouve tellement d'autres où un faucon n'aurait jamais l'idée de se cacher. La raison pour laquelle le Führer m'a enlevé à mes Alpes autrichiennes et envoyé en pleine campagne française aujourd'hui, c'est parce que j'en ai l'idée, moi. Parce que je me rends compte des prouesses extraordinaires dont l'homme est capable une fois qu'il a abandonné toute dignité."
 
 
 
@@ -119,6 +139,8 @@ function ResultatExercice(){
 
 function ExecutionExercice()
 {
+	var histoireChoisie = document.querySelector('select');
+	histoire = req[histoireChoisie.value[0]-1];
 	premierTemps = new Date().getTime();	//Enregistrement du temps actuel
 	var editNbMotsSouhaite = document.getElementById("nbMotsSouhaite");
 	nbMotsSouhaite = editNbMotsSouhaite.value;		//Recuperation du nombre de mots
@@ -126,7 +148,6 @@ function ExecutionExercice()
 	
 	// Suppression du body courant
 	SuppressionPage();	//Supprime toute la page
-	
 	//CreationElement du nouveau body
 	var elementsHtml = [
 		new ElementHtml('h1',"CHRONOMOTS"),
@@ -139,6 +160,7 @@ function ExecutionExercice()
     btFin.addEventListener("click",ResultatExercice);
     
 }
+var histoire;
 
 var premierTemps = new Date().getTime();
 var nbMotsSouhaite = 0;
