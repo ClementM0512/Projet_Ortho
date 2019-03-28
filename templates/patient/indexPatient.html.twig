@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block titre %}
-<h1 class="indicator">Sélection patient</h1>
+<h2 class="indicator">Sélection patient</h2>
 {% endblock %}
 
 {% block body %}
@@ -9,12 +9,12 @@
 	<a href="{{ path('patientCreate')}}" class="btn btn-success btn-lg btn-create btn-addpatient">Ajouter un patient</a>
 	
 	{% for patient in patients %}
-		<div class="metadata">
+		<div class="listes">
 		<a href="{{ path('patient_show', {'id': patient.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient" >
 			{{ patient.nom}}
 			{{ patient.prenom}}
-			{{ patient.dateDeNaissance | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}
+			{{ patient.dateDeNaissance | date('d/m/Y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}
 						
 			</button>
 			</a>
