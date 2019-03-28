@@ -1,3 +1,19 @@
+
+//function Changement()
+//{
+//	document.write("<script type=\"text\/javascript\" src=\"/JS/chronomots.js\"><\/script>");
+//}
+//
+//var h1 = document.querySelector("h1");
+//h1.addEventListener("click", Changement);
+
+
+//
+//document.write("<script type=\"text\/javascript\" src=\"/JS/chronomots.js\"><\/script>");
+
+
+
+
 function ElementHtml(type, texte){		//constructeur d'objet ElementHTML
   this.type = type;
   this.texte = texte;
@@ -75,6 +91,4 @@ function RedirectionListeApplications()
 	document.location.href="C:/Users/Pc/Documents/Cours/Projet/javascript/listeappli/listeappli.html";
 }
 var histoire ="Quand un soldat allemand s'attaque à la fouille d'une maison qu'il soupçonne d'abriter des Juifs, où cherche le faucon ? Il cherche dans la grange, il cherche dans le grenier, il cherche dans la cave, il cherche dans tous les endroits où lui se cacherait. Mais il s'en trouve tellement d'autres où un faucon n'aurait jamais l'idée de se cacher. La raison pour laquelle le Führer m'a enlevé à mes Alpes autrichiennes et envoyé en pleine campagne française aujourd'hui, c'est parce que j'en ai l'idée, moi. Parce que je me rends compte des prouesses extraordinaires dont l'homme est capable une fois qu'il a abandonné toute dignité."
-
-
 
