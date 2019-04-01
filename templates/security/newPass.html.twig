@@ -2,17 +2,18 @@
 {% form_theme formPass 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+<div class="form-app">
 {{ form_start(formPass) }}
     {{ form_row(formPass.oldPass) }}
 	{{ form_row(formPass.newPass) }}
 	
  	{{ form_row(formPass.newPassconfirm) }}
 
-	<button type="submit">Enregistrer!</button>
+	<button type="submit" class="btn btn-success">Enregistrer!</button>
     {{ form_end(formPass) }}
 
     {{ message }}
-	
+</div>	
 	
 	
 	

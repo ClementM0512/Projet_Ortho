@@ -350,8 +350,8 @@ class SecurityController extends AbstractController
     public function deleteuser(User $user, Request $request){                           
         
         $form = $this->createFormBuilder()
-        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer cet utilisateur', 'attr' => ['class' => 'Btn-delete-Article']])
-        ->add('NoDelete', SubmitType::class, ['label' => 'Annuler', 'attr' => ['class' => 'Btn-back-listArticles']])
+        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer cet utilisateur', 'attr' => ['class' => 'btn btn-danger btn-confirm']])
+        ->add('NoDelete', SubmitType::class, ['label' => 'Annuler', 'attr' => ['class' => 'btn btn-primary btn-confirm']])
         ->getForm();
         
         $form->handleRequest($request);
@@ -368,7 +368,7 @@ class SecurityController extends AbstractController
         if (($form->getClickedButton() && 'NoDelete' === $form->getClickedButton()->getName()))
         {
             
-            return $this->redirectToRoute('security_gestion');
+            return $this->redirectToRoute('security_userEdit', ['id'=> $user->getId()]);
         }
         return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
         
