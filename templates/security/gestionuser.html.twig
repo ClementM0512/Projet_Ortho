@@ -9,7 +9,7 @@
 
         {{ form_row(form.Nom , { 'attr': {'value': user.nom} }) }}
         {{ form_row(form.Prenom, { 'attr': {'value': user.prenom} }) }}
-        {{ form_row(form.Username, { 'attr': {'value': user.username} }) }}
+        {{ form_row(form.Username, { 'label': 'Pseudonyme', 'attr': {'value': user.username} }) }}
         {{ form_row(form.Email, { 'attr': {'value': user.email} }) }}
      
         {% if role == 3 %}

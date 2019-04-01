@@ -142,12 +142,11 @@ class SecurityController extends AbstractController
                 ]);
             }
             
-            
-            $rechercheResultatsNom = $repo->findBy(['Nom' => $resultat]);
-            $rechercheResultatsPrenom = $repo->findBy(['Prenom'=> $resultat]);
-            $rechercheResultatsMail = $repo->findBy(['Email'=> $resultat]);
-            $rechercheResultats = [];
-            
+////////////////////////////////////////////////////////////////////////////////
+            $resultat = $form->getData()['Recherche'];
+            $rechercheResultatsNom = $repo->loadByElementBegin('Nom', $resultat);                      #Les trois lignes sont des requêtes personnalisées
+            $rechercheResultatsPrenom = $repo->loadByElementBegin('Prenom', $resultat);                #Elles récupèrent tout les champs commencant par            $rechercheResultats = [];
+            $testPositif = 0;
             
             foreach($rechercheResultatsNom as $recherche)
             {
@@ -155,13 +154,28 @@ class SecurityController extends AbstractController
             }
             foreach($rechercheResultatsPrenom as $recherche)
             {
-                $rechercheResultats[] = $recherche;
+                foreach($rechercheResultats as $compareId)
+                {
+                    if($recherche->getId() == $compareId->getId())
+                    {
+                        $testPositif = 1;
+                    }
+                }
+                $testPositif ? $testPositif =0 : $rechercheResultats[] = $recherche;
+             
             }
-            foreach($rechercheResultatsMail as $recherche)
+            if(!$rechercheResultats)
             {
-                $rechercheResultats[] = $recherche;
+                goto listeUser;
             }
-            
+            if(!$resultat)
+            {
+                listeUser:
+                $rechercheResultats = $userRepository->findAll();
+                
+            }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (!$rechercheResultats) {
                 $this->addFlash('danger', 'pas de resultat, incomplet ou innexistant');
                 return $this->render('security/gestion.html.twig', [
@@ -170,20 +184,17 @@ class SecurityController extends AbstractController
                     'rechercheResultat' => $rechercheResultats,
                 ]);
             }
-            
             return $this->render('security/gestion.html.twig', [
                 'Users'    => null, 
                 'form' => $form->createView(), 
                 'rechercheResultat' => $rechercheResultats,
             ]);
         }
-        
         return $this->render('security/gestion.html.twig', [                                        #creation de la vue
             'Users'    => $listusers,                                                               #on passe tout les utilisateur pour la gestion
             'form' => $form->createView(), 
             'rechercheResultat' => null,
         ]);
-        
     }
     
     /**
