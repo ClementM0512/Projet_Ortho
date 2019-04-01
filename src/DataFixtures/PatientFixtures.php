@@ -16,8 +16,8 @@ class PatientFixtures extends Fixture
         for ($i = 0; $i < 20; $i ++) 
         {
             $patient = new Patient();
-            $patient->setNom('jean')
-                    ->setPrenom('michel')
+            $patient->setNom($faker->firstName)
+                    ->setPrenom($faker->lastName)
                     ->setDateDeNaissance($faker->dateTime)
                     ->setAdresse($faker->address);
             

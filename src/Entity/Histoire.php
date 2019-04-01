@@ -29,7 +29,7 @@ class Histoire
     private $texte;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\exercice", inversedBy="exercice")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Exercice", inversedBy="exercice")
      */
     private $exercice;
 
