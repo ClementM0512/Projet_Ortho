@@ -6,8 +6,10 @@
 
 		{{ bilan.od}}
 		{{ bilan.og}}
-		<a href="{{ path('bilanEdit', {'idB': bilan.id, 'idP': patient.id})}}"class="btn btn-primary">modifier</a> 
-		<a href="{{ path('bilanDelete', {'idB': bilan.id, 'idP': patient.id})}}"class="btn btn-danger">supprimer</a>
+	</div>
+	<div class="btns-bilan">
+		<a href="{{ path('bilanEdit', {'idB': bilan.id, 'idP': patient.id})}}"class="btn btn-primary btn-bilan">modifier</a> 
+		<a href="{{ path('bilanDelete', {'idB': bilan.id, 'idP': patient.id})}}"class="btn btn-danger btn-bilan">supprimer</a>
 	</div>
 </section>
 {% endblock %}
