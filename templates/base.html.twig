@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <title>{% block title %}Bouge tes yeux{% endblock %}</title>
 {% block stylesheets %}
 <link rel="stylesheet" href="\CSSFiles\stylesbootswatch.css">
@@ -44,6 +45,9 @@
 	
 {% endif %}
 	<div class="content">
+		{% for message in app.flashes('danger') %}
+           		<div class = "alert alert-danger flashmessage"> {{ message }}</div> 
+            {% endfor %}
 		{% block body %}{% endblock %}
 	</div>
 

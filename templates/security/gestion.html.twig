@@ -7,14 +7,13 @@
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">valider!</button>
     {{ form_end(form) }}
-    {{ message }}
 </div>
     
 <center>Liste des utilisateurs</center>
 
 {% for Resultat in rechercheResultat %}
 <div class="listes">
-		<a href="{{ path('security_DeleteUser', {'id': Resultat.id}) }}">
+		<a href="{{ path('security_userEdit', {'id': Resultat.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient" >
 	{{ Resultat.username }}/ {{ Resultat.email }}/ {{ Resultat.nom }}/{{ Resultat.prenom }}
 	</button>
@@ -25,7 +24,7 @@
 	
     {% for user in Users %}
 		<div class="listes">
-		<a href="{{ path('security_DeleteUser', {'id': user.id}) }}">
+		<a href="{{ path('security_userEdit', {'id': user.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient" >
 			{{ user.username}}	
 			{{ user.email}}			
