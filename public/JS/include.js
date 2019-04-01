@@ -1,17 +1,16 @@
-
-//function Changement()
-//{
-//	document.write("<script type=\"text\/javascript\" src=\"/JS/chronomots.js\"><\/script>");
-//}
-//
-//var h1 = document.querySelector("h1");
-//h1.addEventListener("click", Changement);
-
-
-//
-//document.write("<script type=\"text\/javascript\" src=\"/JS/chronomots.js\"><\/script>");
-
-
+function Requete(callback) {
+	var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+					return callback(xhr.responseText);	
+				}
+			};		
+	xhr.open("GET", "/sendarticle", false);
+	xhr.send(null);	
+}
+function RecuperationDonnee(sData) {
+	recuperationAjax = JSON.parse(sData);	
+}
 
 
 function ElementHtml(type, texte){		//constructeur d'objet ElementHTML
@@ -56,7 +55,7 @@ function CreationElement(elemtab)
   }
 }
 
-function SuppressionPage()						//Suppression de tous les noeuds enfant de body
+function SuppressionPage()						//Suppression de tous les noeuds enfant de body -nbElemStatique
 {
 	while(document.body.childNodes[0])
 	{
@@ -84,11 +83,16 @@ function TexteDecoupage(nbMotsSouhaite)
 }
 function RedirectionApplication()
 {
-	document.location.href="chronomots.html";
+	//window.location.reload();
+	document.location.href="/chonomots";
 }
 function RedirectionListeApplications()
 {
+	alert("fff");
 	document.location.href="C:/Users/Pc/Documents/Cours/Projet/javascript/listeappli/listeappli.html";
 }
-var histoire ="Quand un soldat allemand s'attaque à la fouille d'une maison qu'il soupçonne d'abriter des Juifs, où cherche le faucon ? Il cherche dans la grange, il cherche dans le grenier, il cherche dans la cave, il cherche dans tous les endroits où lui se cacherait. Mais il s'en trouve tellement d'autres où un faucon n'aurait jamais l'idée de se cacher. La raison pour laquelle le Führer m'a enlevé à mes Alpes autrichiennes et envoyé en pleine campagne française aujourd'hui, c'est parce que j'en ai l'idée, moi. Parce que je me rends compte des prouesses extraordinaires dont l'homme est capable une fois qu'il a abandonné toute dignité."
+
+
+
+
 
