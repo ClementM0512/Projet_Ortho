@@ -12,12 +12,11 @@
 <section class="patients">
 	<div class="metadata">
 
-		{{ patient.nom}}
-		{{ patient.prenom}}
-		{{ patient.dateDeNaissance | date('d/m/Y')}}
+		<h3>{{ patient.nom}} {{ patient.prenom}}</h3>
+		Date de naissance : {{ patient.dateDeNaissance | date('d/m/Y')}}
 		{# Différent champ de la classe patient avec un formatage a l'aide
 		d'un filtre #}
-		{{ patient.adresse}}
+		<address> Adresse : {{ patient.adresse}}</address>
 
 	</div>
 

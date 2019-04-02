@@ -37,7 +37,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('patients');                                          #on le redirige vers la list des patients
             }
         }else {
-            $this->addFlash('danger', 'compte innexistant ou mot de passe invalide');
+//             $this->addFlash('danger', 'compte innexistant ou mot de passe invalide');
         }
         return $this->render('security/login.html.twig', [                                          #creation de la vue
            

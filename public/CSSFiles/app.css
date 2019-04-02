@@ -37,6 +37,7 @@
 .metadata{
 	width: 85%;
     position: absolute;
+    margin-top: 10px;
 }
 
 .btns-edition{
