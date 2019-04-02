@@ -95,7 +95,7 @@ class MainController extends AbstractController
         $exercice = int($_GET['exercice']);
         $patient = int($_GET['patient']);
         $user = int($_GET['user']);
-        $bilan = int($_GET['bilan']);
+        $bilan = int($_GET['bilan']);   
         $resultat = new Resultat();
         $resultat->setScore("excellent")
                  ->setIdExercice(1)
