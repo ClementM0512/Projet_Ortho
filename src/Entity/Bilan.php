@@ -33,11 +33,17 @@ class Bilan
      */
     private $patient;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="id_Bilan")
+     */
+    private $resultats;
+
 
 
     public function __construct()
     {
         $this->patient = new ArrayCollection();
+        $this->resultats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,6 +83,37 @@ class Bilan
     public function setPatient(?Patient $patient): self
     {
         $this->patient = $patient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resultat[]
+     */
+    public function getResultats(): Collection
+    {
+        return $this->resultats;
+    }
+
+    public function addResultat(Resultat $resultat): self
+    {
+        if (!$this->resultats->contains($resultat)) {
+            $this->resultats[] = $resultat;
+            $resultat->setIdBilan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResultat(Resultat $resultat): self
+    {
+        if ($this->resultats->contains($resultat)) {
+            $this->resultats->removeElement($resultat);
+            // set the owning side to null (unless already changed)
+            if ($resultat->getIdBilan() === $this) {
+                $resultat->setIdBilan(null);
+            }
+        }
 
         return $this;
     }

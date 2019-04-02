@@ -1,3 +1,8 @@
+function EnregistrementResultat()
+{
+	Requete2(EnvoiDonnees); 
+}
+
 function ResultatExercice(){
 	
 	var secondTemps = new Date().getTime();		//Enregistrement du temps actuel
@@ -11,6 +16,7 @@ function ResultatExercice(){
     
     elementsHtml=[													//Affichage resultat et boutons 
     	new ElementHtml("p", txtResultat),
+    	new ElementHtml("input","Enregistrer"),
     	new ElementHtml("input","Recommencer"), 
     	new ElementHtml("input","Quitter")
     	];    
@@ -21,8 +27,9 @@ function ResultatExercice(){
     //Creation affichage resultat, boutons recommencer et quitter associes à des evenement "click" qui redirige vers la page voulue
     CreationElement(elementsHtml);    
     var inputs = document.querySelectorAll("input");
-    aLien1.appendChild(inputs[0]);
-    aLien2.appendChild(inputs[1]);
+    inputs[0].addEventListener("click", EnregistrementResultat);
+    aLien1.appendChild(inputs[1]);
+    aLien2.appendChild(inputs[2]);
     document.body.appendChild(aLien1);
     document.body.appendChild(aLien2);
     
@@ -30,7 +37,6 @@ function ResultatExercice(){
 
 function ExecutionExercice()
 {
-	
 	var histoireChoisie = document.querySelector('select'); 
 	histoire = recuperationAjax[histoireChoisie.value[0]-1];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	
@@ -58,6 +64,10 @@ var premierTemps = new Date().getTime();
 var nbMotsSouhaite = 0;
 var recuperationAjax;
 Requete(RecuperationDonnee); //Recupere un tableau contenant les histoires
-alert(recuperationAjax);
 var inputs = document.querySelectorAll("input");
-inputs[1].addEventListener("click", ExecutionExercice);		//creation d'un evenement click sur le bouton associé à la fonction ExecutionExercice
+//inputs[0].addEventListener("click", EditerHistoire);
+inputs[3].addEventListener("click", ExecutionExercice);		//creation d'un evenement click sur le bouton associé à la fonction ExecutionExercice
+
+
+
+

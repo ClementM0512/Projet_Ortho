@@ -43,9 +43,15 @@ class Exercice
      */
     private $exercice;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="id_Exercice", orphanRemoval=true)
+     */
+    private $resultats;
+
     public function __construct()
     {
         $this->exercice = new ArrayCollection();
+        $this->resultats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +130,37 @@ class Exercice
         if ($this->exercice->contains($exercice)) {
             $this->exercice->removeElement($exercice);
             $exercice->removeExercice($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resultat[]
+     */
+    public function getResultats(): Collection
+    {
+        return $this->resultats;
+    }
+
+    public function addResultat(Resultat $resultat): self
+    {
+        if (!$this->resultats->contains($resultat)) {
+            $this->resultats[] = $resultat;
+            $resultat->setIdExercice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResultat(Resultat $resultat): self
+    {
+        if ($this->resultats->contains($resultat)) {
+            $this->resultats->removeElement($resultat);
+            // set the owning side to null (unless already changed)
+            if ($resultat->getIdExercice() === $this) {
+                $resultat->setIdExercice(null);
+            }
         }
 
         return $this;
