@@ -28,6 +28,10 @@ function ResultatExercice(){
     CreationElement(elementsHtml);    
     var inputs = document.querySelectorAll("input");
     inputs[0].addEventListener("click", EnregistrementResultat);
+    for(i=0;i<inputs.length;i++)
+    	{
+    		inputs[i].class = "btn btn-primary btns-exo"
+    	}
     aLien1.appendChild(inputs[1]);
     aLien2.appendChild(inputs[2]);
     document.body.appendChild(aLien1);
@@ -37,7 +41,6 @@ function ResultatExercice(){
 
 function ExecutionExercice()
 {
-	alert("br");
 	var histoireChoisie = document.querySelector('select'); 
 	histoire = recuperationAjax[histoireChoisie.value[0]-1];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	
@@ -49,17 +52,26 @@ function ExecutionExercice()
 	// Suppression du body courant
 	SuppressionPage();	//Supprime toute la page
 	//CreationElement du nouveau body
+	
 	var elementsHtml = [
-		new ElementHtml('h1',"CHRONOMOTS"),
+		new ElementHtml('h1',"Chronomots"),
 		new ElementHtml('p',texteExercice),
 		new ElementHtml('input', 'Fini')
 	];
 	CreationElement(elementsHtml);
-	
+	var body = document.querySelector("body");
+	body.style.textAlign = "center";
+	var p = document.querySelector("p");
+	p.style.marginLeft = "100px";
+	p.style.marginRight = "100px";
+	p.style.fontSize = "1.3em";
 	btFin = document.querySelector("input");    
     btFin.addEventListener("click",ResultatExercice);
     
 }
+//var body = document.querySelector("body");
+//body.style.fontSize = "1.2em";
+//body.style.textAlign = "center";
 var histoire;
 var premierTemps = new Date().getTime();
 var nbMotsSouhaite = 0;
