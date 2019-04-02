@@ -12,15 +12,18 @@
 }
 
 .btn-addpatient{
-	width:25%;
-	margin:5px;
+    width: 25%;
+    margin: 5px;
+    position: relative;
+    left: 14%;
+    vertical-align: top;
 }
 
 .indicator{
 	color:#fff;
 }
 
-.btns-bilan{
+.btns-rightSide{
 	position: fixed;
 	right: 0%;
 	display: grid;
@@ -46,8 +49,9 @@
 }
 
 .form-srch{
-	width: 30%;
+	width: 22%;
     margin-left: 20px;
+    display: inline-block;
 }
 
 .form-app{
@@ -84,4 +88,11 @@
     border-radius: 5%;
     box-shadow: 5px 5px 15px #00000082;
     border-color: #959ea7;
+}
+
+.exos{
+	width: 85%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
 }

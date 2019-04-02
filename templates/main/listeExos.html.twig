@@ -13,13 +13,11 @@ Liste Appli
 {% for exercice in exercices %}
 	<div class="metadata">
 	
-    <a href="{{ path(exercice.lien)}}">
+    <a href="{{ path(exercice.lien, {'id': id})}}">
     	
    		<button type="submit" class="btn-primary" >
    		<img src="{{asset(exercice.image)}}" style="width:100px; height:100px;" > </br>
 		{{ exercice.name}}
-{# 		{{ patient.prenom}}#}
-{#         {{ patient.birthdate | date('d/m/y')}}		{# Différent champ de la classe patient avec un formatage a l'aide d'un filtre #}	
 </button>
 </a>
 </div>

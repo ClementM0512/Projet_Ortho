@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\ExerciceRepository;
 use App\Repository\HistoireRepository;
+use App\Repository\PatientRepository;
+use App\Repository\ResultatRepository;
+use App\Entity\Resultat;
+use App\Entity\Patient;
 use App\Entity\Histoire;
 use App\Entity\Exercice;
 use App\Form\HistoireType;
@@ -29,54 +33,86 @@ class MainController extends AbstractController
     }
     
     /**
+     * @Route("/Patient/{id}/exercices", name="listeExos")
      * @Route("/exercices", name="listeExos")
      */
-    public function list_exos(ExerciceRepository $repo)
+    public function list_exos(Patient $patient = null, ExerciceRepository $repo)
     {
+        if($patient)
+        {
+            $id = $patient->getId();
+        }
+        else
+        {
+            $id = 0;
+        }
+        //dd($patient->getId());
         $exercices = $repo->findAll();        #Sert � trouver tout les objets du type pass� en param
         //dd($exercices);
         return $this->render('main/listeExos.html.twig', [
             'controller_name' => 'MainController',
-            'exercices' => $exercices
+            'exercices' => $exercices,
+            'id' => $id
         ]);
     }
     /**
      * @Route("/exercices/chronomots", name="chronomots")
+     * @Route("/Patient/{id}/exercices/chronomots", name="chronomotsAP")
      */
-    public function chronomots(HistoireRepository $repo){
+    public function chronomots(Patient $patient = null, HistoireRepository $repo){
+        if($patient)
+        {
+            $id = $patient->getId();
+        }
+        else
+        {
+            $id = 0;
+        }
         $histoires = $repo->findAll(); 
         return $this->render('main/chronomots.html.twig', [
             'controller_name' => 'MainController',
-                'histoires' => $histoires
+                'histoires' => $histoires,
+            'id'=>$id
         ]);
     }
     /**
-     * @Route("/sendarticle", name="sendarticle")
+     * @Route("/receptionajax", name="receptionajax")
      */
-    public function sendarticle(HistoireRepository $repo){
+    public function receptionajax(HistoireRepository $repo){
         
         $histoires = $repo->findAll(); 
-//         $arr = array(count($histoire));
-//         for ($i = 0; $i <= count($histoire); $i++) {
-//             $arr[i] =  $histoires[i]->getTexte();
-//         }
-        $arr = array();
-        $i=0;
-        while($i<4){
-            $arr[$i] = $histoires[$i]->getTexte();
-            $i++;
-        }
-//         $arr = array(
-//              $histoires[0]->getTexte(), 
-//              $histoires[1]->getTexte(), 
-//              $histoires[2]->getTexte(),
-//              $histoires[3]->getTexte()
-//          );
+          for ($i = 0; $i < count($histoires);$i++) {
+              $arr[$i] =  $histoires[$i]->getTexte();
+          }
         echo(json_encode($arr));
         return $this->render('main/sendarticle.html.twig');
     }
     /**
+     * @Route("/envoiajax", name="envoiajax")
+     */
+    public function envoieAjax(ObjectManager $manager){
+        $score = $_GET['score'];
+        $exercice = int($_GET['exercice']);
+        $patient = int($_GET['patient']);
+        $user = int($_GET['user']);
+        $bilan = int($_GET['bilan']);
+        $resultat = new Resultat();
+        $resultat->setScore("excellent")
+                 ->setIdExercice(1)
+                 ->setIdPatient(1)
+                 ->setIdUser(1)
+                 ->setIdBilan(1);
+       
+        
+        echo(json_encode($resultat));
+//         $manager->persist($resultat);
+//         $manager->flush();
+        
+        return $this->render('main/sendarticle.html.twig');
+    }
+    /**
      * @Route("/nouvellehistoire", name="HistoireCreation")
+     * 
      *
      */
     public function createHistoire(Request $request, ObjectManager $manager){

@@ -21,12 +21,14 @@
 
 	</div>
 
-	<div class="btns-bilan">
+	<div class="btns-rightSide">
 		<a href="{{ path('PatientEdit', {'id': patient.id})}}" class="btn btn-primary btn-bilan">modifier</a> 
 		<a href="{{ path('patientDelete', {'id': patient.id})}}" class="btn btn-danger btn-bilan">supprimer</a>
 		
 		<a href="{{ path('bilanCreate', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Ajouter un bilan</a> 
 		<a href="{{ path('bilansPatient', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Voir les bilans</a>
+		
+		<a href="{{ path('listeExos', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Exercices</a>
 	</div>
 </section>
 {% endblock %}
