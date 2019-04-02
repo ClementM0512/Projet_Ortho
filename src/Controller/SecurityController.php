@@ -36,8 +36,6 @@ class SecurityController extends AbstractController
             }else {
                 return $this->redirectToRoute('patients');                                          #on le redirige vers la list des patients
             }
-        }else {
-            $this->addFlash('danger', 'compte innexistant ou mot de passe invalide');
         }
         return $this->render('security/login.html.twig', [                                          #creation de la vue
            
@@ -61,10 +59,11 @@ class SecurityController extends AbstractController
             
             if ($compare) {
                 $this->addFlash('danger', 'ce nom est deja utilise');
-                return $this->render('security/register.html.twig', [                               #creation de la vue
-                    'formUser' => $form->createView(),                                              #parametre envoyer pour cree la vue
+                return $this->render('security/register.html.twig', [                               
+                    'formUser' => $form->createView(),                                              
                 ]);
             }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
             $user = new User();
             $user->setUsername($form->getData()['Username']);                                       #on remplie les champs d'utilisateur avec les donnes du formulaire
             $user->setEmail($form->getData()['Email']);
@@ -81,9 +80,9 @@ class SecurityController extends AbstractController
                 $permision->setRoles(array('ROLE_SUPERADMIN','ROLE_ADMIN','ROLE_USER'));
             }
             
-            $security->setChangePass(true);                                                         #on definie sur true car il devra obligatoirement changer le mot de passe lors de sa premiere connexion
-            
-            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #cr�ation d'un mot de passe randome
+            $user->setPermission($permision);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #création d'un mot de passe randome
             $longueurMax = strlen($caracteres);
             $chaineAleatoire = '';
             $longueur = 10;
@@ -98,13 +97,14 @@ class SecurityController extends AbstractController
             ->setBody($chaineAleatoire,'text')
             ;
             $mailer->send($message);
-            
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             $encoded = $encoder->encodePassword($user, $chaineAleatoire);                           #on definie le mot de passe temporaire du compte
             $security->setPassword($encoded);
+            $security->setChangePass(true);                                                         #on definie sur true car il devra obligatoirement changer le mot de passe lors de sa premiere connexion
             
-            $user->setPermission($permision);
             $user->setSecurity($security);
-            
+/////////////////////////////////////////////////////
             $entityManager = $this->getDoctrine()->getManager();                                    #on eregistre l'utilisateur sur la base donnee
             $entityManager->persist($user);
             $entityManager->flush();
@@ -142,11 +142,12 @@ class SecurityController extends AbstractController
                 ]);
             }
             
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////RECHERCHE DES UTILISATEUR////////////////
             $resultat = $form->getData()['Recherche'];
             $rechercheResultatsNom = $repo->loadByElementBegin('Nom', $resultat);                      #Les trois lignes sont des requêtes personnalisées
             $rechercheResultatsPrenom = $repo->loadByElementBegin('Prenom', $resultat);                #Elles récupèrent tout les champs commencant par            $rechercheResultats = [];
             $testPositif = 0;
+            $rechercheResultats = [];
             
             foreach($rechercheResultatsNom as $recherche)
             {
@@ -175,7 +176,7 @@ class SecurityController extends AbstractController
                 
             }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             if (!$rechercheResultats) {
                 $this->addFlash('danger', 'pas de resultat, incomplet ou innexistant');
                 return $this->render('security/gestion.html.twig', [
@@ -256,6 +257,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request); 
         
         if ($form->isSubmitted() && $form->isValid()) {  
+            
             $repo = $this->getDoctrine()->getRepository(User::class);                               #on recherche la fiche complete de l'utilisateur
             $user = $repo->findOneBy([
                 'Username' => $form->getData()['username'],
@@ -263,6 +265,7 @@ class SecurityController extends AbstractController
                 'Prenom' => $form->getData()['prenom'],
                 'Email' => $form->getData()['email'],
             ]);
+/////////////////////////////////////////////////////////////////////////////////////////////////////
             
             if ($user == null) {
                 $this->addFlash('danger', 'ce compte n\'existe pas reverifié les champs');
@@ -270,10 +273,13 @@ class SecurityController extends AbstractController
                     'formforgot' => $form->createView(),
                 ]);
             }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+            
             if ($user->getSecurity()->getChangePass() == true){
                 $this->addFlash('danger', 'mot de passe déjà envoyé');
                 return $this->redirectToRoute('security_login');
             }
+///////////////////////////////////////////////////////////////////////////////////////////////////
             $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #création d'un mot de passe randome
             $longueurMax = strlen($caracteres);
             $chaineAleatoire = '';
@@ -289,15 +295,15 @@ class SecurityController extends AbstractController
             ->setBody($chaineAleatoire,'text')
             ;
             $mailer->send($message);
-            
+/////////////////////////////////////////////////////////////////////////////////////////////////////
             $encoded = $encoder->encodePassword($user, $chaineAleatoire);                           #on definie le mot de passe temporaire du compte
             $user->getSecurity()->setPassword($encoded);
             $user->getSecurity()->setChangePass(true);                                     
-            
+/////////////////////////////////////////////////////////////////////////////////////////////////////
             $entityManager = $this->getDoctrine()->getManager();                                    #on synchronise les donnes avec la base de donnee
             $entityManager->persist($user);
             $entityManager->flush();
-            
+/////////////////////////////////////////////////////////////////////////////////////////////////////
             return $this->redirectToRoute('security_login');                                        #on l'envoie a la page login
             
         }
@@ -313,9 +319,10 @@ class SecurityController extends AbstractController
     public function EditUser(User $user, Request $request)
     {
         
-        $form = $this->createForm(UserType::class);                                           #creation du formulaire pour changer les mot de passe
+        $form = $this->createForm(UserType::class);                                                 #creation du formulaire pour changer les mot de passe
         $form->handleRequest($request); 
         
+/////////////////////////////////////////////////////////////////////////////////////////////////////
         
         $repo = $this->getDoctrine()->getRepository(User::class);                                   #on recherche la fiche complete de l'utilisateur
         $usertest = $repo->find($user->getId());
@@ -336,14 +343,11 @@ class SecurityController extends AbstractController
                     'role' => $nbroles,
                 ]);
             }
-            
+/////////////////////////////////////////////////////////////////////////////////////////////////////
             $entityManager = $this->getDoctrine()->getManager();                                    #on synchronise les donnes avec la base de donnee
             $entityManager->persist($user);
             $entityManager->flush();
         }
-        
-        
-        
         
         return $this->render('security/gestionuser.html.twig', [                                     #on evoie la vue avec le formulaire et le message d'erreur
             'form' => $form->createView(),
@@ -369,20 +373,19 @@ class SecurityController extends AbstractController
         
         if (($form->getClickedButton() && 'Delete' === $form->getClickedButton()->getName()))
         {
+/////////////////////////////////////////////////////////////////////////////////////////////////////
             $entityManager = $this->getDoctrine()->getManager(); 
             $entityManager->remove($user);                                                          #Pour supprimer l'utilisateur.
             $entityManager->flush();
-            
+/////////////////////////////////////////////////////////////////////////////////////////////////////
             
             return $this->redirectToRoute('security_register');
         }
         if (($form->getClickedButton() && 'NoDelete' === $form->getClickedButton()->getName()))
         {
-            
             return $this->redirectToRoute('security_userEdit', ['id'=> $user->getId()]);
         }
-        return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
-        
+        return $this->render('main/validation.html.twig', array('action' => $form->createView(),)); 
     }
 
     /**

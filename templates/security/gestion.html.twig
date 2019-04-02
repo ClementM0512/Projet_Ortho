@@ -5,10 +5,17 @@
 <div class="form-srch">
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">valider!</button>
+        <button type="submit" class="btn btn-primary">Valider</button>
     {{ form_end(form) }}
 </div>
-    
+    <div class="btn-admin">
+	<a href="{{ path('security_register') }}">
+			<button type="submit" class="btn btn-primary">
+				Création d'un nouvel utilisateur
+			</button>
+			</a>
+		</div>
+		
 <center>Liste des utilisateurs</center>
 
 {% for Resultat in rechercheResultat %}
