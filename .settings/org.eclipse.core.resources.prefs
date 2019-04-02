@@ -24,7 +24,6 @@ encoding//templates/patient/indexPatient.html.twig=UTF-8
 encoding//templates/patient/newBilan.html.twig=UTF-8
 encoding//templates/patient/newpatient.html.twig=UTF-8
 encoding//templates/patient/showBilans.html.twig=UTF-8
-encoding//templates/security/admin.html.twig=UTF-8
 encoding//templates/security/forgotPass.html.twig=UTF-8
 encoding//templates/security/gestion.html.twig=UTF-8
 encoding//templates/security/index.html.twig=UTF-8

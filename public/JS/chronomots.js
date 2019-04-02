@@ -37,6 +37,7 @@ function ResultatExercice(){
 
 function ExecutionExercice()
 {
+	alert("br");
 	var histoireChoisie = document.querySelector('select'); 
 	histoire = recuperationAjax[histoireChoisie.value[0]-1];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	
@@ -66,7 +67,7 @@ var recuperationAjax;
 Requete(RecuperationDonnee); //Recupere un tableau contenant les histoires
 var inputs = document.querySelectorAll("input");
 //inputs[0].addEventListener("click", EditerHistoire);
-inputs[3].addEventListener("click", ExecutionExercice);		//creation d'un evenement click sur le bouton associé à la fonction ExecutionExercice
+inputs[2].addEventListener("click", ExecutionExercice);		//creation d'un evenement click sur le bouton associé à la fonction ExecutionExercice
 
 
 
