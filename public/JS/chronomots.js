@@ -37,7 +37,7 @@ function ResultatExercice(){
 
 function ExecutionExercice()
 {
-	alert("br");
+	//alert("br");
 	var histoireChoisie = document.querySelector('select'); 
 	histoire = recuperationAjax[histoireChoisie.value[0]-1];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	
