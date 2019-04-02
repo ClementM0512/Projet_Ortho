@@ -2,25 +2,24 @@
 {% form_theme formPass 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+<div class="form-app">
 {{ form_start(formPass) }}
-    {{ form_row(formPass.oldPass) }}
-	{{ form_row(formPass.newPass) }}
+    {{ form_row(formPass.oldPass , {'label': 'Ancien mot de passe'} ) }}
+	{{ form_row(formPass.newPass, {'label': 'Nouveau mot de passe'}) }}
 	
- 	{{ form_row(formPass.newPassconfirm) }}
+ 	{{ form_row(formPass.newPassconfirm, {'label': 'Confirmation du mot de passe'}) }}
 
-	<button type="submit">Enregistrer!</button>
+	<button type="submit" class="btn btn-success">Enregistrer!</button>
     {{ form_end(formPass) }}
 
-    {{ message }}
-	
+</div>	
+
 	
 	
 	
 {% endblock %}
 
 {% block javascripts %}
-
-
 
 {% endblock %}
 	

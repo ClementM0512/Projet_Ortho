@@ -6,13 +6,12 @@
 
     {{ form_row(formforgot.nom) }}
     {{ form_row(formforgot.prenom) }}
-	{{ form_row(formforgot.username) }}
+	{{ form_row(formforgot.username, { 'label': 'Pseudonyme'}) }}
 	{{ form_row(formforgot.email) }}
 		
 	<button type="submit">valider!</button>
 {{ form_end(formforgot) }}
 
-{{ message }}
 
 
 

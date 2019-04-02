@@ -14,6 +14,8 @@ use App\Form\BilanType;
 use App\Entity\Patient;
 use App\Entity\Bilan;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
+
 
 /**
  * @IsGranted("ROLE_USER")
@@ -25,18 +27,73 @@ class PatientController extends AbstractController
     //------------------------------------- PATIENT -------------------------------------//
     ///////////////////////////////////////////////////////////////////////////////////////
     
-    // Affichage de tout les patient dans la BD
+    // Affichage de tout les patient dans la BD et sert à la recherche des patients
     /**
      * @Route("/patients", name="patients")
      */
-    public function indexPatient(PatientRepository $repo)
+    public function indexPatient(PatientRepository $repo, Request $request)
     {
 
         $patient = $repo->findAll();        #Sert à trouver tout les objets du type passé en param
         
+        $form = $this->createFormBuilder()
+        ->add('Recherche', SearchType::class, ['required'=> false])
+        ->getForm();
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $resultat =$form->getData()['Recherche'];
+            if (!$resultat) {
+                return $this->render('patient/indexPatient.html.twig', [                                #creation de la vue
+                    'patients'    => $patient,                                                       #on passe tout les utilisateur pour la gestion
+                    'form' => $form->createView(),
+                    'rechercheResultat' => null,
+                ]);
+            }
+            
+            $resultat = $form->getData()['Recherche'];
+            $rechercheResultatsNom = $repo->loadByElementBegin('nom', $resultat);                      #Les trois lignes sont des requêtes personnalisées
+            $rechercheResultatsPrenom = $repo->loadByElementBegin('prenom', $resultat);                #Elles récupèrent tout les champs commencant par            $rechercheResultats = [];
+            $testPositif = 0;
+            $rechercheResultats = [];
+            
+            foreach($rechercheResultatsNom as $recherche)
+            {
+                $rechercheResultats[] = $recherche;
+            }
+            foreach($rechercheResultatsPrenom as $recherche)
+            {
+                foreach($rechercheResultats as $compareId)
+                {
+                    if($recherche->getId() == $compareId->getId())
+                    {
+                        $testPositif = 1;
+                    }
+                }
+                $testPositif ? $testPositif =0 : $rechercheResultats[] = $recherche;
+                
+            }          
+            
+            if (!$rechercheResultats) {
+                $this->addFlash('danger', 'pas de resultat, incomplet ou innexistant');
+                return $this->render('patient/indexPatient.html.twig', [
+                    'patients'    => null,
+                    'form' => $form->createView(),
+                    'rechercheResultat' => $rechercheResultats,
+                ]);
+            }
+            return $this->render('patient/indexPatient.html.twig', [
+                'patients'    => null,
+                'form' => $form->createView(),
+                'rechercheResultat' => $rechercheResultats,
+            ]);
+        }       
         return $this->render('patient/indexPatient.html.twig', [
-            'controller_name' => 'PatientController',
-            'patients' => $patient
+            'patients' => $patient,
+            'form' => $form->createView(),
+            'rechercheResultat' => null,
         ]);
     }
     

@@ -36,7 +36,9 @@ class SecurityController extends AbstractController
             }else {
                 return $this->redirectToRoute('patients');                                          #on le redirige vers la list des patients
             }
-        } 
+        }else {
+            $this->addFlash('danger', 'compte innexistant ou mot de passe invalide');
+        }
         return $this->render('security/login.html.twig', [                                          #creation de la vue
            
         ]);
@@ -58,12 +60,12 @@ class SecurityController extends AbstractController
             $compare = $repo->findOneBy(['Username' => $form->getData()['Username']]);              #on recherche si il y a deja un utilisateur qui porte le meme $Username
             
             if ($compare) {
+                $this->addFlash('danger', 'ce nom est deja utilise');
                 return $this->render('security/register.html.twig', [                               #creation de la vue
                     'formUser' => $form->createView(),                                              #parametre envoyer pour cree la vue
-                    'Message'  => 'ce nom est deja utilise',                                        #Mesage d'erreur
                 ]);
             }
-            
+            $user = new User();
             $user->setUsername($form->getData()['Username']);                                       #on remplie les champs d'utilisateur avec les donnes du formulaire
             $user->setEmail($form->getData()['Email']);
             $user->setNom($form->getData()['Nom']);
@@ -111,7 +113,6 @@ class SecurityController extends AbstractController
         
         return $this->render('security/register.html.twig', [                                       #creation de la vue
             'formUser' => $form->createView(),                                                      #parametre envoyer pour cree la vue
-            'Message'  => '',
         ]);
     }
     
@@ -138,16 +139,14 @@ class SecurityController extends AbstractController
                     'Users'    => $listusers,                                                       #on passe tout les utilisateur pour la gestion
                     'form' => $form->createView(),
                     'rechercheResultat' => null,
-                    'message' => null,
                 ]);
             }
             
-            
-            $rechercheResultatsNom = $repo->findBy(['Nom' => $resultat]);
-            $rechercheResultatsPrenom = $repo->findBy(['Prenom'=> $resultat]);
-            $rechercheResultatsMail = $repo->findBy(['Email'=> $resultat]);
-            $rechercheResultats = [];
-            
+////////////////////////////////////////////////////////////////////////////////
+            $resultat = $form->getData()['Recherche'];
+            $rechercheResultatsNom = $repo->loadByElementBegin('Nom', $resultat);                      #Les trois lignes sont des requêtes personnalisées
+            $rechercheResultatsPrenom = $repo->loadByElementBegin('Prenom', $resultat);                #Elles récupèrent tout les champs commencant par            $rechercheResultats = [];
+            $testPositif = 0;
             
             foreach($rechercheResultatsNom as $recherche)
             {
@@ -155,37 +154,47 @@ class SecurityController extends AbstractController
             }
             foreach($rechercheResultatsPrenom as $recherche)
             {
-                $rechercheResultats[] = $recherche;
+                foreach($rechercheResultats as $compareId)
+                {
+                    if($recherche->getId() == $compareId->getId())
+                    {
+                        $testPositif = 1;
+                    }
+                }
+                $testPositif ? $testPositif =0 : $rechercheResultats[] = $recherche;
+             
             }
-            foreach($rechercheResultatsMail as $recherche)
+            if(!$rechercheResultats)
             {
-                $rechercheResultats[] = $recherche;
+                goto listeUser;
             }
-            
+            if(!$resultat)
+            {
+                listeUser:
+                $rechercheResultats = $userRepository->findAll();
+                
+            }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (!$rechercheResultats) {
+                $this->addFlash('danger', 'pas de resultat, incomplet ou innexistant');
                 return $this->render('security/gestion.html.twig', [
                     'Users'    => null,
                     'form' => $form->createView(),
                     'rechercheResultat' => $rechercheResultats,
-                    'message' => 'pas de resultat, incomplet ou innexistant',
                 ]);
             }
-            
             return $this->render('security/gestion.html.twig', [
                 'Users'    => null, 
                 'form' => $form->createView(), 
                 'rechercheResultat' => $rechercheResultats,
-                'message' => null,
             ]);
         }
-        
         return $this->render('security/gestion.html.twig', [                                        #creation de la vue
             'Users'    => $listusers,                                                               #on passe tout les utilisateur pour la gestion
             'form' => $form->createView(), 
             'rechercheResultat' => null,
-            'message' => null,
         ]);
-        
     }
     
     /**
@@ -221,21 +230,20 @@ class SecurityController extends AbstractController
                     return $this->redirectToRoute('patients');                                      #on le redirige vers la list des patients
                     
                 }else {
+                    $this->addFlash('danger', 'ce n\'est pas les memes mots de passe');
                     return $this->render('security/newPass.html.twig', [                            #on evoie la vue avec le formulaire et le message d'erreur
                         'formPass' => $form->createView(),
-                        'message' => 'ce n\'est pas les memes mots de passe',
                     ]);
                 }
             }else {
+                $this->addFlash('danger', 'ce n\'est pas l\'ancien mot de passe');
                 return $this->render('security/newPass.html.twig', [                                #on evoie la vue avec le formulaire et le message d'erreur
                     'formPass' => $form->createView(),
-                    'message' => 'ce n\'est pas l\'ancien mot de passe',
                 ]);
             }
         }
         return $this->render('security/newPass.html.twig', [                                        #on evoie la vue avec le formulaire et le message d'erreur
             'formPass' => $form->createView(),
-            'message' => null,
         ]);
     }
      
@@ -257,12 +265,15 @@ class SecurityController extends AbstractController
             ]);
             
             if ($user == null) {
+                $this->addFlash('danger', 'ce compte n\'existe pas reverifié les champs');
                 return $this->render('security/forgotPass.html.twig', [                             #on evoie la vue avec le formulaire et le message d'erreur
                     'formforgot' => $form->createView(),
-                    'message' => 'ce compte n\'existe pas reverifi� les champs',
                 ]);
             }
-            
+            if ($user->getSecurity()->getChangePass() == true){
+                $this->addFlash('danger', 'mot de passe déjà envoyé');
+                return $this->redirectToRoute('security_login');
+            }
             $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';           #création d'un mot de passe randome
             $longueurMax = strlen($caracteres);
             $chaineAleatoire = '';
@@ -292,7 +303,6 @@ class SecurityController extends AbstractController
         }
         return $this->render('security/forgotPass.html.twig', [                                     #on evoie la vue avec le formulaire et le message d'erreur
             'formforgot' => $form->createView(),
-            'message' => null,
         ]);
     }
     
@@ -319,6 +329,7 @@ class SecurityController extends AbstractController
             $compare = $repo->findOneBy(['Username' => $form->getData()['Username']]);              #on recherche si il y a deja un utilisateur qui porte le meme $Username
             
             if ($compare) {
+                $this->addFlash('danger', 'cet username existe déjà');
                 return $this->render('security/gestionuser.html.twig', [                               #creation de la vue
                     'form' => $form->createView(),
                     'user' => $user,
@@ -350,8 +361,8 @@ class SecurityController extends AbstractController
     public function deleteuser(User $user, Request $request){                           
         
         $form = $this->createFormBuilder()
-        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer cet utilisateur', 'attr' => ['class' => 'Btn-delete-Article']])
-        ->add('NoDelete', SubmitType::class, ['label' => 'Annuler', 'attr' => ['class' => 'Btn-back-listArticles']])
+        ->add('Delete', SubmitType::class, ['label' => 'OUI, supprimer cet utilisateur', 'attr' => ['class' => 'btn btn-danger btn-confirm']])
+        ->add('NoDelete', SubmitType::class, ['label' => 'Annuler', 'attr' => ['class' => 'btn btn-primary btn-confirm']])
         ->getForm();
         
         $form->handleRequest($request);
@@ -368,7 +379,7 @@ class SecurityController extends AbstractController
         if (($form->getClickedButton() && 'NoDelete' === $form->getClickedButton()->getName()))
         {
             
-            return $this->redirectToRoute('security_gestion');
+            return $this->redirectToRoute('security_userEdit', ['id'=> $user->getId()]);
         }
         return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
         
