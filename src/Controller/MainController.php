@@ -75,6 +75,26 @@ class MainController extends AbstractController
             'id'=>$id
         ]);
     }
+    
+    /**
+     * @Route("/exercices/lancaster", name="lancaster")
+     * @Route("/Patient/{id}/exercices/lancaster", name="lancasterAP")
+     */
+    public function lancaster(Patient $patient = null){
+        if($patient)
+        {
+            $id = $patient->getId();
+        }
+        else
+        {
+            $id = 0;
+        }
+        return $this->render('main/lancaster.html.twig', [
+            'controller_name' => 'MainController',
+            'id'=>$id
+        ]);
+    }
+    
     /**
      * @Route("/receptionajax", name="receptionajax")
      */

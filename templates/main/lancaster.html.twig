@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+ 
+ 
+{% block title %}Lancaster {% endblock %}
+     
+
+
+{% block body %}
+<style> #canvas{
+			background-color: white;
+			}</style>
+<div class="exos">
+     <h1 class="center">Lancaster</h1>
+     
+     <canvas id="canvas" width="600" height="600"></canvas>
+     
+{% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/lancaster.js"></script>{% endblock %}
+
+{% endblock %}

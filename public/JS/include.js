@@ -73,9 +73,9 @@ function CreationElement(elemtab)
 
 function SuppressionPage()						//Suppression de tous les noeuds enfant de body -nbElemStatique
 {
-	while(document.body.childNodes[2])
+	while(document.body.childNodes[0])
 	{
-		document.body.removeChild(document.body.childNodes[2]);	
+		document.body.removeChild(document.body.childNodes[0]);	
 	}
 }
 function NouvellePage()

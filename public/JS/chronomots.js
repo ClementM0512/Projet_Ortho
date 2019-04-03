@@ -30,7 +30,7 @@ function ResultatExercice(){
     inputs[0].addEventListener("click", EnregistrementResultat);
     for(i=0;i<inputs.length;i++)
     	{
-    		inputs[i].class = "btn btn-primary btns-exo"
+    		inputs[i].class = "btn btn-primary btns-exo";
     	}
     aLien1.appendChild(inputs[1]);
     aLien2.appendChild(inputs[2]);
@@ -65,9 +65,9 @@ function ExecutionExercice()
 	p.style.marginLeft = "100px";
 	p.style.marginRight = "100px";
 	p.style.fontSize = "1.3em";
-	btFin = document.querySelector("input");    
+	btFin = document.querySelector("input");   
     btFin.addEventListener("click",ResultatExercice);
-    
+    document.body.addEventListener('keydown',ResultatExercice);
 }
 //var body = document.querySelector("body");
 //body.style.fontSize = "1.2em";
