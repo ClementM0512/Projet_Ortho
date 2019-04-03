@@ -41,8 +41,15 @@ function ResultatExercice(){
 
 function ExecutionExercice()
 {
-	//alert("br");
+	
 	var histoireChoisie = document.querySelector('select'); 
+	var id = "";
+	var j=0;
+	while(histoireChoisie.value[j]!='.')
+		{
+			id+= histoireChoisie.value[j];
+			j++;
+		}
 	histoire = recuperationAjax[histoireChoisie.value[0]-1];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	
 	premierTemps = new Date().getTime();	//Enregistrement du temps actuel
