@@ -7,13 +7,19 @@
 
 
 {% block body %}
-<style> #canvas1{
+</br>
+<style> #canvasgauche{
 			background-color: white;
-			}</style>
+			}
+		#canvasdroit{
+			background-color: white;
+			margin-left: 130px;
+		}</style>
 <div class="exos">
      <h1 class="center">Lancaster</h1>
      
-     <canvas id="canvas1" width="600" height="600"></canvas>
+     <canvas id="canvasgauche" width="600" height="600"></canvas>
+     <canvas id="canvasdroit" width="600" height="600"></canvas>
      
 {% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/lancaster.js"></script>{% endblock %}
 

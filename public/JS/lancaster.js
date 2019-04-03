@@ -1,7 +1,11 @@
-	canvas = document.getElementById('canvas1');
-    context = canvas.getContext("2d");
-    var clicks = new Array();
-    var interligne = 20;
+	var contexts = new Array(document.getElementById('canvasgauche').getContext("2d"),document.getElementById('canvasdroit').getContext("2d"));
+//canvasGauche = document.getElementById('canvas1');
+//	canvasDroit = document.getElementById('canvas2');
+//    contextGauche = canvasGauche.getContext("2d");
+//    contextDroit = canvasDroit.getContext("2d");
+    var CoordonneesPoints = new Array(new Array(),new Array());
+    var tailleCanvas = 600;
+    var interligne = tailleCanvas/30;
     var margePoint = 7*interligne;
     var interPoint = 8*interligne;
     var stopEvenement=0;
@@ -11,7 +15,8 @@
     	  this.x = a;
     	  this.y = b;
     }
-    function Liaison(tabCoords)
+    
+    function Liaison(context,tabCoords)
     {
     	for(i=0;i<3;i++)
     	{
@@ -30,63 +35,84 @@
     	}
     }
     
-    function Down(e){    	
-      stopEvenement++;
+    function ClickGauche(e){    	
+      stopEvenement++;				//Eviter que la fonction s'execute deux fois
       if((stopEvenement%2)==0) return 0;
       var mouseX = e.pageX - 120 - this.offsetLeft;
-      var mouseY = e.pageY - this.offsetTop;
-      clicks.push(new Coordonnees(mouseX,mouseY));
-      context.strokeStyle = "#EE0";
-      context.lineJoin = "round";
-      context.lineWidth = 10;
-      context.beginPath();
-      context.moveTo(mouseX-1, mouseY);
-      context.lineTo(mouseX, mouseY);
-      context.closePath();
-      context.stroke();
-      if(clicks.length==9)
+      var mouseY = e.pageY - 20 - this.offsetTop;
+      CoordonneesPoints[0].push(new Coordonnees(mouseX,mouseY));
+      contexts[0].strokeStyle = "#EE0";
+      contexts[0].lineJoin = "round";
+      contexts[0].lineWidth = 10;
+      contexts[0].beginPath();
+      contexts[0].moveTo(mouseX-1, mouseY);
+      contexts[0].lineTo(mouseX, mouseY);
+      contexts[0].closePath();
+      contexts[0].stroke();
+      if(CoordonneesPoints[0].length==9)
     	  {
-    	  	Liaison(clicks);
+    	  	Liaison(contexts[0], CoordonneesPoints[0]);
     	  }
     }   
     
+    function ClickDroit(e){    	
+        stopEvenement++;				//Eviter que la fonction s'execute deux fois
+        if((stopEvenement%2)==0) return 0;
+        var mouseX = e.pageX - 120 - this.offsetLeft;
+        var mouseY = e.pageY - 20 - this.offsetTop;
+        CoordonneesPoints[1].push(new Coordonnees(mouseX,mouseY));
+        contexts[1].strokeStyle = "#EE0";
+        contexts[1].lineJoin = "round";
+        contexts[1].lineWidth = 10;
+        contexts[1].beginPath();
+        contexts[1].moveTo(mouseX-1, mouseY);
+        contexts[1].lineTo(mouseX, mouseY);
+        contexts[1].closePath();
+        contexts[1].stroke();
+        if(CoordonneesPoints[1].length==9)
+      	  {
+      	  	Liaison(contexts[1], CoordonneesPoints[1]);
+      	  }
+    } 
     
-   ///////////////////////////  MAIN   /////////////////////////////////////
-    context.lineWidth = 0.5;    
-    context.strokeStyle = '#00A';
-    context.beginPath();
-    /// CADRILLAGE ///
-    for(i=0;i<31;i++)
+    for(h=0;h<2;h++)
     {
-    	context.moveTo(interligne*i,0);
-    	context.lineTo(interligne*i,600);      
-    }
-    for(i=0;i<31;i++)
-    {
-    	context.moveTo(0,interligne*i);
-    	context.lineTo(600,interligne*i);      
-    }
-    context.closePath();
-	context.stroke();
-	////////////////////
+   ///////////////////////////  DESSINS   /////////////////////////////////////
+	    contexts[h].lineWidth = 0.5;    
+	    contexts[h].strokeStyle = '#00A';
+	    contexts[h].beginPath();
+	    /// CADRILLAGE ///
+	    for(i=0;i<31;i++)
+	    {
+	    	contexts[h].moveTo(interligne*i,0);
+	    	contexts[h].lineTo(interligne*i,tailleCanvas);      
+	    }
+	    for(i=0;i<31;i++)
+	    {
+	    	contexts[h].moveTo(0,interligne*i);
+	    	contexts[h].lineTo(tailleCanvas,interligne*i);      
+	    }
+	    contexts[h].closePath();
+		contexts[h].stroke();
     
 	//// POINTS /////
     
-	for(i=0;i<3;i++)
-	{
-		for(j=0;j<3;j++)
-		{		
-			context.beginPath();
-			context.lineJoin = "round";
-			context.lineWidth = 8;    
-		    context.strokeStyle = '#00B';
-			context.moveTo(margePoint -1 + j*interPoint, margePoint + i*interPoint);
-	    	context.lineTo(margePoint + j*interPoint, margePoint + i*interPoint);
-	    	context.closePath();
-	    	context.stroke();
+		for(i=0;i<3;i++)
+		{
+			for(j=0;j<3;j++)
+			{		
+				contexts[h].beginPath();
+				contexts[h].lineJoin = "round";
+				contexts[h].lineWidth = 8;    
+			    contexts[h].strokeStyle = '#00B';
+				contexts[h].moveTo(margePoint -1 + j*interPoint, margePoint + i*interPoint);
+		    	contexts[h].lineTo(margePoint + j*interPoint, margePoint + i*interPoint);
+		    	contexts[h].closePath();
+		    	contexts[h].stroke();
+			}
 		}
-	}
-	///////////////
+    }
 	///// EVENEMENT /////
-    canvas.addEventListener('mousedown',Down);
+	document.getElementById('canvasgauche').addEventListener('mousedown',ClickGauche);
+	document.getElementById('canvasdroit').addEventListener('mousedown',ClickDroit);
 	
