@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block titre %}
-<h2 class="indicator">Liste Applications</h2>
+{% block title %}
+Liste Appli
 {% endblock %}
 
 
@@ -9,24 +9,27 @@
 
 {% block body %}
 <section class="exercices">
-	<div class="liste-exos">
-		{% for exercice in exercices %}
-		<a  href="{{ path(exercice.lien, {'id': id})}}">
 
-			<button type="submit" class="btn-primary btn-listeExos">
-				<img src="{{asset(exercice.image)}}" class="img-listeExos"> 
-				{{ exercice.name}}
-			</button>
-		{% endfor %}
-	</div>
+{% for exercice in exercices %}
+	<div class="metadata">
+	
+    <a href="{{ path(exercice.lien, {'id': id})}}">
+    	
+   		<button type="submit" class="btn-primary" >
+   		<img src="{{asset(exercice.image)}}" style="width:100px; height:100px;" > </br>
+		{{ exercice.name}}
+</button>
+</a>
+</div>
+{% endfor %}
+
 </section>
-
-    {% block javascripts %}
-    <script>
-    	var header = document.getElementById("change-active");
-    	var btns = document.body.querySelectorAll("li");
-    	btns[0].className = "nav-item change-item";
-    	btns[2].className = "nav-item active change-item"
-    </script>
-    {% endblock %}
+{% block javascripts %}
+<script>	
+	var header = document.getElementById("change-active");
+	var btns = document.body.querySelectorAll("li");
+    btns[0].className = "nav-item change-item";
+    btns[2].className = "nav-item active change-item"
+</script>
+{% endblock %}
 {% endblock %}

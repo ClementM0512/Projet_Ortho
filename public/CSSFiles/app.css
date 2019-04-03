@@ -97,24 +97,3 @@
     margin-left: auto;
     margin-right: auto;
 }
-
-.btn-listeExos{
-	display: grid;
-}
-
-.img-listeExos{
-	width: 100px; 
-	height: 100px;
-}
-
-.liste-exos{
-	width: 85%;
-    position: relative;
-    margin-top: 3%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.link-exos{
-	margin:5px;
-}

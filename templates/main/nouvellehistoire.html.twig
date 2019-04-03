@@ -2,16 +2,10 @@
 {% form_theme formHistoire 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-<div class="form-app">
-	<h1 class="center">Création histoire</h1>
-	
-	{{ form_start(formHistoire) }}
 
-	{{ form_row(formHistoire.name, {'label' : 'Titre'}) }}
-	{{ form_row(formHistoire.texte, {'label' : 'Texte', 'attr' : {'rows' : '25'}}) }}
-	{{ form_row(formHistoire.save, {'label' : 'Enregistrer'}) }}
-
-	{{ form_end(formHistoire) }}
+	<h1>Creation histoire</h1>
 	
-</div>	
+	
+	
+	{{ form(formHistoire) }}
 {% endblock %}

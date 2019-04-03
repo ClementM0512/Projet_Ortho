@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +17,20 @@ use App\Entity\Patient;
 use App\Entity\Histoire;
 use App\Entity\Exercice;
 use App\Form\HistoireType;
-
-
 /*
  * @IsGranted("ROLE_USER")
  */
 class MainController extends AbstractController
 {
-
+    /**
+     * @Route("/home", name="home")
+     */
+    public function index(){
+        
+        return $this->render('main/home.html.twig', [
+            'controller_name' => 'MainController',
+        ]);
+    }
     
     /**
      * @Route("/Patient/{id}/exercices", name="listeExos")
