@@ -30,7 +30,7 @@ function ResultatExercice(){
     inputs[0].addEventListener("click", EnregistrementResultat);
     for(i=0;i<inputs.length;i++)
     	{
-    		inputs[i].class = "btn btn-primary btns-exo"
+    		inputs[i].class = "btn btn-primary btns-exo";
     	}
     aLien1.appendChild(inputs[1]);
     aLien2.appendChild(inputs[2]);
@@ -41,8 +41,15 @@ function ResultatExercice(){
 
 function ExecutionExercice()
 {
-	//alert("br");
+	
 	var histoireChoisie = document.querySelector('select'); 
+	var id = "";
+	var j=0;
+	while(histoireChoisie.value[j]!='.')
+		{
+			id+= histoireChoisie.value[j];
+			j++;
+		}
 	histoire = recuperationAjax[histoireChoisie.value[0]-1];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	
 	premierTemps = new Date().getTime();	//Enregistrement du temps actuel
@@ -66,9 +73,9 @@ function ExecutionExercice()
 	p.style.marginLeft = "100px";
 	p.style.marginRight = "100px";
 	p.style.fontSize = "1.3em";
-	btFin = document.querySelector("input");    
+	btFin = document.querySelector("input");   
     btFin.addEventListener("click",ResultatExercice);
-    
+    document.body.addEventListener('keydown',ResultatExercice);
 }
 //var body = document.querySelector("body");
 //body.style.fontSize = "1.2em";
