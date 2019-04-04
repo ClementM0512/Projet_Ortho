@@ -50,7 +50,8 @@ function ExecutionExercice()
 			id+= histoireChoisie.value[j];
 			j++;
 		}
-	histoire = recuperationAjax[histoireChoisie.value[0]-1];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
+
+	histoire = recuperationAjax[1];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	
 	premierTemps = new Date().getTime();	//Enregistrement du temps actuel
 	var editNbMotsSouhaite = document.getElementById("nbMotsSouhaite");

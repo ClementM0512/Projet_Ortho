@@ -13,13 +13,16 @@
         {{ form_row(form.Email, { 'attr': {'value': user.email} }) }}
      
         {% if role == 3 %}
-            {{ form_row(form.Roles, {'value': "ROLE_SUPERADMIN" } ) }}
+            {{ form_row(form.Roles, {'label': 'Statut', 'value': "ROLE_SUPERADMIN" } ) }}
         {% endif %}
         {% if role == 2 %}
-            {{ form_row(form.Roles, {'value': "ROLE_ADMIN" } ) }}
+            {{ form_row(form.Roles, {'label': 'Statut', 'value': "ROLE_ADMIN" } ) }}
         {% endif %}
-            {{ form_row(form.Roles) }}
+            {{ form_row(form.Roles, { 'label': 'Statut'}) }}
 		<button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+		
+		
     {{ form_end(form) }}
+    <a href="{{ path('security_DeleteUser', {'id' : user.id}) }}"><button  class="btn btn-danger">Suppression de l'utilisateur</button></a>
 </div>
 {% endblock %}

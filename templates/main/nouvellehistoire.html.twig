@@ -3,9 +3,15 @@
 
 {% block body %}
 
-	<h1>Creation histoire</h1>
+	<h1 class="center">Creation histoire</h1>
 	
+	<div class="form-app">
+	{{ form_start(formHistoire) }}
+
+	{{ form_row(formHistoire.name, {'label' : 'Titre'}) }}
+	{{ form_row(formHistoire.texte, {'label' : 'Texte', 'attr': {'rows' : '25'}}) }}
+	{{ form_row(formHistoire.save, {'label' : 'Enregistrer'}) }}
 	
-	
-	{{ form(formHistoire) }}
+	{{ form_end(formHistoire) }}
+	</div>
 {% endblock %}
