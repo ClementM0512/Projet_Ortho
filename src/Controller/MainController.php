@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -68,10 +66,10 @@ class MainController extends AbstractController
         {
             $id = 0;
         }
-        $histoires = $repo->findAll(); 
+        $histoires = $repo->findAll();
         return $this->render('main/chronomots.html.twig', [
             'controller_name' => 'MainController',
-                'histoires' => $histoires,
+            'histoires' => $histoires,
             'id'=>$id
         ]);
     }
@@ -119,10 +117,10 @@ class MainController extends AbstractController
      */
     public function receptionajax(HistoireRepository $repo){
         
-        $histoires = $repo->findAll(); 
-          for ($i = 0; $i < count($histoires);$i++) {
-              $arr[$i] =  $histoires[$i]->getTexte();
-          }
+        $histoires = $repo->findAll();
+        for ($i = 0; $i < count($histoires);$i++) {
+            $arr[$i] =  $histoires[$i]->getTexte();
+        }
         echo(json_encode($arr));
         return $this->render('main/sendarticle.html.twig');
     }
@@ -134,34 +132,34 @@ class MainController extends AbstractController
         $exercice = int($_GET['exercice']);
         $patient = int($_GET['patient']);
         $user = int($_GET['user']);
-        $bilan = int($_GET['bilan']);   
+        $bilan = int($_GET['bilan']);
         $resultat = new Resultat();
         $resultat->setScore("excellent")
-                 ->setIdExercice(1)
-                 ->setIdPatient(1)
-                 ->setIdUser(1)
-                 ->setIdBilan(1);
-       
+        ->setIdExercice(1)
+        ->setIdPatient(1)
+        ->setIdUser(1)
+        ->setIdBilan(1);
+        
         
         echo(json_encode($resultat));
-//         $manager->persist($resultat);
-//         $manager->flush();
+        //         $manager->persist($resultat);
+        //         $manager->flush();
         
         return $this->render('main/sendarticle.html.twig');
     }
     /**
      * @Route("/nouvellehistoire", name="HistoireCreation")
-     * 
+     *
      *
      */
     public function createHistoire(Request $request, ObjectManager $manager){
         
         $histoire = new Histoire();
         $form = $this->createFormBuilder($histoire)
-                     ->add('name')
-                     ->add('texte')
-                     ->add('save', SubmitType::class)
-                     ->getForm();
+        ->add('name')
+        ->add('texte')
+        ->add('save', SubmitType::class)
+        ->getForm();
         
         $form->handleRequest($request);
         
@@ -175,10 +173,8 @@ class MainController extends AbstractController
         return $this->render('main/nouvellehistoire.html.twig', [
             'formHistoire' => $form->createView()
         ]);
-                     
-     
+        
+        
         
     }
 }
-
-

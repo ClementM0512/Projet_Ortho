@@ -10,6 +10,7 @@ function Requete(callback) {
 }
 function RecuperationDonnee(sData) {
 	recuperationAjax = JSON.parse(sData);	
+//	alert(sData);
 }
 function Requete2(callback) {
 	

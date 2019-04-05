@@ -36,10 +36,6 @@ class SecurityController extends AbstractController
             }else {
                 return $this->redirectToRoute('patients');                                          #on le redirige vers la list des patients
             }
-
-        }else {
-//             $this->addFlash('danger', 'compte innexistant ou mot de passe invalide');
-
         }
         return $this->render('security/login.html.twig', [                                          #creation de la vue
            
@@ -62,7 +58,7 @@ class SecurityController extends AbstractController
             $compare = $repo->findOneBy(['Username' => $form->getData()['Username']]);              #on recherche si il y a deja un utilisateur qui porte le meme $Username
             
             if ($compare) {
-                $this->addFlash('danger', 'ce nom est deja utilise');
+                $this->addFlash('danger', 'ce nom est déjà utilisé');
                 return $this->render('security/register.html.twig', [                               
                     'formUser' => $form->createView(),                                              
                 ]);
@@ -235,7 +231,7 @@ class SecurityController extends AbstractController
                     return $this->redirectToRoute('patients');                                      #on le redirige vers la list des patients
                     
                 }else {
-                    $this->addFlash('danger', 'ce n\'est pas les memes mots de passe');
+                    $this->addFlash('danger', 'les mots de passe ne sont pas identique');
                     return $this->render('security/newPass.html.twig', [                            #on evoie la vue avec le formulaire et le message d'erreur
                         'formPass' => $form->createView(),
                     ]);
@@ -340,7 +336,7 @@ class SecurityController extends AbstractController
             $compare = $repo->findOneBy(['Username' => $form->getData()['Username']]);              #on recherche si il y a deja un utilisateur qui porte le meme $Username
             
             if ($compare) {
-                $this->addFlash('danger', 'cet username existe déjà');
+                $this->addFlash('danger', 'ce pseudonyme existe déjà');
                 return $this->render('security/gestionuser.html.twig', [                               #creation de la vue
                     'form' => $form->createView(),
                     'user' => $user,

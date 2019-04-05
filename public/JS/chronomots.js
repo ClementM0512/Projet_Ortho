@@ -28,10 +28,6 @@ function ResultatExercice(){
     CreationElement(elementsHtml);    
     var inputs = document.querySelectorAll("input");
     inputs[0].addEventListener("click", EnregistrementResultat);
-    for(i=0;i<inputs.length;i++)
-    	{
-    		inputs[i].class = "btn btn-primary btns-exo";
-    	}
     aLien1.appendChild(inputs[1]);
     aLien2.appendChild(inputs[2]);
     document.body.appendChild(aLien1);
@@ -41,10 +37,8 @@ function ResultatExercice(){
 
 function ExecutionExercice()
 {
-	
 	histoireChoisie = document.querySelector('select'); 
 	histoire = recuperationAjax[document.querySelector('select').value];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
-	
 	premierTemps = new Date().getTime();	//Enregistrement du temps actuel
 	var editNbMotsSouhaite = document.getElementById("nbMotsSouhaite");
 	nbMotsSouhaite = editNbMotsSouhaite.value;		//Recuperation du nombre de mots
