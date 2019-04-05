@@ -94,6 +94,24 @@ class MainController extends AbstractController
     }
     
     /**
+     * @Route("/exercices/lestraits", name="lestraits")
+     * @Route("/Patient/{id}/exercices/chronomots", name="lestraitsPatient")
+     */
+    public function lestraits(Patient $patient = null){
+        if($patient)
+        {
+            $id = $patient->getId();
+        }
+        else
+        {
+            $id = 0;
+        }
+        return $this->render('main/lestraits.html.twig', [
+            'id'=>$id
+        ]);
+    }
+    
+    /**
      * @Route("/receptionajax", name="receptionajax")
      */
     public function receptionajax(HistoireRepository $repo){
