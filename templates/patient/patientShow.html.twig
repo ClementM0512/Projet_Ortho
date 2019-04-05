@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}
+<h2 class="indicator">
+	{{ patient.nom }}
+	{{ patient.prenom }}
+</h2>
+{% endblock %}
+
+{% block body %}
+
+<section class="patients">
+	<div class="">
+
+		<h3>{{ patient.nom}} {{ patient.prenom}}</h3>
+		Date de naissance : {{ patient.dateDeNaissance | date('d/m/Y')}}
+		{# Différent champ de la classe patient avec un formatage a l'aide
+		d'un filtre #}
+		<address> Adresse : {{ patient.adresse}}</address>
+
+	</div>
+
+	<div class="btns-rightSide">
+		<a href="{{ path('PatientEdit', {'id': patient.id})}}" class="btn btn-primary btn-bilan">modifier</a> 
+		<a href="{{ path('patientDelete', {'id': patient.id})}}" class="btn btn-danger btn-bilan">supprimer</a>
+		
+		<a href="{{ path('bilanCreate', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Ajouter un bilan</a> 
+		<a href="{{ path('bilansPatient', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Voir les bilans</a>
+		
+		<a href="{{ path('listeExos', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Exercices</a>
+	</div>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+ 
+ 
+{% block title %}Les traits {% endblock %}
+     
+
+
+{% block body %}
+
+
+
+
+<div class="center">
+       <canvas id="mon_canvas" width="1000" height="600">
+            Message pour les navigateurs ne supportant pas encore canvas.
+        </canvas>
+
+</div>
+{% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/lestraits.js"></script>{% endblock %}
+
+{% endblock %}

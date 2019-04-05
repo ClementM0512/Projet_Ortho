@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block titre %}
+<h2 class="indicator">Sélection d'un patient</h2>
+{% endblock %}
+
+{% block body %}
+
+<div>
+    <div class="form-srch">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">valider!</button>
+    {{ form_end(form) }}
+    
+    </div>
+	<a href="{{ path('patientCreate')}}"  class="btn btn-success btn-lg btn-create btn-addpatient">Ajouter un patient</a>
+</div>
+
+
+
+
+<section class="patients">
+
+
+	{% for Resultat in rechercheResultat %}
+	<div class="listes">
+		<a href="{{ path('patient_show', {'id': Resultat.id}) }}">
+			<button type="submit" class="btn btn-outline-primary btn-patient">
+				{{ Resultat.nom}}
+				{{ Resultat.prenom}}
+				{{ Resultat.dateDeNaissance | date('d/m/Y')}}
+				{# Différent champ de la classe patient avec un formatage a l'aide
+				d'un filtre #}
+			</button>
+		</a>
+	</div>
+	{% endfor %}
+
+
+	{% for patient in patients %}
+	<div class="listes">
+		<a href="{{ path('patient_show', {'id': patient.id}) }}">
+			<button type="submit" class="btn btn-outline-primary btn-patient">
+				{{ patient.nom}}
+				{{ patient.prenom}}
+				{{ patient.dateDeNaissance | date('d/m/Y')}}
+				{# Différent champ de la classe patient avec un formatage a l'aide
+				d'un filtre #}
+			</button>
+		</a>
+	</div>
+	{% endfor %}
+
+</section>
+{% block javascripts %}
+<script>
+	var header = document.getElementById("change-active");
+	var btns = document.body.querySelectorAll("li");
+	btns[0].className = "nav-item change-item";
+	btns[1].className = "nav-item active change-item"
+</script>
+{% endblock %}
+{% endblock %}

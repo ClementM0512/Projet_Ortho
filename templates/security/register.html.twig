@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% form_theme formUser 'bootstrap_4_layout.html.twig' %}
+
+{% block titre %}
+<h2 class="indicator">Enregistrement</h2>
+{% endblock %}
+
+{% block body %}
+<div class="form-app">
+{{ form_start(formUser) }}
+    {{ form_row(formUser.Nom) }}
+    {{ form_row(formUser.Prenom) }}
+	{{ form_row(formUser.Username, { 'label': 'Pseudonyme'}) }}
+	{{ form_row(formUser.Email) }}
+ 	{{ form_row(formUser.Roles, { 'label': 'Statut'}) }}
+	
+	<button type="submit" class="btn btn-success">Enregistrer</button>
+{{ form_end(formUser) }}
+</div>
+
+	
+{% endblock %}

@@ -1,3 +1,5 @@
-#index:
+logout:
+    path: /deconnexion
+    #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
