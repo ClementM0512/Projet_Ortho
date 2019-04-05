@@ -96,6 +96,25 @@ class MainController extends AbstractController
     }
     
     /**
+     * @Route("/exercices/duction", name="duction")
+     * @Route("/Patient/{id}/exercices/duction", name="ductionAP")
+     */
+    public function duction(Patient $patient = null){
+        if($patient)
+        {
+            $id = $patient->getId();
+        }
+        else
+        {
+            $id = 0;
+        }
+        return $this->render('main/duction.html.twig', [
+            'controller_name' => 'MainController',
+            'id'=>$id
+        ]);
+    }
+    
+    /**
      * @Route("/receptionajax", name="receptionajax")
      */
     public function receptionajax(HistoireRepository $repo){

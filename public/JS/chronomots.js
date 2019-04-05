@@ -42,15 +42,8 @@ function ResultatExercice(){
 function ExecutionExercice()
 {
 	
-	var histoireChoisie = document.querySelector('select'); 
-	var id = "";
-	var j=0;
-	while(histoireChoisie.value[j]!='.')
-		{
-			id+= histoireChoisie.value[j];
-			j++;
-		}
-	histoire = recuperationAjax[histoireChoisie.value[0]-1];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
+	histoireChoisie = document.querySelector('select'); 
+	histoire = recuperationAjax[document.querySelector('select').value];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	
 	premierTemps = new Date().getTime();	//Enregistrement du temps actuel
 	var editNbMotsSouhaite = document.getElementById("nbMotsSouhaite");
@@ -77,13 +70,16 @@ function ExecutionExercice()
     btFin.addEventListener("click",ResultatExercice);
     document.body.addEventListener('keydown',ResultatExercice);
 }
-//var body = document.querySelector("body");
-//body.style.fontSize = "1.2em";
-//body.style.textAlign = "center";
+
 var histoire;
 var premierTemps = new Date().getTime();
 var nbMotsSouhaite = 0;
 var recuperationAjax;
+for(i=0;i<document.querySelector('select').length;i++)
+{
+	document.querySelector("select")[i].value = i; 	
+}
+
 Requete(RecuperationDonnee); //Recupere un tableau contenant les histoires
 var inputs = document.querySelectorAll("input");
 //inputs[0].addEventListener("click", EditerHistoire);
