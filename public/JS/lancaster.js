@@ -41,7 +41,7 @@
       var mouseX = e.pageX - 120 - this.offsetLeft;
       var mouseY = e.pageY - 20 - this.offsetTop;
       CoordonneesPoints[0].push(new Coordonnees(mouseX,mouseY));
-      contexts[0].strokeStyle = "#EE0";
+      contexts[0].strokeStyle = "#0D0";
       contexts[0].lineJoin = "round";
       contexts[0].lineWidth = 10;
       contexts[0].beginPath();
@@ -61,7 +61,7 @@
         var mouseX = e.pageX - 120 - this.offsetLeft;
         var mouseY = e.pageY - 20 - this.offsetTop;
         CoordonneesPoints[1].push(new Coordonnees(mouseX,mouseY));
-        contexts[1].strokeStyle = "#EE0";
+        contexts[1].strokeStyle = "#0A0";
         contexts[1].lineJoin = "round";
         contexts[1].lineWidth = 10;
         contexts[1].beginPath();

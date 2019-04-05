@@ -94,10 +94,10 @@ class MainController extends AbstractController
     }
     
     /**
-     * @Route("/exercices/lestraits", name="lestraits")
-     * @Route("/Patient/{id}/exercices/chronomots", name="lestraitsPatient")
+     * @Route("/exercices/duction", name="duction")
+     * @Route("/Patient/{id}/exercices/duction", name="ductionAP")
      */
-    public function lestraits(Patient $patient = null){
+    public function duction(Patient $patient = null){
         if($patient)
         {
             $id = $patient->getId();
@@ -106,7 +106,8 @@ class MainController extends AbstractController
         {
             $id = 0;
         }
-        return $this->render('main/lestraits.html.twig', [
+        return $this->render('main/duction.html.twig', [
+            'controller_name' => 'MainController',
             'id'=>$id
         ]);
     }
