@@ -73,6 +73,24 @@ class MainController extends AbstractController
             'id'=>$id
         ]);
     }
+    /**
+     * @Route("/exercices/lestraits", name="lestraits")
+     * @Route("/Patient/{id}/exercices/lestraits", name="lestraitsAP")
+     */
+    public function lestraits(Patient $patient = null, HistoireRepository $repo){
+        if($patient)
+        {
+            $id = $patient->getId();
+        }
+        else
+        {
+            $id = 0;
+        }
+        $histoires = $repo->findAll();
+        return $this->render('main/lestraits.html.twig', [
+            'id'=>$id
+        ]);
+    }
     
     /**
      * @Route("/exercices/lancaster", name="lancaster")
@@ -88,6 +106,25 @@ class MainController extends AbstractController
             $id = 0;
         }
         return $this->render('main/lancaster.html.twig', [
+            'controller_name' => 'MainController',
+            'id'=>$id
+        ]);
+    }
+    
+    /**
+     * @Route("/exercices/duction", name="duction")
+     * @Route("/Patient/{id}/exercices/duction", name="ductionAP")
+     */
+    public function duction(Patient $patient = null){
+        if($patient)
+        {
+            $id = $patient->getId();
+        }
+        else
+        {
+            $id = 0;
+        }
+        return $this->render('main/duction.html.twig', [
             'controller_name' => 'MainController',
             'id'=>$id
         ]);
