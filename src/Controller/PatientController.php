@@ -34,7 +34,7 @@ class PatientController extends AbstractController
     public function indexPatient(PatientRepository $repo, Request $request)
     {
 
-        $patient = $repo->findAll();        #Sert à trouver tout les objets du type passé en param
+        $patient = $repo->loadByAlphaOrder();        #Sert à trouver tout les objets du type passé en param
         
         $form = $this->createFormBuilder()
         ->add('Recherche', SearchType::class, ['required'=> false])

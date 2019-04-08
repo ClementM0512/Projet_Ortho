@@ -28,6 +28,15 @@ class PatientRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+       
+    public function loadByAlphaOrder()
+    {
+        return $this->createQueryBuilder('u')
+        //->andWhere('u.exampleField = :val')
+        ->orderBy('u.nom', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
     
     // /**
     //  * @return Patient[] Returns an array of Patient objects
