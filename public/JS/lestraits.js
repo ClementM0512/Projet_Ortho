@@ -51,7 +51,7 @@ window.onload = function()
          	result[canvasActuel]= false;
          	 alert("vous n'êtes pas arriver au bout")
          	 }
-          if(clickX[clickX.length-1] >= 990){
+          if(clickX[clickX.length-1] >= 980){
         	  result[canvasActuel]= true;
           }
           contexts[canvasActuel].lineTo(clickX[clickX.length-1], clickY[clickY.length-1]);
@@ -122,29 +122,42 @@ window.onload = function()
         function updateBtn1(){
         	
         	canvasActuel= 0;
+        	result[canvasActuel]= false;
         	Update();
         }
        
         function updateBtn2(){
         	canvasActuel = 1;
+        	result[canvasActuel]= false;
         	Update();
         }
         
         function updateBtn3(){
         	canvasActuel = 2;
+        	result[canvasActuel]= false;
         	Update();
         }
         
         function updateBtn4(){
         	canvasActuel = 3
+        	result[canvasActuel]= false;
         	Update();
         }
         
         function updateBtn5(){
         	canvasActuel = 4;
+        	result[canvasActuel]= false;
         	Update();
         }
-        
+        function updateAll(){
+        	for(i=0;i<=4;i++){
+        	canvasActuel = i;
+        	result[canvasActuel]= false;
+        	Update();
+         	paint[canvasActuel] = false;
+         	btn[canvasActuel].value = 'commencer'
+        	}
+        }
         function PaintNo(){
         	paint[canvasActuel] = false;
         	btn[canvasActuel].value = 'recomencer';
@@ -177,23 +190,28 @@ window.onload = function()
    	 	btn[2].addEventListener('click', updateBtn3);
    	 	btn[3].addEventListener('click', updateBtn4);
    	 	btn[4].addEventListener('click', updateBtn5); 
-   	 	
+
+   	 	btn[5].addEventListener('click', updateAll);
+	
    	 	///////////////////////////////////////////////////////////////////////////////////////////////////fin de l'exercice//////////////////////////////
-//   	    elementsHtml=[													//Affichage resultat et boutons 
-//   	    	new ElementHtml("p", txtResultat),
-//   	    	new ElementHtml("input","enregistré"),
-//   	    	new ElementHtml("input","Recommencer"), 
-//   	    	]; 
-//   	 CreationElement(elementsHtml); 
-//   	    setTimeout('resultat',100); /* rappel après 2 secondes = 2000 millisecondes */
-//   	function resultat(){
-//   		for(i=0;i=result.length;i++){
-//   			if(result[i] == true){
-//   				Resultat +=1;
-//   			}
-//   		}
-//   	 txtResultat = "vous avez reussi "+ Resultat + "exercices";
-//
-//	 setTimeout('resultat',100); /* rappel après 2 secondes = 2000 millisecondes */
-//   	}
+   	   	    	
+   	 	
+   	 	var textresultat = document.querySelectorAll("p");
+   	 	Resultat();
+   	 	
+   	 	var info;
+   	 	
+   	 	function Resultat(){
+   	 		
+   	    info = 0;
+   		 for(i=0;i<=result.length-1;i++){
+   			 if(result[i] == true){
+   				 info += 1;
+   			 }
+   		 }
+   		 
+   		textresultat[0].innerHTML = "vous avez reussi " + info + " exercices";
+   		setTimeout(Resultat,100); /* rappel après 0.1 secondes = 100 millisecondes */
+   	}
+             
 }
