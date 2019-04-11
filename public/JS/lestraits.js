@@ -220,13 +220,13 @@ window.onload = function()
         
 
         
-    	///// EVENEMENT /////
-       	document.getElementById('canvas1').addEventListener('mousemove',Dessin1);
-       	document.getElementById('canvas1').addEventListener('touchstart',Dessin1);
-       	document.getElementById('canvas1').addEventListener('touchmove',Dessin1);
-       	document.getElementById('canvas1').addEventListener('touchend',Dessin1);
-    	document.getElementById('canvas1').addEventListener('mousedown',PaintNo);
 
+    	// /// EVENEMENT /////
+       	document.getElementById('canvas1').addEventListener('touchleave',PaintNo, false);
+       	document.getElementById('canvas1').addEventListener('touchmove', Dessin1, false);
+       	document.getElementById('canvas1').addEventListener('mousemove', Dessin1);
+       	document.getElementById('canvas1').addEventListener('mousedown', PaintNo);
+    	document.getElementById('canvas1').addEventListener('mouseleave',PaintNo);
     	
        	document.getElementById('canvas2').addEventListener('touchmove', Dessin2, false);
        	document.getElementById('canvas2').addEventListener('touchleave',PaintNo, false);
