@@ -22,6 +22,10 @@ window.onload = function()
         	contexts[i].lineTo(1000,50-intervalle[i]/2);
         	contexts[i].moveTo(0, 50+intervalle[i]/2);
         	contexts[i].lineTo(1000,50+intervalle[i]/2);
+        	contexts[i].moveTo(50, 50-intervalle[i]/2);
+        	contexts[i].lineTo(50,50+intervalle[i]/2);
+        	contexts[i].moveTo(980, 50-intervalle[i]/2);
+        	contexts[i].lineTo(980,50+intervalle[i]/2);
         	contexts[i].stroke();// On trace seulement les lignes.
 	        contexts[i].closePath();
         }
@@ -52,8 +56,9 @@ window.onload = function()
          	result[canvasActuel]= false;
          	 alert("vous n'êtes pas arrivé au bout")
          	 }
-          if(clickX[clickX.length-1] >= 980){
-        	  result[canvasActuel]= true;
+          if(clickX[clickX.length-1] >= 980 && clickX[0] <= 50){
+        	 result[canvasActuel]= true;
+          	 btn[canvasActuel].value = 'recommencer';
           }
           contexts[canvasActuel].lineTo(clickX[clickX.length-1], clickY[clickY.length-1]);
           contexts[canvasActuel].closePath();
@@ -157,7 +162,7 @@ window.onload = function()
        
        
          function Update(){
-
+        	 btn[canvasActuel].value = 'tracer';
          	contexts[canvasActuel].beginPath();// On démarre un nouveau tracé
             contexts[canvasActuel].strokeStyle = "#000";
             contexts[canvasActuel].lineJoin = "miter";
@@ -167,6 +172,10 @@ window.onload = function()
 	    	contexts[canvasActuel].lineTo(1000,50-intervalle[canvasActuel]/2);
 	    	contexts[canvasActuel].moveTo(0, 50+intervalle[canvasActuel]/2);
 	    	contexts[canvasActuel].lineTo(1000,50+intervalle[canvasActuel]/2);
+        	contexts[canvasActuel].moveTo(50, 50-intervalle[canvasActuel]/2);
+        	contexts[canvasActuel].lineTo(50,50+intervalle[canvasActuel]/2);
+        	contexts[canvasActuel].moveTo(980, 50-intervalle[canvasActuel]/2);
+        	contexts[canvasActuel].lineTo(980,50+intervalle[canvasActuel]/2);
 	    	contexts[canvasActuel].stroke();// On trace seulement les lignes.
 	        contexts[canvasActuel].closePath();
 	        paint[canvasActuel]=true;
@@ -220,7 +229,6 @@ window.onload = function()
         
     	// /// EVENEMENT /////
        	document.getElementById('canvas1').addEventListener('touchleave',PaintNo, false);
-
        	document.getElementById('canvas1').addEventListener('touchmove', Dessin1, false);
        	document.getElementById('canvas1').addEventListener('mousemove', Dessin1);
        	document.getElementById('canvas1').addEventListener('mousedown', PaintNo);
@@ -277,10 +285,7 @@ window.onload = function()
    		 }
    		 
    		textresultat[0].innerHTML = "vous avez reussi " + info + " exercices";
-   		setTimeout(Resultat,100); /*
-									 * rappel après 0.1 secondes = 100
-									 * millisecondes
-									 */
+   		setTimeout(Resultat,100); // rappel après 0.1 secondes = 100 millisecondes////////
    	}
              
 }
