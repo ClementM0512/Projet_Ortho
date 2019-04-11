@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,7 @@ use App\Entity\Patient;
 use App\Entity\Histoire;
 use App\Entity\Exercice;
 use App\Form\HistoireType;
+
 /*
  * @IsGranted("ROLE_USER")
  */

@@ -227,6 +227,9 @@ window.onload = function()
         	btn[canvasActuel].value = 'recomencer';
          }
         
+
+        
+
     	// /// EVENEMENT /////
        	document.getElementById('canvas1').addEventListener('touchleave',PaintNo, false);
        	document.getElementById('canvas1').addEventListener('touchmove', Dessin1, false);
