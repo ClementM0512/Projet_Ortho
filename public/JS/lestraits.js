@@ -166,6 +166,9 @@ window.onload = function()
         
     	///// EVENEMENT /////
        	document.getElementById('canvas1').addEventListener('mousemove',Dessin1);
+       	document.getElementById('canvas1').addEventListener('touchstart',Dessin1);
+       	document.getElementById('canvas1').addEventListener('touchmove',Dessin1);
+       	document.getElementById('canvas1').addEventListener('touchend',Dessin1);
     	document.getElementById('canvas1').addEventListener('mousedown',PaintNo);
     	document.getElementById('canvas1').addEventListener('mouseleave',PaintNo);
     	

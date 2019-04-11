@@ -25,41 +25,51 @@
 
 
 	{% for Resultat in rechercheResultat %}
-	<div class="listes">
-		<a href="{{ path('patient_show', {'id': Resultat.id}) }}">
-			<button type="submit" class="btn btn-outline-primary btn-patient">
-				{{ Resultat.nom}}
-				{{ Resultat.prenom}}
-				{{ Resultat.dateDeNaissance | date('d/m/Y')}}
-				{# Différent champ de la classe patient avec un formatage a l'aide
-				d'un filtre #}
-			</button>
-		</a>
-	</div>
+		{% if Resultat %}
+		
+			<div class="listes">
+				<a href="{{ path('patient_show', {'id': Resultat.id}) }}">
+					<button type="submit" class="btn btn-outline-primary btn-patient">
+						{{ Resultat.nom}}
+						{{ Resultat.prenom}}
+						{{ Resultat.dateDeNaissance | date('d/m/Y')}}
+
+					</button>
+				</a>
+			</div>
+		{% endif %}
+		{% else %}
+			
+		{% for patient in patients %}
+			<div class="listes">
+				<a href="{{ path('patient_show', {'id': patient.id}) }}">
+					<button type="submit" class="btn btn-outline-primary btn-patient">
+						{{ patient.nom}}
+						{{ patient.prenom}}
+						{{ patient.dateDeNaissance | date('d/m/Y')}}
+
+					</button>
+				</a>
+			</div>
+		
+		{% endfor %}
+
 	{% endfor %}
 
 
-	{% for patient in patients %}
+	{# {% for patient in patients %}
 	<div class="listes">
 		<a href="{{ path('patient_show', {'id': patient.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient">
 				{{ patient.nom}}
 				{{ patient.prenom}}
 				{{ patient.dateDeNaissance | date('d/m/Y')}}
-				{# Différent champ de la classe patient avec un formatage a l'aide
-				d'un filtre #}
+
 			</button>
 		</a>
 	</div>
-	{% endfor %}
+	{% endfor %} #}
 
 </section>
-{% block javascripts %}
-<script>
-	var header = document.getElementById("change-active");
-	var btns = document.body.querySelectorAll("li");
-	btns[0].className = "nav-item change-item";
-	btns[1].className = "nav-item active change-item"
-</script>
-{% endblock %}
+{% block javascripts %}{% endblock %}
 {% endblock %}
