@@ -110,8 +110,8 @@ class MainController extends AbstractController
      */
     public function lancaster(Patient $patient = null)
     {
-        if ($patient) {
-            $id = $patient->getId();
+        if ($_GET['id']) {
+            $id = $_GET['id'];
         } else {
             $id = 0;
         }
@@ -128,8 +128,8 @@ class MainController extends AbstractController
      */
     public function duction(Patient $patient = null)
     {
-        if ($patient) {
-            $id = $patient->getId();
+        if ($_GET['id']) {
+            $id = $_GET['id'];
         } else {
             $id = 0;
         }
