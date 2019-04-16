@@ -69,7 +69,8 @@ window.onload = function()
             if(paint[0] == true){
                 if(e.touches) {
                     if (e.touches.length == 1) { // Only deal with one finger
-                        var touch = e.touches[0]; // Get the information for finger #1
+                        var touch = e.touches[0]; // Get the information for
+													// finger #1
                         touchX=touch.pageX-touch.target.offsetLeft;
                         touchY=touch.pageY-touch.target.offsetTop;
                     }
@@ -88,7 +89,8 @@ window.onload = function()
             if(paint[1] == true){
                 if(e.touches) {
                     if (e.touches.length == 1) { // Only deal with one finger
-                        var touch = e.touches[0]; // Get the information for finger #1
+                        var touch = e.touches[0]; // Get the information for
+													// finger #1
                         touchX=touch.pageX-touch.target.offsetLeft;
                         touchY=touch.pageY-touch.target.offsetTop;
                     }
@@ -107,7 +109,8 @@ window.onload = function()
             	
                 if(e.touches) {
                     if (e.touches.length == 1) { // Only deal with one finger
-                        var touch = e.touches[0]; // Get the information for finger #1
+                        var touch = e.touches[0]; // Get the information for
+													// finger #1
                         touchX=touch.pageX-touch.target.offsetLeft;
                         touchY=touch.pageY-touch.target.offsetTop;
                     }
@@ -126,7 +129,8 @@ window.onload = function()
             	
                 if(e.touches) {
                     if (e.touches.length == 1) { // Only deal with one finger
-                        var touch = e.touches[0]; // Get the information for finger #1
+                        var touch = e.touches[0]; // Get the information for
+													// finger #1
                         touchX=touch.pageX-touch.target.offsetLeft;
                         touchY=touch.pageY-touch.target.offsetTop;
                     }
@@ -145,7 +149,8 @@ window.onload = function()
             	
                 if(e.touches) {
                     if (e.touches.length == 1) { // Only deal with one finger
-                        var touch = e.touches[0]; // Get the information for finger #1
+                        var touch = e.touches[0]; // Get the information for
+													// finger #1
                         touchX=touch.pageX-touch.target.offsetLeft;
                         touchY=touch.pageY-touch.target.offsetTop;
                     }
@@ -268,7 +273,7 @@ window.onload = function()
    	 	btn[4].addEventListener('click', updateBtn5); 
 
    	 	btn[5].addEventListener('click', updateAll);
-	
+   		btn[6].addEventListener('click', Requete2);
    	 	// /////////////////////////////////////////////////////////////////////////////////////////////////fin
 		// de l'exercice//////////////////////////////
    	   	    	
@@ -288,7 +293,24 @@ window.onload = function()
    		 }
    		 
    		textresultat[0].innerHTML = "vous avez reussi " + info + " exercices";
-   		setTimeout(Resultat,100); // rappel après 0.1 secondes = 100 millisecondes////////
+   		setTimeout(Resultat,100); // rappel après 0.1 secondes = 100
+									// millisecondes////////
+   		return info;
+   	}
+   	 	
+   	 function Requete2(callback) {
+   		
+   		var xhr = new XMLHttpRequest();
+   				xhr.onreadystatechange = function() {
+   					
+   					if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+   						return callback(xhr.responseText);	
+   					}
+   				};	
+   				var id = document.querySelectorAll("p");
+   		var url = "/envoiajax?score="+Resultat()+"&exercice=4&patient="+ id[2].innerHTML +"&user="+ id[1].innerHTML +"&bilan=1"
+   		xhr.open("GET", url, true);
+   		xhr.send(null);	
    	}
              
 }

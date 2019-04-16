@@ -29,7 +29,7 @@ class Resultat
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Patient", inversedBy="resultats")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $id_Patient;
 
