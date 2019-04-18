@@ -5,7 +5,15 @@
 
 	<div class ="center">
     	<h1>Validation Page</h1>
-		<h3>Êtes vous sur ?</h3>
+		<h3>
+			Êtes vous sur de supprimer
+			{% if patient %}
+				{{patient.nom}} {{patient.prenom}}
+			
+			{% else %}
+				{{user.username}}
+			{% endif %}
+		</h3>
 
 		{{ form_start(action) }}
 		{{ form_end(action) }}

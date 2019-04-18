@@ -22,15 +22,7 @@ use App\Form\HistoireType;
  */
 class MainController extends AbstractController
 {
-    /**
-     * @Route("/home", name="home")
-     */
-    public function index(){
-        
-        return $this->render('main/home.html.twig', [
-            'controller_name' => 'MainController',
-        ]);
-    }
+
     
     /**
      * @Route("/Patient/{id}/exercices", name="listeExos")
