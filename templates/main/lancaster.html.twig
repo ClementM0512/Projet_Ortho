@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseExos.html.twig' %}
 
  
  
@@ -10,16 +10,18 @@
 </br>
 <style> #canvasgauche{
 			background-color: white;
+			margin: 400;
+			padding: 0;
+			
 			}
 		#canvasdroit{
 			background-color: white;
-			margin-left: 130px;
+			margin-left: 0px;
 		}</style>
-<div class="exos">
-     <h1 class="center">Lancaster</h1>
      
-     <canvas id="canvasgauche" width="600" height="600"></canvas>
-     <canvas id="canvasdroit" width="600" height="600"></canvas>
+     <canvas id="canvasgauche" width="600" height="600">
+     </canvas><canvas id="canvasdroit" width="600" height="600"></canvas>
+     
      
 {% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/lancaster.js"></script>{% endblock %}
 

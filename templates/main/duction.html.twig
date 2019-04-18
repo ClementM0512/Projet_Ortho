@@ -1,34 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseExos.html.twig' %}
 
  
  
-{% block title %}Duction {% endblock %}
      
 
 
 {% block body %}
-</br>
-<style>#canvas{
-			background-color: white;
-			margin-left: 203px;
-			border: 2px solid grey;
-		}
-	   #yeux{
-	   		display: none;
-	   		}
-	   #btn{
-	   		margin-left:500;
-	   }		
-	   		</style>
-<div class="exos">
-     <h1 class="center">Duction</h1></div></br>
-     <button class="btn btn-primary" id="btn"> + </button>
-     <button> - </button>
-     <button> Ecriture libre </button>
-     <button>Suppression</button>
-     
-     <img id="yeux" src="/image/duction.png">
-     <canvas id="canvas" width="1200" height="600"></canvas>
+
+
+      <div class="boutonEcriture">
+          <button> + </button>
+          <button> - </button>
+          <button> Ecriture libre </button>
+          <button>Suppression</button>
+      </div>
+     <div>
+         <img id="imageYeux" src="/image/duction.png">
+         <canvas id="canvasDuction"></canvas>
+     </div>
      
 {% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/duction.js"></script>{% endblock %}
 

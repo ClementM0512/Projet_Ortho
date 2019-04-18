@@ -1,35 +1,48 @@
 {% extends 'base.html.twig' %}
 
- 
- 
-{% block title %}Les traits {% endblock %}
-     
+
+
+{% block title %}
+Les traits
+{% endblock %}
+
 
 
 {% block body %}
 
-    <div class="center">
-    	<input type="button" id="button1" value="commencer">
-    	<canvas id="canvas1" width="1000" height="100"></canvas>
-    	<br/>
-        <input type="button" id="button2" value="commencer">
-        <canvas id="canvas2" width="1000" height="100"> </canvas>
-    	<br/>
-        <input type="button" id="button3" value="commencer">
-        <canvas id="canvas3" width="1000" height="100"></canvas>
-		<br/>
-        <input type="button" id="button4" value="commencer">
-        <canvas id="canvas4" width="1000" height="100"></canvas>
-		<br/>
-        <input type="button" id="button5" value="commencer">
-        <canvas id="canvas5" width="1000" height="100"></canvas>
-        <p></p>
-        <input type="button" id="button1" value="recommencer">
-		<input type="button" id="button1" value="enregistrer">
-    </div>
-    
+<div class="center">
+	<input type="button" id="button1" value="commencer">
+	<canvas id="canvas1" width="1000" height="100"></canvas>
+	<br /> <input type="button" id="button2" value="commencer">
+	<canvas id="canvas2" width="1000" height="100"> </canvas>
+	<br /> <input type="button" id="button3" value="commencer">
+	<canvas id="canvas3" width="1000" height="100"></canvas>
+	<br /> <input type="button" id="button4" value="commencer">
+	<canvas id="canvas4" width="1000" height="100"></canvas>
+	<br /> <input type="button" id="button5" value="commencer">
+	<canvas id="canvas5" width="1000" height="100"></canvas>
+	<p></p>
+	<input type="button" id="button1" value="recommencer">
+	{% if id %}
+	<a href="{{ path('listeExosPatient',{'id' : id }) }}"> <input
+		type="button" value="enregistrer">
+	</a>
+	{% else %}
+	<a href="{{ path('listeExos') }}"> <input type="button"
+		value="enregistrer">
+	</a>
+	{% endif %}
+</div>
+<p style="display: none">
+	{{ idUser }}
+</p>
+<p style="display: none">
+	{{ id }}
+</p>
 
-
-{% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/lestraits.js"></script>{% endblock %}
+{% block javascripts %}
+<script src="/JS/include.js" /></script>
+<script src="/JS/lestraits.js"></script>
+{% endblock %}
 
 {% endblock %}
