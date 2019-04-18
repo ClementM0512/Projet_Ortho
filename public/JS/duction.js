@@ -8,6 +8,7 @@ canvas.style.position = "absolute";
 //canvas.style.top = 20%;
 //alert(html.style.margin-left);
 ///////////////////////////////////
+
 var context = canvas.getContext("2d");
 var image = document.querySelector('img');
 var buttons = document.querySelectorAll("button");
@@ -17,7 +18,7 @@ var stopEvenement = 0;
 var choixBouton = 0;
 var nbClick = 0;
 var elemActuel;
-
+var decalage = canvas.getBoundingClientRect();
 
 function Coordonnees(a, b, c){		//constructeur d'objet ElementHTML
 	  this.x = a;
@@ -102,8 +103,8 @@ function Down(e){
   if(choixBouton == 0) return 0;
   stopEvenement++;				//Eviter que la fonction s'execute deux fois
   if((stopEvenement%2)==0) return 0;
-  var mouseX = e.pageX  - this.offsetLeft;
-  var mouseY = e.pageY - this.offsetTop;
+  var mouseX = e.pageX  - decalage.left;
+  var mouseY = e.pageY - decalage.top;
   
   if(choixBouton == 1) paint = true;
   
