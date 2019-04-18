@@ -1,6 +1,15 @@
-var canvas = document.getElementById('canvas');
+var canvas = document.getElementById('canvasDuction');
+////////////// CSS ////////////////
+canvas.width = window.innerWidth/2;
+canvas.height = window.innerHeight /2;
+canvas.style.position = "absolute";
+//canvas.style.left += "20px";
+//canvas.style.left = ""+ window.innerWidth/2 - canvas.width/2 + "px";
+//canvas.style.top = 20%;
+//alert(html.style.margin-left);
+///////////////////////////////////
 var context = canvas.getContext("2d");
-var image = document.getElementById('yeux');
+var image = document.querySelector('img');
 var buttons = document.querySelectorAll("button");
 var clicks = new Array();
 var paint;
@@ -17,7 +26,8 @@ function Coordonnees(a, b, c){		//constructeur d'objet ElementHTML
 }
 ////// AFFICHAGE IMAGE ////////////
 image.addEventListener("load", AffichageImage);
-function AffichageImage(){context.drawImage(image, 125, 100, 925, 400);}
+function AffichageImage(){context.drawImage(image, 20, 20, canvas.width-20, canvas.height-20);}
+//AffichageImage();
 //////////////////////////////////
 function Plus(coordonnees)
 {
@@ -121,7 +131,6 @@ canvas.addEventListener('mouseup',Up);
 canvas.addEventListener('mouseleave',Up);
 
 
-//canvas.addEventListener('mousedown',Down);
 
 ///////// EVENEMENTS BOUTONS ///////////////
 buttons[2].addEventListener('click', EcritureLibre);
