@@ -10,28 +10,57 @@ Les traits
 
 {% block body %}
 
-<div class="center">
-	<input type="button" id="button1" value="commencer">
+<div class="">
+
+	{# <input type="button" class="btn-lestraits" value="Commencer">
 	<canvas id="canvas1" width="1000" height="100"></canvas>
-	<br /> <input type="button" id="button2" value="commencer">
+	<br /> 
+	<input type="button" class="btn-lestraits" value="Commencer">
 	<canvas id="canvas2" width="1000" height="100"> </canvas>
-	<br /> <input type="button" id="button3" value="commencer">
+	<br /> 
+	<input type="button" class="btn-lestraits" value="Commencer">
 	<canvas id="canvas3" width="1000" height="100"></canvas>
-	<br /> <input type="button" id="button4" value="commencer">
+	<br /> 
+	<input type="button" class="btn-lestraits" value="Commencer">
 	<canvas id="canvas4" width="1000" height="100"></canvas>
-	<br /> <input type="button" id="button5" value="commencer">
-	<canvas id="canvas5" width="1000" height="100"></canvas>
-	<p></p>
-	<input type="button" id="button1" value="recommencer">
-	{% if id %}
-	<a href="{{ path('listeExosPatient',{'id' : id }) }}"> <input
-		type="button" value="enregistrer">
-	</a>
-	{% else %}
-	<a href="{{ path('listeExos') }}"> <input type="button"
-		value="enregistrer">
-	</a>
-	{% endif %}
+	<br /> 
+	<input type="button" class="btn-lestraits" value="Commencer">
+	<canvas id="canvas5" width="1000" height="100"></canvas> #}
+	<div>
+		<div class="btns-LT">
+			<input type="button" class="btn-lestraits btn btn-info" value="Commencer">
+			
+			<input type="button" class="btn-lestraits btn btn-info" value="Commencer">
+
+			<input type="button" class="btn-lestraits btn btn-info" value="Commencer">
+
+			<input type="button" class="btn-lestraits btn btn-info" value="Commencer">
+
+			<input type="button" class="btn-lestraits btn btn-info" value="Commencer">
+		</div>
+		<div class="cnv-LT">
+			<canvas id="canvas1" width="1000" height="100"></canvas>
+			<canvas id="canvas2" width="1000" height="100"></canvas>
+			<canvas id="canvas3" width="1000" height="100"></canvas>
+			<canvas id="canvas4" width="1000" height="100"></canvas>
+			<canvas id="canvas5" width="1000" height="100"></canvas>
+		</div>
+	</div>
+
+	<div class="btn-saveLT">
+		 <p id="txt-LT" class="center"></p> {#Rempli avec js #}
+		<input type="button" class="btn btn-info"  value="Recommencer">
+
+		{% if id %}
+		<a  href="{{ path('listeExosPatient',{'id' : id }) }}"> <input
+			type="button" class="btn btn-success" value="Enregistrer">
+		</a>
+		{% else %}
+		<a href="{{ path('listeExos') }}"> <input class="btn btn-success" type="button"
+			value="Enregistrer">
+		</a>
+		{% endif %}
+	</div>
 </div>
 <p style="display: none">
 	{{ idUser }}

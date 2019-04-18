@@ -52,13 +52,13 @@ window.onload = function()
           }
           if(clickY[clickY.length-1] > (50+intervalle[canvasActuel]/2) || clickY[clickY.length-1] < (50-intervalle[canvasActuel]/2)){
          	 paint[canvasActuel]= false;
-         	 btn[canvasActuel].value = 'recommencer';
+         	 btn[canvasActuel].value = 'Recommencer';
          	result[canvasActuel]= false;
-         	 alert("vous n'êtes pas arrivé au bout")
+         	 alert("Vous n'êtes pas arrivé au bout")
          	 }
           if(clickX[clickX.length-1] >= 980 && clickX[0] <= 50){
         	 result[canvasActuel]= true;
-          	 btn[canvasActuel].value = 'recommencer';
+          	 btn[canvasActuel].value = 'Recommencer';
           }
           contexts[canvasActuel].lineTo(clickX[clickX.length-1], clickY[clickY.length-1]);
           contexts[canvasActuel].closePath();
@@ -167,10 +167,10 @@ window.onload = function()
        
          function Update(){
         	 for (var i = 0; i < 4; i++) {
-        		  btn[i].value = 'commencer';
+        		  btn[i].value = 'Commencer';
         		  paint[i]= false;
         		}
-        	 btn[canvasActuel].value = 'tracer';
+        	 btn[canvasActuel].value = 'Tracer';
          	contexts[canvasActuel].beginPath();// On démarre un nouveau tracé
             contexts[canvasActuel].strokeStyle = "#000";
             contexts[canvasActuel].lineJoin = "miter";
@@ -227,12 +227,12 @@ window.onload = function()
         	result[canvasActuel]= false;
         	Update();
          	paint[canvasActuel] = false;
-         	btn[canvasActuel].value = 'commencer'
+         	btn[canvasActuel].value = 'Commencer'
         	}
         }
         function PaintNo(){
         	paint[canvasActuel] = false;
-        	btn[canvasActuel].value = 'recomencer';
+        	btn[canvasActuel].value = 'Recommencer';
          }
         
 

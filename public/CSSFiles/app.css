@@ -109,3 +109,30 @@
     font-size: 34px;
     color: #fff;
 }
+
+.btn-lestraits{
+    margin-top: 35%;
+    margin-bottom: 26%;
+    width:111px;
+}
+
+.btns-LT{
+    position: fixed;
+    display: grid;
+}
+
+.btn-saveLT{
+    position: fixed;
+    left: 45%;
+    top: 65%;
+}
+
+#txt-LT{
+    color:#fff;
+}
+
+.cnv-LT{
+    position: fixed;
+    left: 24%;
+    width: 56%;
+}
