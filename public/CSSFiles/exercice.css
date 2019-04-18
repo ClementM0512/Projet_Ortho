@@ -1,0 +1,100 @@
+/*		GENERAL		*/
+
+html,body{
+    width: 90%;
+    height: 100%;
+    margin: 0; /* Space from this element (entire page) and others*/
+    padding-left: 9%; /*space from content and border*/
+    display:block;
+    background-color: #384952; 
+}
+
+canvas{
+	background-color: white;
+  	box-shadow: 0 20px 20px 0 rgba(10, 10, 10, 30), 0 6px 20px 0px rgba(77, 77, 77, 10);
+
+}
+.bouton {
+/* 	position: relative; */
+/* 	left: 40%; */
+/* 	top: 40%; */
+ 	background-color: #A3C6C4; /* Green */
+ 	border: none;
+ 	color: white;
+ 	text-align: center;
+ 	text-decoration: none;
+ 	display: inline-block;
+ 	font-size: 16px;
+}
+
+
+#yeux{
+	display: none;
+}
+
+/* Navigation */
+
+.btn-logo{
+	width:120px;
+	height:120px;
+	margin: 5px;
+	box-shadow: 0 20px 20px 0 rgba(10, 10, 10, 30), 0 6px 20px 0px rgba(77, 77, 77, 10);
+}
+.btn-logo:hover{
+	box-shadow: 0 0 20px 0 rgba(200, 200, 200, 30), 0 6px 20px 0px rgba(77, 77, 77, 10);
+}
+
+.nav
+{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0px 20px 20px rgba(10, 10, 10, 30), 0 6px 20px 5px rgba(77, 77, 77, 10);
+ 	border-right: 12px solid black;
+ 	border-left: 12px solid black;
+  	height: 100%;
+  	position: absolute;
+  	left: 2%;
+  	padding-left: 2%;
+  	padding-right: 2%;  
+/*   	justify-content: flex-end space-around;   */
+}
+.nav:nth-child(1){
+	background-color: #232330;
+}
+.logo:first-of-type{
+	color: #BABAFF;
+}
+.logo:hover
+{
+/* 	border: 2px solid orange; */
+    color: #384952;
+}
+.application{
+	position: absolute;
+/* 	margin-left: 5%; */
+	margin-top: 5%;
+}
+
+/*		DUCTION		*/
+
+#canvasDuction{
+	background-color: white;
+  	box-shadow: 0 20px 20px 0 rgba(10, 10, 10, 30), 0 6px 20px 0px rgba(77, 77, 77, 10);
+  	margin-left: 20%;
+
+}
+.boutonEcriture{
+ 	background-color: #A3C6C4; /* Green */
+ 	text-align: center;
+ 	text-decoration: none;
+ 	font-size: 1px;
+ 	margin-left: 20%;
+  	float: top;
+  	border: 1px solid green;
+}
+
+
+#imageYeux{
+	display: none;
+}

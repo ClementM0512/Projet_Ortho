@@ -1,0 +1,24 @@
+{% extends 'baseExos.html.twig' %}
+
+ 
+ 
+     
+
+
+{% block body %}
+
+
+      <div class="boutonEcriture">
+          <button> + </button>
+          <button> - </button>
+          <button> Ecriture libre </button>
+          <button>Suppression</button>
+      </div>
+     <div>
+         <img id="imageYeux" src="/image/duction.png">
+         <canvas id="canvasDuction"></canvas>
+     </div>
+     
+{% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/duction.js"></script>{% endblock %}
+
+{% endblock %}

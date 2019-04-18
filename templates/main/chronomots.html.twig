@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseExos.html.twig' %}
 
  
  
@@ -35,7 +35,7 @@
           <label for="histoires">Choississez l'histoire!</label>
           <select id="histoire" name="histoire">
           {% for histoire in histoires %}
-            <option>{{histoire.id}}. {{ histoire.name}}</option>        
+            <option>{{ histoire.name}}</option>        
           {% endfor %}
           </select>
           

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseExos.html.twig' %}
 
 {% block title %}
 Liste Appli
@@ -8,30 +8,25 @@ Liste Appli
 
 
 {% block body %}
+{% block javascripts %}<script src="/JS/listeExos.js"></script>{% endblock %}
 <section class="exercices">
 
 {% for exercice in exercices %}
-	<div class="metadata">
+{# <div class="metadata">#}
 	
     <a href="{{ path(exercice.lien, {'id': id})}}">
-    	
-   		<button type="submit" class="btn-primary" >
-   		<img src="{{asset(exercice.image)}}" style="width:100px; height:100px;" > </br>
-		{{ exercice.name}}
-		
-</button>
-</a>
-</div>
-</br></br></br></br></br></br>
+   		<img class="btn-logo" src="{{asset(exercice.image)}}">
+	</a>
+{# </div>#}
 {% endfor %}
 
 </section>
-{% block javascripts %}
-<script>	
-	var header = document.getElementById("change-active");
-	var btns = document.body.querySelectorAll("li");
-    btns[0].className = "nav-item change-item";
-    btns[2].className = "nav-item active change-item"
-</script>
-{% endblock %}
+{# {% block javascripts %}#}
+{# <script>	#}
+{# 	var header = document.getElementById("change-active");#}
+{# 	var btns = document.body.querySelectorAll("li");#}
+{#     btns[0].className = "nav-item change-item";#}
+{#     btns[2].className = "nav-item active change-item"#}
+{# </script>#}
+{# {% endblock %}#}
 {% endblock %}

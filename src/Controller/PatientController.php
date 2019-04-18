@@ -34,7 +34,7 @@ class PatientController extends AbstractController
     public function indexPatient(PatientRepository $repo, Request $request)
     {
 
-        $patient = $repo->findAll();        #Sert à trouver tout les objets du type passé en param
+        $patient = $repo->loadByAlphaOrder();        #Sert à trouver tout les objets du type passé en param
         
         $form = $this->createFormBuilder()
         ->add('Recherche', SearchType::class, ['required'=> false])
@@ -144,6 +144,14 @@ class PatientController extends AbstractController
         
         if (($form->getClickedButton() && 'Delete' === $form->getClickedButton()->getName()))
         {
+            $repo = $this->getDoctrine()->getRepository(Bilan::class);
+            $bilans = $repo->findBy(['patient' => $patient->getId()]);
+
+            foreach ($bilans as $bilan) {
+                $manager->remove($bilan);
+                $manager->flush();
+            }
+
             $manager->remove($patient);        //Pour supprimer un article.
             $manager->flush();
             
@@ -155,7 +163,7 @@ class PatientController extends AbstractController
             
             return $this->redirectToRoute('patients');
         }
-        return $this->render('main/validation.html.twig', array('action' => $form->createView(),));
+        return $this->render('main/validation.html.twig', array('action' => $form->createView(), 'patient' => $patient));
         
     }
     
