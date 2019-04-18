@@ -2,6 +2,7 @@ window.onload = function()
 {
 
 	 var contexts = new Array(document.getElementById('canvas1').getContext("2d"),document.getElementById('canvas2').getContext("2d"),document.getElementById('canvas3').getContext("2d"),document.getElementById('canvas4').getContext("2d"),document.getElementById('canvas5').getContext("2d"));
+	 var bounds = new Array(document.getElementById('canvas1').getBoundingClientRect(),document.getElementById('canvas2').getBoundingClientRect(),document.getElementById('canvas3').getBoundingClientRect(),document.getElementById('canvas4').getBoundingClientRect(),document.getElementById('canvas5').getBoundingClientRect())
 	 var btn = document.querySelectorAll("input");
      var CoordonneesPoints = new Array(new Array(),new Array(),new Array(),new Array(),new Array());
      var paint = new Array(false,false,false,false,false);
@@ -38,7 +39,6 @@ window.onload = function()
         
         function Dessin(mouseX,mouseY){   
 
-         
           clickX.push(mouseX);
           clickY.push(mouseY);
           contexts[canvasActuel].strokeStyle = "#000";
@@ -71,15 +71,14 @@ window.onload = function()
                     if (e.touches.length == 1) { // Only deal with one finger
                         var touch = e.touches[0]; // Get the information for
 													// finger #1
-                        touchX=touch.pageX-touch.target.offsetLeft;
-                        touchY=touch.pageY-touch.target.offsetTop;
+                        touchX=touch.pageX - bounds[0].left;
+                        touchY=touch.pageY - bounds[0].top;
                     }
                 	Dessin(touchX,touchY);
                 	event.preventDefault();	
                 }else if(e.pageX){
-            	 var mouseX = e.pageX - this.offsetLeft;
-                 var mouseY = e.pageY - this.offsetTop;
-                 
+            	 var mouseX = e.clientX - bounds[0].left;
+                 var mouseY = e.clientY - bounds[0].top;
             	Dessin(mouseX,mouseY);
                 }
             }
@@ -91,14 +90,14 @@ window.onload = function()
                     if (e.touches.length == 1) { // Only deal with one finger
                         var touch = e.touches[0]; // Get the information for
 													// finger #1
-                        touchX=touch.pageX-touch.target.offsetLeft;
-                        touchY=touch.pageY-touch.target.offsetTop;
+                        touchX=touch.pageX - bounds[1].left;
+                        touchY=touch.pageY - bounds[1].top;
                     }
                 	Dessin(touchX,touchY);
                 	event.preventDefault();	
                 }else if(e.pageX){
-            	 var mouseX = e.pageX - this.offsetLeft;
-                 var mouseY = e.pageY - this.offsetTop;
+                	 var mouseX = e.clientX - bounds[1].left;
+                     var mouseY = e.clientY - bounds[1].top;
                  
             	Dessin(mouseX,mouseY);
                 }
@@ -106,19 +105,19 @@ window.onload = function()
         }
         function Dessin3(e){   
             if(paint[2] == true){
-            	
+  
                 if(e.touches) {
                     if (e.touches.length == 1) { // Only deal with one finger
                         var touch = e.touches[0]; // Get the information for
 													// finger #1
-                        touchX=touch.pageX-touch.target.offsetLeft;
-                        touchY=touch.pageY-touch.target.offsetTop;
+                        touchX=touch.pageX - bounds[2].left;
+                        touchY=touch.pageY - bounds[2].top;
                     }
                 	Dessin(touchX,touchY);
                 	event.preventDefault();	
                 }else if(e.pageX){
-            	 var mouseX = e.pageX - this.offsetLeft;
-                 var mouseY = e.pageY - this.offsetTop;
+                	 var mouseX = e.clientX - bounds[2].left;
+                     var mouseY = e.clientY - bounds[2].top;
                  
             	Dessin(mouseX,mouseY);
                 }
@@ -131,14 +130,14 @@ window.onload = function()
                     if (e.touches.length == 1) { // Only deal with one finger
                         var touch = e.touches[0]; // Get the information for
 													// finger #1
-                        touchX=touch.pageX-touch.target.offsetLeft;
-                        touchY=touch.pageY-touch.target.offsetTop;
+                        touchX=touch.pageX - bounds[3].left;
+                        touchY=touch.pageY - bounds[3].top;
                     }
                 	Dessin(touchX,touchY);
                 	event.preventDefault();	
                 }else if(e.pageX){
-            	 var mouseX = e.pageX - this.offsetLeft;
-                 var mouseY = e.pageY - this.offsetTop;
+                	 var mouseX = e.clientX - bounds[3].left;
+                     var mouseY = e.clientY - bounds[3].top;
                  
             	Dessin(mouseX,mouseY);
                 }
@@ -151,14 +150,14 @@ window.onload = function()
                     if (e.touches.length == 1) { // Only deal with one finger
                         var touch = e.touches[0]; // Get the information for
 													// finger #1
-                        touchX=touch.pageX-touch.target.offsetLeft;
-                        touchY=touch.pageY-touch.target.offsetTop;
+                        touchX=touch.pageX - bounds[4].left;
+                        touchY=touch.pageY - bounds[4].top;
                     }
                 	Dessin(touchX,touchY);
                 	event.preventDefault();	
                 }else if(e.pageX){
-            	 var mouseX = e.pageX - this.offsetLeft;
-                 var mouseY = e.pageY - this.offsetTop;
+                	 var mouseX = e.clientX - bounds[4].left;
+                     var mouseY = e.clientY - bounds[4].top;
                  
             	Dessin(mouseX,mouseY);
                 }
@@ -167,6 +166,10 @@ window.onload = function()
        
        
          function Update(){
+        	 for (var i = 0; i < 4; i++) {
+        		  btn[i].value = 'commencer';
+        		  paint[i]= false;
+        		}
         	 btn[canvasActuel].value = 'tracer';
          	contexts[canvasActuel].beginPath();// On démarre un nouveau tracé
             contexts[canvasActuel].strokeStyle = "#000";

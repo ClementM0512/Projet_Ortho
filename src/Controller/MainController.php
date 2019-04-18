@@ -67,8 +67,8 @@ class MainController extends AbstractController
      */
     public function chronomots(Patient $patient = null, HistoireRepository $repo)
     {
-        if ($patient) {
-            $id = $patient->getId();
+        if ($_GET['id']) {
+            $id = $_GET['id'];
         } else {
             $id = 0;
         }
