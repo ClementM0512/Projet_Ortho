@@ -42,7 +42,7 @@
 			
 		{% for patient in patients %}
 			<div class="listes">
-				<a href="{{ path('patient_show', {'id': patient.id}) }}">
+				<a href="{{ path('patient_show', {'id': patient.id}) }}"> 
 					<button type="submit" class="btn btn-outline-primary btn-patient">
 						{{ patient.nom}}
 						{{ patient.prenom}}
@@ -71,5 +71,4 @@
 	{% endfor %} #}
 
 </section>
-{% block javascripts %}{% endblock %}
 {% endblock %}
