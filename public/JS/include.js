@@ -12,20 +12,21 @@ function RecuperationDonnee(sData) {
 	recuperationAjax = JSON.parse(sData);	
 //	alert(sData);
 }
-function Requete2(callback) {
+function EnregistrementResultat(callback, url) {
 	
-	var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function() {
-				
-				if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-					return callback(xhr.responseText);	
-				}
-			};		
-	xhr.open("GET", "/envoiajax?score=12&exercice=1&patient=1&user=1&bilan=1", true);
-	xhr.send(null);	
-}
+		var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					
+					if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+						
+						return callback(xhr.responseText);	
+					}
+				};	
+		xhr.open("GET", url, true);
+		
+		xhr.send(null);	
+	}
 function EnvoiDonnees(sData) {
-	alert("ddddd");
 	alert(sData);
 }
 
@@ -74,11 +75,12 @@ function CreationElement(elemtab)
 
 function SuppressionPage()						//Suppression de tous les noeuds enfant de body -nbElemStatique
 {
-	while(document.body.childNodes[0])
+	while(document.getElementById('application').childNodes[0])
 	{
-		document.body.removeChild(document.body.childNodes[0]);	
+		document.getElementById('application').removeChild(document.getElementById('application').childNodes[0]);	
 	}
 }
+
 function NouvellePage()
 {
 	while(document.body.childNodes[0])

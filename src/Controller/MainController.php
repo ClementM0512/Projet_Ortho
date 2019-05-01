@@ -34,18 +34,33 @@ class MainController extends AbstractController
      */
     public function list_exos(Patient $patient = null, ExerciceRepository $repo)
     {
-        if ($patient) {
-            $id = $patient->getId();
+        $id = 0;
+       // echo($_GET['id']);
+        if(isset($_GET['id'])) {
+            $id = $_GET['id'];            
         } else {
             $id = 0;
         }
+        if ($this->getUser()) {
+            $idUser = $this->getUser()->getid();
+        }
+        else
+        {
+            $idUser=0;
+        }
+//         if ($patient) {
+//             $id = $patient->getId();
+//         } else {
+//             $id = 0;
+//         }
         // dd($patient->getId());
         $exercices = $repo->findAll(); // Sert � trouver tout les objets du type pass� en param
                                        // dd($exercices);
         return $this->render('main/listeExos.html.twig', [
             'controller_name' => 'MainController',
             'exercices' => $exercices,
-            'id' => $id
+            'id' => $id,
+            'idUser' => $idUser
         ]);
     }
 
@@ -56,18 +71,52 @@ class MainController extends AbstractController
      */
     public function chronomots(Patient $patient = null, HistoireRepository $repo)
     {
-        if ($_GET['id']) {
+        if (isset($_GET['id'])) {
             $id = $_GET['id'];
         } else {
             $id = 0;
+        }
+        if ($this->getUser()) {
+            $idUser = $this->getUser()->getid();
+        }
+        else
+        {
+            $idUser=0;
         }
         $histoires = $repo->findAll();
         return $this->render('main/chronomots.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
-            'id' => $id
+            'id' => $id,
+            'idUser' => $idUser
         ]);
     }
+    
+    /**
+     *
+     * @Route("/exercices/motsoutils", name="motsoutil")
+     * @Route("/Patient/{id}/exercices/motsoutils", name="motsoutilsAP")
+     */
+    public function motsoutils(Patient $patient = null, HistoireRepository $repo)
+    {
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+        } else {
+            $id = 0;
+        }
+        $idUser = 0;
+        if ($this->getUser()) {
+            $idUser = $this->getUser()->getid();
+        }
+        $histoires = $repo->findAll();
+        return $this->render('main/motsoutil.html.twig', [
+            'controller_name' => 'MainController',
+            'histoires' => $histoires,
+            'id' => $id,
+            'idUser' => $idUser
+        ]);
+    }
+    
 
     /**
      *
@@ -76,7 +125,7 @@ class MainController extends AbstractController
      */
     public function lestraits(Patient $patient = null, HistoireRepository $repo)
     {
-        if ($_GET['id']) {
+        if(isset($_GET['id'])){
             $id = $_GET['id'];
         } else {
             $id = 0;
@@ -99,14 +148,22 @@ class MainController extends AbstractController
      */
     public function lancaster(Patient $patient = null)
     {
-        if ($_GET['id']) {
+        if(isset($_GET['id'])){
             $id = $_GET['id'];
         } else {
             $id = 0;
         }
+        if ($this->getUser()) {
+            $idUser = $this->getUser()->getid();
+        }
+        else
+        {
+            $idUser=0;
+        }
         return $this->render('main/lancaster.html.twig', [
             'controller_name' => 'MainController',
-            'id' => $id
+            'id' => $id,
+            'idUser' => $idUser
         ]);
     }
 
@@ -117,14 +174,22 @@ class MainController extends AbstractController
      */
     public function duction(Patient $patient = null)
     {
-        if ($_GET['id']) {
+        if(isset($_GET['id'])){
             $id = $_GET['id'];
         } else {
             $id = 0;
         }
+        if ($this->getUser()) {
+            $idUser = $this->getUser()->getid();
+        }
+        else
+        {
+            $idUser=0;
+        }
         return $this->render('main/duction.html.twig', [
             'controller_name' => 'MainController',
-            'id' => $id
+            'id' => $id,
+            'idUser' => $idUser
         ]);
     }
 
@@ -148,33 +213,48 @@ class MainController extends AbstractController
      */
     public function envoieAjax(ObjectManager $manager)
     {
-        $score = $_GET['score'];
-        $idExercice = $_GET['exercice'];
-        $repo = $manager->getRepository(Exercice::class);
-        $Exercice = $repo->find((int) $idExercice);
-        $idPatient = $_GET['patient'];
-        $repo = $manager->getRepository(Patient::class);
-        $Patient = $repo->find((int) $idPatient);
-        $idUser = $_GET['user'];
-        $repo = $manager->getRepository(User::class);
-        $User = $repo->find((int) $idUser);
-        $idBilan = $_GET['bilan'];
-        $repo = $manager->getRepository(Bilan::class);
-        $Bilan = $repo->find((int) $idBilan);
-        $resultat = new Resultat();
-        $resultat->setScore($score)
-            ->setIdExercice($Exercice)
-            ->setIdPatient($Patient)
-            ->setIdUser($User)
-            ->setIdBilan($Bilan);
+//         $score = $_GET['score'];
+//         $idExercice = $_GET['exercice'];
+//         $repo = $manager->getRepository(Exercice::class);
+//         $Exercice = $repo->find((int) $idExercice);
+//         $idPatient = $_GET['patient'];
+//         $repo = $manager->getRepository(Patient::class);
+//         $Patient = $repo->find((int) $idPatient);
+//         $idUser = $_GET['user'];
+//         $repo = $manager->getRepository(User::class);
+//         $User = $repo->find((int) $idUser);
+//         $idBilan = $_GET['bilan'];
+//         $repo = $manager->getRepository(Bilan::class);
+//         $Bilan = $repo->find((int) $idBilan);
+//         $resultat = new Resultat();
+//         $resultat->setScore($score)
+//             ->setIdExercice($Exercice)
+//             ->setIdPatient($Patient)
+//             ->setIdUser($User)
+//             ->setIdBilan($Bilan);
+//         $resultat->setScore("1")
+//         ->setIdExercice(1)
+//         ->setIdPatient(1)
+//         ->setIdUser(1)
+//         ->setIdBilan(1);
 
-        $manager->persist($resultat);
-        $manager->flush();
+//         $manager->persist($resultat);
+//         $manager->flush();
 
-        echo (json_encode($resultat));
+        //echo (json_encode($bilan));
         // $manager->persist($resultat);
         // $manager->flush();
 
+        $resultat = new Resultat();
+        
+        $resultat->setIdExercice(4)
+                 ->setIdPatient(1)
+                 ->setIdUser(1)
+                 ->setIdBilan(1)
+                 ->setScore("4/4");
+        
+        $manager->persist($resultat);
+        $manager->flush();
         return $this->render('main/sendarticle.html.twig');
     }
 

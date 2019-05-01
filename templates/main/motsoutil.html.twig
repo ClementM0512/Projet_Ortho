@@ -1,0 +1,34 @@
+{% extends 'baseExos.html.twig' %}
+
+ 
+ 
+{% block title %}Mots-outil {% endblock %}
+     
+
+
+{% block body %}
+<div class="exos">
+          <label for="histoires">Choississez l'histoire!</label>
+          <select id="histoire" name="histoire">
+          {% for histoire in histoires %}
+            <option>{{ histoire.name}}</option>        
+          {% endfor %}
+          </select>
+     <a href="{{ path('HistoireCreation') }}"><input type="button" class="btn btn-primary" value="Ajouter histoire" /></a>
+     </br>
+     <p>Combien de mot à trouver?</p>
+     <input type="text" id="nbMotsATrouver" />
+     <br />
+     <br />
+     <input type="button" class="btn btn-primary" id="Lancement" value="Lancer l'application" />
+</div>
+{# 	  <div id="motschoix">#}
+      
+{#       </div>#}
+{#       <p>#}
+      
+{#      A CREER!!! </p>#}
+     
+{% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/motsoutil.js"></script>{% endblock %}
+
+{% endblock %}

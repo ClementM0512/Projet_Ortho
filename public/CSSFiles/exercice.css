@@ -70,11 +70,12 @@ canvas{
 /* 	border: 2px solid orange; */
     color: #384952;
 }
-.application{
+#application{
 	position: absolute;
 	width: 70%;
 	margin-top: 5%;
 }
+
 
 /*		DUCTION		*/
 
@@ -97,4 +98,13 @@ canvas{
 
 #imageYeux{
 	display: none;
+}
+
+/* 		Mots-Outils		 */
+
+#motsJuste{
+	color: green;
+}
+#motsFaux{
+	color: red;
 }

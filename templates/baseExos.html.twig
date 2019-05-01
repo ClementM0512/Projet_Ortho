@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, target-densitydpi=device-dpi">
 <title>{% block title %}jeux{% endblock %}</title>
 {% block stylesheets %}
-<link rel="stylesheet" href="\CSSFiles\stylesbootswatch.css">
+{# <link rel="stylesheet" href="\CSSFiles\stylesbootswatch.css">#}
 <link rel="stylesheet" href="\CSSFiles\app.css">
 <link rel="stylesheet" href="\CSSFiles\allfontawesome.css">
 <link rel="stylesheet" href="\CSSFiles\exercice.css">
@@ -16,11 +16,20 @@
 	<div class="nav">
   		<div><a href="#"><i class="fas fa-question-circle logo" style="font-size:40px;"></i></a></div>
   		<div><a href="/exercices"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
+  		<p id="idUser">
+	        Orthop : {{ idUser }}
+        </p>
+        <p id="idPatient">
+        	Patient : {{ id }}
+        </p>
+        <label for="scales">Enregistrer</label>
+        <input type="checkbox" id="scales" name="Enregistrer">
+        
 	</div>
-	<div class="application">
+	<div id="application">
 		{% block body %}{% endblock %}
 	</div>
 	
-	{% block javascripts %}{% endblock %}
+{# 	{% block javascripts %}<script src="/JS/motsoutil.js"></script>{% endblock %}#}
 </body>
 </html>
