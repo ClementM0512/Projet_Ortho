@@ -15,7 +15,6 @@ encoding//src/Form/PatientType.php=UTF-8
 encoding//src/Form/UserType.php=UTF-8
 encoding//templates/base.html.twig=UTF-8
 encoding//templates/main/chronomots.html.twig=UTF-8
-encoding//templates/main/home.html.twig=UTF-8
 encoding//templates/main/listeExos.html.twig=UTF-8
 encoding//templates/main/validation.html.twig=UTF-8
 encoding//templates/patient/indexPatient.html.twig=UTF-8
