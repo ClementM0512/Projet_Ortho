@@ -1,20 +1,25 @@
 	var contexts = new Array(document.getElementById('canvasgauche').getContext("2d"),document.getElementById('canvasdroit').getContext("2d"));
 	var decalages = new Array(document.getElementById('canvasgauche').getBoundingClientRect(),document.getElementById('canvasdroit').getBoundingClientRect());
+	document.getElementById('canvasgauche').width = window.innerWidth/3;
+	document.getElementById('canvasgauche').height = window.innerWidth/3;
+	document.getElementById('canvasdroit').width = window.innerWidth/3;
+	document.getElementById('canvasdroit').height = window.innerWidth/3;
 //canvasGauche = document.getElementById('canvas1');
 //	canvasDroit = document.getElementById('canvas2');
 //    contextGauche = canvasGauche.getContext("2d");
 //    contextDroit = canvasDroit.getContext("2d");
     var CoordonneesPoints = new Array(new Array(),new Array());
-    var tailleCanvas = 600;
+    var tailleCanvas = window.innerWidth/3;
     var interligne = tailleCanvas/30;
     var margePoint = 7*interligne;
     var interPoint = 8*interligne;
     var stopEvenement=0;
-    var paint=0;
+    var paint=1;  // 1:canvasgauche/2:canvasdroit/3:stopecriture/0:pointfantome
     
-    function Coordonnees(a, b){		//constructeur d'objet ElementHTML
+    function Coordonnees(a, b, paint){		//constructeur d'objet ElementHTML
     	  this.x = a;
     	  this.y = b;
+    	  this.paint = paint;
     }
     
     function Interversion(tab,ind1,ind2)
@@ -109,9 +114,7 @@
     
     function Liaison(context,tabCoords)
     {
-    	//alert(tabCoords[4].x + "|" + tabCoords[4].y);
     	tabCoords = TriPoints(tabCoords);
-    	//alert(tabCoords[4].x + "|" + tabCoords[4].y);
     	for(i=0;i<3;i++)
     	{
     		for(j=0;j<2;j++)
@@ -119,10 +122,16 @@
 	    		context.beginPath();
 				context.lineWidth = 2;    
 			    context.strokeStyle = '#EE0';
-				context.moveTo(tabCoords[i*3 +j].x,tabCoords[i*3 +j].y);
-		    	context.lineTo(tabCoords[i*3 +1 +j].x,tabCoords[i*3 +1 +j].y);
-		    	context.moveTo(tabCoords[i + 3*j].x,tabCoords[i + 3*j].y);
-		    	context.lineTo(tabCoords[i +3 + 3*j].x,tabCoords[i +3 + 3*j].y);
+			    if((tabCoords[i*3 +j].paint) && (tabCoords[i*3 +1 +j].paint))
+			    {
+			    	context.moveTo(tabCoords[i*3 +j].x,tabCoords[i*3 +j].y);
+			    	context.lineTo(tabCoords[i*3 +1 +j].x,tabCoords[i*3 +1 +j].y);
+			    }
+			    if((tabCoords[i + 3*j].paint) && (tabCoords[i + 3*j +3].paint))
+		    	{
+			    	context.moveTo(tabCoords[i + 3*j].x,tabCoords[i + 3*j].y);
+			    	context.lineTo(tabCoords[i +3 + 3*j].x,tabCoords[i +3 + 3*j].y);
+		    	}
 		    	context.closePath();
 		    	context.stroke();
     		}
@@ -131,46 +140,60 @@
     
     function ClickGauche(e){    	
       stopEvenement++;				//Eviter que la fonction s'execute deux fois
-      if((stopEvenement%2)==0 || paint!=0) return 0;
+      if((stopEvenement%2)==0 || paint>1) return 0;
       var mouseX = e.pageX - decalages[0].left;
       var mouseY = e.pageY - decalages[0].top;
-      CoordonneesPoints[0].push(new Coordonnees(mouseX,mouseY));
-      contexts[0].strokeStyle = "#0D0";
-      contexts[0].lineJoin = "round";
-      contexts[0].lineWidth = 10;
-      contexts[0].beginPath();
-      contexts[0].moveTo(mouseX-1, mouseY);
-      contexts[0].lineTo(mouseX, mouseY);
-      contexts[0].closePath();
-      contexts[0].stroke();
+      CoordonneesPoints[0].push(new Coordonnees(mouseX,mouseY,paint));
+      if(paint==1)
+      {
+    	  contexts[0].strokeStyle = "#0D0";
+          contexts[0].lineJoin = "round";
+          contexts[0].lineWidth = 10;
+          contexts[0].beginPath();
+          contexts[0].moveTo(mouseX-1, mouseY);
+          contexts[0].lineTo(mouseX, mouseY);
+          contexts[0].closePath();
+          contexts[0].stroke();
+      }
       if(CoordonneesPoints[0].length==9)
     	  {
     	  	Liaison(contexts[0], CoordonneesPoints[0]);
-    	  	paint=1;
+    	  	paint=2;
     	  }
+      else {paint=1;}
     }   
     
     function ClickDroit(e){  
     	
         stopEvenement++;				//Eviter que la fonction s'execute deux fois
-        if((stopEvenement%2)==0 || paint!=1) return 0;
+        if((stopEvenement%2)==0 || (paint!=2 && paint!=0)) return 0;
         var mouseX = e.pageX - decalages[1].left;
         var mouseY = e.pageY - decalages[1].top;
-        CoordonneesPoints[1].push(new Coordonnees(mouseX,mouseY));
-        contexts[1].strokeStyle = "#0A0";
-        contexts[1].lineJoin = "round";
-        contexts[1].lineWidth = 10;
-        contexts[1].beginPath();
-        contexts[1].moveTo(mouseX-1, mouseY);
-        contexts[1].lineTo(mouseX, mouseY);
-        contexts[1].closePath();
-        contexts[1].stroke();
+        CoordonneesPoints[1].push(new Coordonnees(mouseX,mouseY,paint));
+        if(paint==2)
+        {
+        	contexts[1].strokeStyle = "#0A0";
+            contexts[1].lineJoin = "round";
+            contexts[1].lineWidth = 10;
+            contexts[1].beginPath();
+            contexts[1].moveTo(mouseX-1, mouseY);
+            contexts[1].lineTo(mouseX, mouseY);
+            contexts[1].closePath();
+            contexts[1].stroke();
+        }
+        
         if(CoordonneesPoints[1].length==9)
       	  {
       	  	Liaison(contexts[1], CoordonneesPoints[1]);
-      	  	paint=2;
+      	  	paint=3;
       	  }
+        else {paint=2;}
     } 
+    
+    function PointFantome()
+    {
+    	paint=0;
+    }
     
     for(h=0;h<2;h++)
     {
@@ -212,4 +235,5 @@
 	///// EVENEMENT /////
 	document.getElementById('canvasgauche').addEventListener('mousedown',ClickGauche);
 	document.getElementById('canvasdroit').addEventListener('mousedown',ClickDroit);
+	document.querySelector('button').addEventListener("click", PointFantome);
 	
