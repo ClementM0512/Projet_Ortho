@@ -192,6 +192,34 @@ class MainController extends AbstractController
             'idUser' => $idUser
         ]);
     }
+    
+    /**
+     *
+     * @Route("/exercices/poursuite", name="poursuite")
+     * @Route("/Patient/{id}/exercices/poursuite", name="poursuiteAP")
+     */
+    public function poursuite(Patient $patient = null, HistoireRepository $repo)
+    {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+        } else {
+            $id = 0;
+        }
+        if ($this->getUser()) {
+            $idUser = $this->getUser()->getid();
+        }
+        else
+        {
+            $idUser=0;
+        }
+        $histoires = $repo->findAll();
+        return $this->render('main/poursuite.html.twig', [
+            'controller_name' => 'MainController',
+            'histoires' => $histoires,
+            'id' => $id,
+            'idUser' => $idUser
+        ]);
+    }
 
     /**
      *
