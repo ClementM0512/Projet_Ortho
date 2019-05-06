@@ -34,6 +34,7 @@ class MainController extends AbstractController
      */
     public function list_exos(Patient $patient = null, ExerciceRepository $repo)
     {
+        
         $id = 0;
        // echo($_GET['id']);
         if(isset($_GET['id'])) {
@@ -211,7 +212,7 @@ class MainController extends AbstractController
      *
      * @Route("/envoiajax", name="envoiajax")
      */
-    public function envoieAjax(ObjectManager $manager)
+    public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, PatientRepository $repoPatient, UserRepository $repoUser, BilanRepository $repoBilan)
     {
 //         $score = $_GET['score'];
 //         $idExercice = $_GET['exercice'];
@@ -244,18 +245,36 @@ class MainController extends AbstractController
         //echo (json_encode($bilan));
         // $manager->persist($resultat);
         // $manager->flush();
-
+        $exercice = $repoExo->find((int)$_GET['exercice']);
+        $bilan = $repoBilan->find((int)$_GET['bilan']);
+        $user = $repoUser->find((int)$_GET['user']);
+        $patient = $repoPatient->find((int)$_GET['patient']);
+        
         $resultat = new Resultat();
+        $resultat->setIdExercice($exercice)
+                 ->setIdPatient($patient)
+                 ->setIdUser($user)
+                 ->setIdBilan($bilan)
+                 ->setScore($_GET['score']);
         
-        $resultat->setIdExercice(4)
-                 ->setIdPatient(1)
-                 ->setIdUser(1)
-                 ->setIdBilan(1)
-                 ->setScore("4/4");
+       echo($_GET['exercice']);
+       // dd($resultat);
         
+
+//          $resultat = new Resultat();
+         
+//          $resultat->score = '1';
+         //$resultat->setName("eeeee");
+//                  ->setIdPatient(1)
+//                  ->setIdUser(1)
+//                  ->setIdBilan(1)
+//                  ->setScore("eeeee");
+         //echo($resultat);
+        //dd($resultat);
         $manager->persist($resultat);
         $manager->flush();
         return $this->render('main/sendarticle.html.twig');
+       
     }
 
     /**

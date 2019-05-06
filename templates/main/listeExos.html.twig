@@ -14,7 +14,7 @@ Liste Appli
 {% for exercice in exercices %}
 {# <div class="metadata">#}
 	
-    <a href="{{ path(exercice.lien, {'id': id})}}">
+    <a id="id" href="{{ path(exercice.lien, {'id': id})}}" aria-label="{{ exercice.name }}">
    		<img class="btn-logo" src="{{asset(exercice.image)}}" alt="{{ exercice.name }}">
 	</a>
 {# </div>#}
