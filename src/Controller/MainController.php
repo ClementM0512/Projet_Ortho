@@ -1,6 +1,5 @@
 <?php
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,13 +19,11 @@ use App\Entity\Exercice;
 use App\Form\HistoireType;
 use App\Entity\User;
 use App\Entity\Bilan;
-
 /*
  * @IsGranted("ROLE_USER")
  */
 class MainController extends AbstractController
 {
-
     /**
      *
      * @Route("/Patient/{id}/exercices", name="listeExosPatient")
@@ -36,9 +33,9 @@ class MainController extends AbstractController
     {
         
         $id = 0;
-       // echo($_GET['id']);
+        // echo($_GET['id']);
         if(isset($_GET['id'])) {
-            $id = $_GET['id'];            
+            $id = $_GET['id'];
         } else {
             $id = 0;
         }
@@ -49,14 +46,14 @@ class MainController extends AbstractController
         {
             $idUser=0;
         }
-//         if ($patient) {
-//             $id = $patient->getId();
-//         } else {
-//             $id = 0;
-//         }
+        //         if ($patient) {
+        //             $id = $patient->getId();
+        //         } else {
+        //             $id = 0;
+        //         }
         // dd($patient->getId());
         $exercices = $repo->findAll(); // Sert � trouver tout les objets du type pass� en param
-                                       // dd($exercices);
+        // dd($exercices);
         return $this->render('main/listeExos.html.twig', [
             'controller_name' => 'MainController',
             'exercices' => $exercices,
@@ -64,7 +61,6 @@ class MainController extends AbstractController
             'idUser' => $idUser
         ]);
     }
-
     /**
      *
      * @Route("/exercices/chronomots", name="chronomots")
@@ -118,7 +114,6 @@ class MainController extends AbstractController
         ]);
     }
     
-
     /**
      *
      * @Route("/exercices/lestraits", name="lestraits")
@@ -135,13 +130,11 @@ class MainController extends AbstractController
         if ($this->getUser()) {
             $idUser = $this->getUser()->getid();
         }
-
         return $this->render('main/lestraits.html.twig', [
             'id' => $id,
             'idUser' => $idUser
         ]);
     }
-
     /**
      *
      * @Route("/exercices/lancaster", name="lancaster")
@@ -167,7 +160,6 @@ class MainController extends AbstractController
             'idUser' => $idUser
         ]);
     }
-
     /**
      *
      * @Route("/exercices/duction", name="duction")
@@ -193,7 +185,60 @@ class MainController extends AbstractController
             'idUser' => $idUser
         ]);
     }
-
+    /**
+     *
+     * @Route("/exercices/cartememoire", name="cartememoire")
+     * @Route("/Patient/{id}/exercices/cartememoire", name="cartememoireAP")
+     */
+    public function cartememoire(Patient $patient = null)
+    {
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+        } else {
+            $id = 0;
+        }
+        if ($this->getUser()) {
+            $idUser = $this->getUser()->getid();
+        }
+        else
+        {
+            $idUser=0;
+        }
+        return $this->render('main/cartememoire.html.twig', [
+            'controller_name' => 'MainController',
+            'id' => $id,
+            'idUser' => $idUser
+        ]);
+    }
+    
+        /**
+     *
+     * @Route("/exercices/poursuite", name="poursuite")
+     * @Route("/Patient/{id}/exercices/poursuite", name="poursuiteAP")
+     */
+    public function Poursuite(Patient $patient = null, HistoireRepository $repo)
+    {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+        } else {
+            $id = 0;
+        }
+        if ($this->getUser()) {
+            $idUser = $this->getUser()->getid();
+        }
+        else
+        {
+            $idUser=0;
+        }
+        $histoires = $repo->findAll();
+        return $this->render('main/poursuite.html.twig', [
+            'controller_name' => 'MainController',
+            'histoires' => $histoires,
+            'id' => $id,
+            'idUser' => $idUser
+        ]);
+    }
+    
     /**
      *
      * @Route("/receptionajax", name="receptionajax")
@@ -207,41 +252,38 @@ class MainController extends AbstractController
         echo (json_encode($arr));
         return $this->render('main/sendarticle.html.twig');
     }
-
     /**
      *
      * @Route("/envoiajax", name="envoiajax")
      */
     public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, PatientRepository $repoPatient, UserRepository $repoUser, BilanRepository $repoBilan)
     {
-//         $score = $_GET['score'];
-//         $idExercice = $_GET['exercice'];
-//         $repo = $manager->getRepository(Exercice::class);
-//         $Exercice = $repo->find((int) $idExercice);
-//         $idPatient = $_GET['patient'];
-//         $repo = $manager->getRepository(Patient::class);
-//         $Patient = $repo->find((int) $idPatient);
-//         $idUser = $_GET['user'];
-//         $repo = $manager->getRepository(User::class);
-//         $User = $repo->find((int) $idUser);
-//         $idBilan = $_GET['bilan'];
-//         $repo = $manager->getRepository(Bilan::class);
-//         $Bilan = $repo->find((int) $idBilan);
-//         $resultat = new Resultat();
-//         $resultat->setScore($score)
-//             ->setIdExercice($Exercice)
-//             ->setIdPatient($Patient)
-//             ->setIdUser($User)
-//             ->setIdBilan($Bilan);
-//         $resultat->setScore("1")
-//         ->setIdExercice(1)
-//         ->setIdPatient(1)
-//         ->setIdUser(1)
-//         ->setIdBilan(1);
-
-//         $manager->persist($resultat);
-//         $manager->flush();
-
+        //         $score = $_GET['score'];
+        //         $idExercice = $_GET['exercice'];
+        //         $repo = $manager->getRepository(Exercice::class);
+        //         $Exercice = $repo->find((int) $idExercice);
+        //         $idPatient = $_GET['patient'];
+        //         $repo = $manager->getRepository(Patient::class);
+        //         $Patient = $repo->find((int) $idPatient);
+        //         $idUser = $_GET['user'];
+        //         $repo = $manager->getRepository(User::class);
+        //         $User = $repo->find((int) $idUser);
+        //         $idBilan = $_GET['bilan'];
+        //         $repo = $manager->getRepository(Bilan::class);
+        //         $Bilan = $repo->find((int) $idBilan);
+        //         $resultat = new Resultat();
+        //         $resultat->setScore($score)
+        //             ->setIdExercice($Exercice)
+        //             ->setIdPatient($Patient)
+        //             ->setIdUser($User)
+        //             ->setIdBilan($Bilan);
+        //         $resultat->setScore("1")
+        //         ->setIdExercice(1)
+        //         ->setIdPatient(1)
+        //         ->setIdUser(1)
+        //         ->setIdBilan(1);
+        //         $manager->persist($resultat);
+        //         $manager->flush();
         //echo (json_encode($bilan));
         // $manager->persist($resultat);
         // $manager->flush();
@@ -252,31 +294,29 @@ class MainController extends AbstractController
         
         $resultat = new Resultat();
         $resultat->setIdExercice($exercice)
-                 ->setIdPatient($patient)
-                 ->setIdUser($user)
-                 ->setIdBilan($bilan)
-                 ->setScore($_GET['score']);
+        ->setIdPatient($patient)
+        ->setIdUser($user)
+        ->setIdBilan($bilan)
+        ->setScore($_GET['score']);
         
-       echo($_GET['exercice']);
-       // dd($resultat);
+        echo($_GET['exercice']);
+        // dd($resultat);
         
-
-//          $resultat = new Resultat();
-         
-//          $resultat->score = '1';
-         //$resultat->setName("eeeee");
-//                  ->setIdPatient(1)
-//                  ->setIdUser(1)
-//                  ->setIdBilan(1)
-//                  ->setScore("eeeee");
-         //echo($resultat);
+        //          $resultat = new Resultat();
+        
+        //          $resultat->score = '1';
+        //$resultat->setName("eeeee");
+        //                  ->setIdPatient(1)
+        //                  ->setIdUser(1)
+        //                  ->setIdBilan(1)
+        //                  ->setScore("eeeee");
+        //echo($resultat);
         //dd($resultat);
         $manager->persist($resultat);
         $manager->flush();
         return $this->render('main/sendarticle.html.twig');
-       
+        
     }
-
     /**
      *
      * @Route("/nouvellehistoire", name="HistoireCreation")
@@ -287,17 +327,14 @@ class MainController extends AbstractController
     {
         $histoire = new Histoire();
         $form = $this->createFormBuilder($histoire)
-            ->add('name')
-            ->add('texte')
-            ->add('save', SubmitType::class)
-            ->getForm();
-
+        ->add('name')
+        ->add('texte')
+        ->add('save', SubmitType::class)
+        ->getForm();
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($histoire);
             $manager->flush();
-
             return $this->redirectToRoute('listeExos');
         }
         return $this->render('main/nouvellehistoire.html.twig', [

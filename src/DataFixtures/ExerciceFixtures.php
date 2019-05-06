@@ -41,6 +41,14 @@ class ExerciceFixtures extends Fixture
             ->setLien('lancaster')
             ->setDateCreation($faker->dateTime);
         $manager->persist($exercice);
+        
+        $exercice = new Exercice();
+        $exercice->setName('cartememoire')
+        ->setImage('image/cartememoire.png')
+        ->setLien('cartememoire')
+        ->setDateCreation($faker->dateTime);
+        $manager->persist($exercice);
+        
         $manager->flush();
     }
 }

@@ -1,0 +1,38 @@
+{% extends 'baseExos.html.twig' %}
+
+ 
+ 
+{% block title %}Poursuite{% endblock %}
+     
+
+
+{% block body %}
+
+<div class="exos">
+     <h1 class="center">Poursuite</h1>
+     
+     <form>
+          <label for="histoires">Choississez l'histoire!</label>
+          <select id="histoire" name="histoire">
+          {% for histoire in histoires %}
+            <option>{{ histoire.name}}</option>        
+          {% endfor %}
+          </select>
+          
+     </form>
+     <a href="{{ path('HistoireCreation') }}"><input type="button" class="btn btn-primary" value="Ajouter histoire" /></a>
+     </br>
+     <p>Combien de mot dans le texte?</p>
+     <input type="text" id="nbMotsSouhaite" />
+     <br />
+     <p>Vitesse de disparition?(en milliseconde)</p>
+     <input type="text" id="vitesseSouhaite" />
+     <br />
+     <br />
+     <input type="button" class="btn btn-primary" value="Lancer l'application" />
+</div>
+
+
+{% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/poursuite.js"></script>{% endblock %}
+
+{% endblock %}
