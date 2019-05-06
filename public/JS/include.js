@@ -17,9 +17,13 @@ function EnregistrementResultat(callback, url) {
 		var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function() {
 					
-					if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-						
-						return callback(xhr.responseText);	
+					if (xhr.readyState == 4) {
+						alert(xhr.status);
+						if(xhr.status == 200 || xhr.status == 0)
+						{
+							return callback(xhr.responseText);	
+						}
+						alert(xhr.status);
 					}
 				};	
 		xhr.open("GET", url, true);

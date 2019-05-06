@@ -131,16 +131,22 @@ function MoteurJeu()
 				}
 				tab[i].full = tab[i].full.join(' ');
 			}
-			// AFFICHAGE TEXTE ENTIER AVEC RESULTAT //
+			// AFFICHAGE TEXTE ENTIER AVEC RESULTAT ET ENREGISTREMENT//
 			p.innerHTML=tab[0].full;
 			for(i=1;i<tab.length;i++)
 			{
 				p.innerHTML+=" " + tab[i].full;
 			}
 			pRes.innerHTML = "Le score est de " + res + " mots trouvés sur " + nbMotsATrouver;
-			var id = document.querySelectorAll("p");
-			var url = "/envoiajax";//?score="+(res/nbMotsATrouver)+"&exercice=4&patient="+ id[2].innerHTML +"&user="+ id[1].innerHTML +"&bilan=1"
-			EnregistrementResultat(EnvoiDonnees, url);
+			
+			if(document.getElementById("enregistrement").checked==true){
+				var idUser = document.getElementById("idUser");
+				var idPatient = document.getElementById("idPatient");
+				var url = "/envoiajax?score=" + (res*1000/nbMotsATrouver) + "&exercice=4&patient=" + idPatient.innerHTML + "&user=1&bilan=1";
+				EnregistrementResultat(EnvoiDonnees, url);
+			}
+			
+			
 		}
 	}
 }
