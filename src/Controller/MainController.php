@@ -193,7 +193,32 @@ class MainController extends AbstractController
             'idUser' => $idUser
         ]);
     }
-
+    /**
+     *
+     * @Route("/exercices/cartememoire", name="cartememoire")
+     * @Route("/Patient/{id}/exercices/cartememoire", name="cartememoireAP")
+     */
+    public function cartememoire(Patient $patient = null)
+    {
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+        } else {
+            $id = 0;
+        }
+        if ($this->getUser()) {
+            $idUser = $this->getUser()->getid();
+        }
+        else
+        {
+            $idUser=0;
+        }
+        return $this->render('main/cartememoire.html.twig', [
+            'controller_name' => 'MainController',
+            'id' => $id,
+            'idUser' => $idUser
+        ]);
+    }
+    
     /**
      *
      * @Route("/receptionajax", name="receptionajax")
