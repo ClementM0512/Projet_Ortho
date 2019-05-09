@@ -49,6 +49,13 @@ class ExerciceFixtures extends Fixture
         ->setDateCreation($faker->dateTime);
         $manager->persist($exercice);
         
+        $exercice = new Exercice();
+        $exercice->setName('poursuite')
+        ->setImage('image/poursuite.jpg')
+        ->setLien('poursuite')
+        ->setDateCreation($faker->dateTime);
+        $manager->persist($exercice);
+        
         $manager->flush();
     }
 }
