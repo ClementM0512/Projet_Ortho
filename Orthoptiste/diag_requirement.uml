@@ -9,15 +9,17 @@
     </packageImport>
     <packagedElement xmi:type="uml:Class" xmi:id="_Eq8lMDA8Eem_UaIr2PTfbA" name="Thérapie patient orthoptiste">
       <nestedClassifier xmi:type="uml:Class" xmi:id="_yXYKYDA_Eem_UaIr2PTfbA" name="Suivi des patients"/>
-      <nestedClassifier xmi:type="uml:Class" xmi:id="_QLxnQDBAEem_UaIr2PTfbA" name="Réeducation des patients"/>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_QLxnQDBAEem_UaIr2PTfbA" name="Exercices et outils">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_2ctOwDBEEem_UaIr2PTfbA" name="Réeducation des patients"/>
+      </nestedClassifier>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_AmQZADBCEem_UaIr2PTfbA" name="Authentification"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_f5GGoDA-Eem_UaIr2PTfbA" name="Gestion des données">
-      <nestedClassifier xmi:type="uml:Class" xmi:id="_-KtRsDBDEem_UaIr2PTfbA" name="Ajout d'un patient"/>
-      <nestedClassifier xmi:type="uml:Class" xmi:id="_2ctOwDBEEem_UaIr2PTfbA" name="Modification d'un patient"/>
-      <nestedClassifier xmi:type="uml:Class" xmi:id="_LAElIDBFEem_UaIr2PTfbA" name="Suppresion d'un patient"/>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_-KtRsDBDEem_UaIr2PTfbA" name="Patient"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Actor" xmi:id="_I_fjwDBhEem_UaIr2PTfbA" name="Actor16"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_LAElIDBFEem_UaIr2PTfbA" name="Bilan"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_FbmRAHPSEemdJqo0Eccy0A" name="Outils"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_1p95UDA7Eem_UaIr2PTfbA">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_1p95UTA7Eem_UaIr2PTfbA" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#/"/>
@@ -82,9 +84,10 @@
   <Requirements:Requirement xmi:id="_EuxVQDA8Eem_UaIr2PTfbA" base_Class="_Eq8lMDA8Eem_UaIr2PTfbA" id="1" text="Mise en place d'une application web pour la gestion, le suivi et de la réeducation du patient"/>
   <Requirements:Requirement xmi:id="_f5PQkDA-Eem_UaIr2PTfbA" base_Class="_f5GGoDA-Eem_UaIr2PTfbA" id="1.1" text="Gestion des données contenue sur la base de donées"/>
   <Requirements:Requirement xmi:id="_yXh7dDA_Eem_UaIr2PTfbA" base_Class="_yXYKYDA_Eem_UaIr2PTfbA" id="1.2" text="Visualisation des avancées des patients"/>
-  <Requirements:Requirement xmi:id="_QLxnQTBAEem_UaIr2PTfbA" base_Class="_QLxnQDBAEem_UaIr2PTfbA" id="1.3" text="Utilisation d'exercices à visé thérapeutique"/>
+  <Requirements:Requirement xmi:id="_QLxnQTBAEem_UaIr2PTfbA" base_Class="_QLxnQDBAEem_UaIr2PTfbA" id="1.3" text="Réeducation du patient et renseignement de sont bilan "/>
   <Requirements:Requirement xmi:id="_AmQZATBCEem_UaIr2PTfbA" base_Class="_AmQZADBCEem_UaIr2PTfbA" id="1.4" text="Connexion avec des comptes dont les droits sont diff?rents pour protéger les données"/>
-  <Requirements:Requirement xmi:id="_-KtRsTBDEem_UaIr2PTfbA" base_Class="_-KtRsDBDEem_UaIr2PTfbA" id="1.1.1" text="Enregistrement d'une fiche patient"/>
-  <Requirements:Requirement xmi:id="_2c2_wDBEEem_UaIr2PTfbA" base_Class="_2ctOwDBEEem_UaIr2PTfbA" id="1.1.2" text="Modification d'une fiche patient"/>
-  <Requirements:Requirement xmi:id="_LAOWIDBFEem_UaIr2PTfbA" base_Class="_LAElIDBFEem_UaIr2PTfbA" id="1.1.3" text="Suppression d'une fiche patient"/>
+  <Requirements:Requirement xmi:id="_-KtRsTBDEem_UaIr2PTfbA" base_Class="_-KtRsDBDEem_UaIr2PTfbA" id="1.1.1" text="Traitement des données patient"/>
+  <Requirements:Requirement xmi:id="_2c2_wDBEEem_UaIr2PTfbA" base_Class="_2ctOwDBEEem_UaIr2PTfbA" id="1.3.1" text="Utilisation d'exercices à visé thérapeutique"/>
+  <Requirements:Requirement xmi:id="_LAOWIDBFEem_UaIr2PTfbA" base_Class="_LAElIDBFEem_UaIr2PTfbA" id="1.1.2" text="Traitement des données bilan"/>
+  <Requirements:Requirement xmi:id="_FcDkAHPSEemdJqo0Eccy0A" base_Class="_FbmRAHPSEemdJqo0Eccy0A" id="1.3.2" text="Simplification du renseignement du bilan"/>
 </xmi:XMI>
