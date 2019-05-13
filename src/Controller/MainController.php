@@ -100,7 +100,7 @@ class MainController extends AbstractController
             $idUser = $this->getUser()->getid();
         }
         $histoires = $repo->findAll();
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'motsoutil']);
         return $this->render('main/motsoutil.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
@@ -154,7 +154,7 @@ class MainController extends AbstractController
         {
             $idUser=0;
         }
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'lancaster']);
         return $this->render('main/lancaster.html.twig', [
             'controller_name' => 'MainController',
             'idPatient' => $idPatient,
@@ -181,7 +181,7 @@ class MainController extends AbstractController
         {
             $idUser=0;
         }
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'duction']);
         return $this->render('main/duction.html.twig', [
             'controller_name' => 'MainController',
             'idPatient' => $idPatient,
@@ -209,7 +209,7 @@ class MainController extends AbstractController
         {
             $idUser=0;
         }
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'cartememoire']);
         return $this->render('main/cartememoire.html.twig', [
             'controller_name' => 'MainController',
             'idPatient' => $idPatient,
@@ -239,7 +239,7 @@ class MainController extends AbstractController
             $idUser=0;
         }
         $histoires = $repo->findAll();
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'poursuite']);
         return $this->render('main/poursuite.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
