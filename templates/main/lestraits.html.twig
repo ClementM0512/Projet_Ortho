@@ -36,8 +36,8 @@ Les traits
 		 <p id="txt-LT" class="center"></p> {#Rempli avec js #}
 		<input type="button" class="btn btn-info"  value="Recommencer">
 
-		{% if id %}
-		<a  href="{{ path('listeExosPatient',{'id' : id }) }}"> <input
+		{% if idPatient %}
+		<a  href="{{ path('listeExosPatient',{'idPatient' : idPatient }) }}"> <input
 			type="button" class="btn btn-success" value="fini">
 		</a>
 		{% else %}
@@ -47,12 +47,6 @@ Les traits
 		{% endif %}
 	</div>
 </div>
-<p style="display: none" id="idUser">
-	{{ idUser }}
-</p>
-<p style="display: none" id="idPatient">
-	{{ id }}
-</p>
 
 {% block javascripts %}
 <script src="/JS/include.js" /></script>

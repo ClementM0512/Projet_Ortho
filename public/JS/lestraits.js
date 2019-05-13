@@ -305,7 +305,7 @@ window.onload = function()
    				 info += 1;
    			 }
    		 }
-   		textresultat[2].innerHTML = "vous avez reussi " + info + " exercices";
+   		textresultat[3].innerHTML = "vous avez reussi " + info + " exercices";
    		setTimeout(Resultat,100); // rappel après 0.1 secondes = 100 millisecondes////////
    		return info;
    	}
@@ -322,7 +322,8 @@ window.onload = function()
    			
 				var idUser = document.getElementById("idUser");
 				var idPatient = document.getElementById("idPatient");
-				var url = "/envoiajax?score=" + info + "&exercice=2&patient=" + idPatient.innerHTML + "&user=" + idUser.innerHTML + "&bilan=0";
+				var idExercice = document.getElementById("idExercice");
+				var url = "/envoiajax?score=" + info + "&exercice="+idExercice.innerHTML +"&patient=" + idPatient.innerHTML + "&user=" + idUser.innerHTML + "&bilan=0";
 				EnregistrementResultat(EnvoiDonnees, url);
    		}
    		else{

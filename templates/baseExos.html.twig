@@ -20,10 +20,13 @@
 	        Orthop : <span id="idUser">{{ idUser }}</span>
         </p>
         <p>
-        	Patient : <span id="idPatient">{{ id }}</span>
+        	Patient : <span id="idPatient">{{ idPatient }}</span>
         </p>
+        <p>
+	      	Exercice : <span id="idExercice">{{ idExercice }}</span>
+		</p>
         <label>Enregistrer</label>
-        <input id="enregistrement" type="checkbox" {% if  id != 0 %} checked {% endif %} id="scales" name="Enregistrer">
+        <input id="enregistrement" type="checkbox" {% if  idPatient != 0 %} checked {% endif %} id="scales" name="Enregistrer">
         
 	</div>
 	<div id="application">
