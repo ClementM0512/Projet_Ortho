@@ -75,9 +75,9 @@ for(i=0;i<document.querySelector('select').length;i++)
 }
 
 Requete(RecuperationDonnee); //Recupere un tableau contenant les histoires
-var inputs = document.querySelectorAll("input");
+var input = document.getElementById("Lancement");
 //inputs[0].addEventListener("click", EditerHistoire);
-inputs[2].addEventListener("click", ExecutionExercice);		//creation d'un evenement click sur le bouton associé à la fonction ExecutionExercice
+input.addEventListener("click", ExecutionExercice);		//creation d'un evenement click sur le bouton associé à la fonction ExecutionExercice
 
 
 

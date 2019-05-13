@@ -113,19 +113,33 @@ canvas{
 
 /* on génère un élément :after lors du survol et du focus :*/
 
-#id:hover::after,
-#id:focus::after {
-  content: attr(aria-label);  /* on affiche aria-label */
-  position: absolute;
-  color: white;
-  top: -2.4em;
-  left: 50%;
-  transform: translateX(-50%); /* on centre horizontalement  */
-  z-index: 1; /* pour s'afficher au dessus des éléments en position relative */
-  white-space: nowrap;  /* on interdit le retour à la ligne */
-  border: 1px white solid;
-  border-radius: 2px;
+/* #id:hover::after, */
+/* #id:focus::after { */
+/*   content: attr(aria-label);  on affiche aria-label */
+/*   position: absolute; */
+/*   color: white; */
+/*   top: -2.4em; */
+/*   left: 50%; */
+/*   transform: translateX(-50%); on centre horizontalement  */
+/*   z-index: 1; pour s'afficher au dessus des éléments en position relative */
+/*   white-space: nowrap;  on interdit le retour à la ligne */
+/*   border: 1px white solid; */
+/*   border-radius: 2px; */
+/* } */
+
+#id:hover::after {
+	position:absolute;
+	 white-space: nowrap; /* On change la valeur de la propriété white-space pour qu'il n'y ait pas de retour à la ligne non désiré. */
+    top: -2.4em;
+  	left: 0%;
+   background: white;
+   color: grey;
+   padding: 3px;
+   border: 1px solid #232330;
+   border-left: 4px solid #232330;
+   content: attr(aria-label);
 }
+
 #motsFaux{
 	color: red;
 }
