@@ -43,6 +43,7 @@ class SecurityController extends AbstractController
     /**
      *
      * @Route("/register", name="security_register")
+     * @IsGranted("ROLE_SUPERADMIN")
      */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
     {

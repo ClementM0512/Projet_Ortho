@@ -37,9 +37,44 @@ class UserFixtures extends Fixture
             'ROLE_USER'
         ));
         $user->setPermission($permission);
-       
+        $manager->persist($user);
+        
+        $user = new User();
+        $user->setEmail('bougetesyeux@gmail.com');
+        $user->setNom('utilisateur');
+        $user->setPrenom('utilisateur');
+        $user->setUsername('user');
+        $security = new Security();
+        $security->setChangePass(false);
+        $Password = $this->passwordEncoder->encodePassword($user, 'user');
+        $security->setPassword($Password);
+        $user->setSecurity($security);
+        $permission = new Permission();
+        $permission->setRoles(array(
+            'ROLE_ADMIN',
+            'ROLE_USER'
+        ));
+        $user->setPermission($permission);
         $manager->persist($user);
 
+        
+        $user = new User();
+        $user->setEmail('bougetesyeux@gmail.com');
+        $user->setNom('secretaire');
+        $user->setPrenom('utilisateur');
+        $user->setUsername('user');
+        $security = new Security();
+        $security->setChangePass(false);
+        $Password = $this->passwordEncoder->encodePassword($user, 'secretaire');
+        $security->setPassword($Password);
+        $user->setSecurity($security);
+        $permission = new Permission();
+        $permission->setRoles(array(
+            'ROLE_USER',
+        ));
+        $user->setPermission($permission);
+        $manager->persist($user);
+        
         $manager->flush();
     }
 }

@@ -51,11 +51,17 @@ class ExerciceFixtures extends Fixture
         
         $exercice = new Exercice();
         $exercice->setName('poursuite')
-        ->setImage('image/poursuite.jpg')
+        ->setImage('image/poursuite.png')
         ->setLien('poursuite')
         ->setDateCreation($faker->dateTime);
         $manager->persist($exercice);
         
+        $exercice = new Exercice();
+        $exercice->setName('Mots-Outil')
+        ->setImage('image/motsoutil.png')
+        ->setLien('motsoutil')
+        ->setDateCreation($faker->dateTime);
+        $manager->persist($exercice);
         $manager->flush();
     }
 }

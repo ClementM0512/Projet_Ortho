@@ -11,21 +11,6 @@ Les traits
 {% block body %}
 
 <div class="">
-
-	{# <input type="button" class="btn-lestraits" value="Commencer">
-	<canvas id="canvas1" width="1000" height="100"></canvas>
-	<br /> 
-	<input type="button" class="btn-lestraits" value="Commencer">
-	<canvas id="canvas2" width="1000" height="100"> </canvas>
-	<br /> 
-	<input type="button" class="btn-lestraits" value="Commencer">
-	<canvas id="canvas3" width="1000" height="100"></canvas>
-	<br /> 
-	<input type="button" class="btn-lestraits" value="Commencer">
-	<canvas id="canvas4" width="1000" height="100"></canvas>
-	<br /> 
-	<input type="button" class="btn-lestraits" value="Commencer">
-	<canvas id="canvas5" width="1000" height="100"></canvas> #}
 	<div>
 		<div class="btns-LT">
 			<input type="button" class="btn-lestraits btn btn-info" value="Commencer">
@@ -53,19 +38,19 @@ Les traits
 
 		{% if id %}
 		<a  href="{{ path('listeExosPatient',{'id' : id }) }}"> <input
-			type="button" class="btn btn-success" value="Enregistrer">
+			type="button" class="btn btn-success" value="fini">
 		</a>
 		{% else %}
 		<a href="{{ path('listeExos') }}"> <input class="btn btn-success" type="button"
-			value="Enregistrer">
+			value="Fini">
 		</a>
 		{% endif %}
 	</div>
 </div>
-<p style="display: none">
+<p style="display: none" id="idUser">
 	{{ idUser }}
 </p>
-<p style="display: none">
+<p style="display: none" id="idPatient">
 	{{ id }}
 </p>
 

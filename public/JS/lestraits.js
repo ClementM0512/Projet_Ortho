@@ -1,6 +1,5 @@
 window.onload = function()
 {
-
 	 var contexts = new Array(document.getElementById('canvas1').getContext("2d"),document.getElementById('canvas2').getContext("2d"),document.getElementById('canvas3').getContext("2d"),document.getElementById('canvas4').getContext("2d"),document.getElementById('canvas5').getContext("2d"));
 	 var bounds = new Array(document.getElementById('canvas1').getBoundingClientRect(),document.getElementById('canvas2').getBoundingClientRect(),document.getElementById('canvas3').getBoundingClientRect(),document.getElementById('canvas4').getBoundingClientRect(),document.getElementById('canvas5').getBoundingClientRect())
 	 var btn = document.querySelectorAll("input");
@@ -49,21 +48,19 @@ window.onload = function()
           }
           if(clickY[clickY.length-1] > (50+intervalle[canvasActuel]/2) || clickY[clickY.length-1] < (50-intervalle[canvasActuel]/2)){
         	  result[canvasActuel]= false;
-        	  sortie[0] = true;
+        	  sortie = true;
         	  color = "#F00";
           }
           else{
         	  color = "#000";
           }
-          if(clickX[clickX.length-1] >= 980 && clickX[0] <= 50){
+          if(clickX[clickX.length-1] >= 980){
         	
           	 btn[canvasActuel+1].value = 'Recommencer';
           	 paint[canvasActuel]= false;
-          	 
-          	 if(sortie == false){
+          	 if(sortie == false && clickX[0] <= 50){
           		 result[canvasActuel]= true;
           	 }
-          	 sortie = false;
           }
           contexts[canvasActuel].lineTo(clickX[clickX.length-1], clickY[clickY.length-1]);
           contexts[canvasActuel].closePath();
@@ -289,7 +286,7 @@ window.onload = function()
    	 	btn[5].addEventListener('click', updateBtn5); 
 
    	 	btn[6].addEventListener('click', updateAll);
-   		btn[7].addEventListener('click', Requete2);
+   		btn[7].addEventListener('click', Requete2, false);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
 //////////////////////////////////////fin de l'exercice//////////////////////////////
 ////////////////////////////////affichage resultat et enregistrement//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
@@ -309,23 +306,28 @@ window.onload = function()
    			 }
    		 }
    		textresultat[2].innerHTML = "vous avez reussi " + info + " exercices";
-   		setTimeout(Resultat,10000); // rappel après 0.1 secondes = 100 millisecondes////////
+   		setTimeout(Resultat,100); // rappel après 0.1 secondes = 100 millisecondes////////
    		return info;
    	}
    	 	
    	 function Requete2(callback) {
-   		
-   		var xhr = new XMLHttpRequest();
-   				xhr.onreadystatechange = function() {
+   		if(document.getElementById("enregistrement").checked==true){
+   			var xhr = new XMLHttpRequest();
+   					xhr.onreadystatechange = function() {
    					
-   					if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-   						return callback(xhr.responseText);	
-   					}
-   				};	
-   				var id = document.querySelectorAll("p");
-   		var url = "/envoiajax?score="+Resultat()+"&exercice=4&patient="+ id[2].innerHTML +"&user="+ id[1].innerHTML +"&bilan=1"
-   		xhr.open("GET", url, true);
-   		xhr.send(null);	
+   						if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+   							return callback(xhr.responseText);	
+   						}
+   					};	
+   			
+				var idUser = document.getElementById("idUser");
+				var idPatient = document.getElementById("idPatient");
+				var url = "/envoiajax?score=" + info + "&exercice=2&patient=" + idPatient.innerHTML + "&user=" + idUser.innerHTML + "&bilan=0";
+				EnregistrementResultat(EnvoiDonnees, url);
+   		}
+   		else{
+   			
+   		}
    	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
 }

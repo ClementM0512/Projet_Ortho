@@ -28,6 +28,7 @@ class MainController extends AbstractController
      *
      * @Route("/Patient/{id}/exercices", name="listeExosPatient")
      * @Route("/exercices", name="listeExos")
+     * @IsGranted("ROLE_USER")
      */
     public function list_exos(Patient $patient = null, ExerciceRepository $repo)
     {
@@ -65,6 +66,7 @@ class MainController extends AbstractController
      *
      * @Route("/exercices/chronomots", name="chronomots")
      * @Route("/Patient/{id}/exercices/chronomots", name="chronomotsAP")
+     * @IsGranted("ROLE_USER")
      */
     public function chronomots(Patient $patient = null, HistoireRepository $repo)
     {
@@ -93,6 +95,7 @@ class MainController extends AbstractController
      *
      * @Route("/exercices/motsoutils", name="motsoutil")
      * @Route("/Patient/{id}/exercices/motsoutils", name="motsoutilsAP")
+     * @IsGranted("ROLE_USER")
      */
     public function motsoutils(Patient $patient = null, HistoireRepository $repo)
     {
@@ -118,6 +121,7 @@ class MainController extends AbstractController
      *
      * @Route("/exercices/lestraits", name="lestraits")
      * @Route("/Patient/{id}/exercices/lestraits", name="lestraitsAP")
+     * @IsGranted("ROLE_USER")
      */
     public function lestraits(Patient $patient = null, HistoireRepository $repo)
     {
@@ -139,6 +143,7 @@ class MainController extends AbstractController
      *
      * @Route("/exercices/lancaster", name="lancaster")
      * @Route("/Patient/{id}/exercices/lancaster", name="lancasterAP")
+     * @IsGranted("ROLE_USER")
      */
     public function lancaster(Patient $patient = null)
     {
@@ -189,6 +194,7 @@ class MainController extends AbstractController
      *
      * @Route("/exercices/cartememoire", name="cartememoire")
      * @Route("/Patient/{id}/exercices/cartememoire", name="cartememoireAP")
+     * @IsGranted("ROLE_USER")
      */
     public function cartememoire(Patient $patient = null)
     {
@@ -211,10 +217,11 @@ class MainController extends AbstractController
         ]);
     }
     
-        /**
+    /**
      *
      * @Route("/exercices/poursuite", name="poursuite")
      * @Route("/Patient/{id}/exercices/poursuite", name="poursuiteAP")
+     * @IsGranted("ROLE_USER")
      */
     public function Poursuite(Patient $patient = null, HistoireRepository $repo)
     {
@@ -258,35 +265,6 @@ class MainController extends AbstractController
      */
     public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, PatientRepository $repoPatient, UserRepository $repoUser, BilanRepository $repoBilan)
     {
-        //         $score = $_GET['score'];
-        //         $idExercice = $_GET['exercice'];
-        //         $repo = $manager->getRepository(Exercice::class);
-        //         $Exercice = $repo->find((int) $idExercice);
-        //         $idPatient = $_GET['patient'];
-        //         $repo = $manager->getRepository(Patient::class);
-        //         $Patient = $repo->find((int) $idPatient);
-        //         $idUser = $_GET['user'];
-        //         $repo = $manager->getRepository(User::class);
-        //         $User = $repo->find((int) $idUser);
-        //         $idBilan = $_GET['bilan'];
-        //         $repo = $manager->getRepository(Bilan::class);
-        //         $Bilan = $repo->find((int) $idBilan);
-        //         $resultat = new Resultat();
-        //         $resultat->setScore($score)
-        //             ->setIdExercice($Exercice)
-        //             ->setIdPatient($Patient)
-        //             ->setIdUser($User)
-        //             ->setIdBilan($Bilan);
-        //         $resultat->setScore("1")
-        //         ->setIdExercice(1)
-        //         ->setIdPatient(1)
-        //         ->setIdUser(1)
-        //         ->setIdBilan(1);
-        //         $manager->persist($resultat);
-        //         $manager->flush();
-        //echo (json_encode($bilan));
-        // $manager->persist($resultat);
-        // $manager->flush();
         $exercice = $repoExo->find((int)$_GET['exercice']);
         $bilan = $repoBilan->find((int)$_GET['bilan']);
         $user = $repoUser->find((int)$_GET['user']);
@@ -300,28 +278,17 @@ class MainController extends AbstractController
         ->setScore($_GET['score']);
         
         echo($_GET['exercice']);
-        // dd($resultat);
+
         
-        //          $resultat = new Resultat();
-        
-        //          $resultat->score = '1';
-        //$resultat->setName("eeeee");
-        //                  ->setIdPatient(1)
-        //                  ->setIdUser(1)
-        //                  ->setIdBilan(1)
-        //                  ->setScore("eeeee");
-        //echo($resultat);
-        //dd($resultat);
         $manager->persist($resultat);
         $manager->flush();
         return $this->render('main/sendarticle.html.twig');
         
     }
     /**
-     *
+     * 
      * @Route("/nouvellehistoire", name="HistoireCreation")
-     *
-     *
+     * @IsGranted("ROLE_USER")    
      */
     public function createHistoire(Request $request, ObjectManager $manager)
     {
