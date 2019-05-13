@@ -28,11 +28,10 @@ function ResultatExercice(){
     
 }
 
-function ExecutionExercice()
+function Miseenplace()
 {
 	histoireChoisie = document.querySelector('select'); 
 	histoire = recuperationAjax[document.querySelector('select').value];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
-	premierTemps = new Date().getTime();	//Enregistrement du temps actuel
 	var editNbMotsSouhaite = document.getElementById("nbMotsSouhaite");
 	nbMotsSouhaite = editNbMotsSouhaite.value;		//Recuperation du nombre de mots
 	var texteExercice = TexteDecoupage(nbMotsSouhaite);			//Decoupage du texte
@@ -44,7 +43,6 @@ function ExecutionExercice()
 	var elementsHtml = [
 		new ElementHtml('h1',"Poursuite"),
 		new ElementHtml('p',texteExercice),
-		new ElementHtml('input', 'Fini')
 	];
 	CreationElement(elementsHtml);
 	var body = document.querySelector("body");
@@ -52,14 +50,10 @@ function ExecutionExercice()
 	var p = document.querySelector("p");
 	p.style.marginLeft = "100px";
 	p.style.marginRight = "100px";
-	p.style.fontSize = "1.3em";
-	btFin = document.querySelector("input");   
-    btFin.addEventListener("click",ResultatExercice);
-    document.body.addEventListener('keydown',ResultatExercice);
+	p.style.fontSize = "1.3em";   
 }
 
 var histoire;
-var premierTemps = new Date().getTime();
 var nbMotsSouhaite = 0;
 var recuperationAjax;
 for(i=0;i<document.querySelector('select').length;i++)
@@ -70,4 +64,4 @@ for(i=0;i<document.querySelector('select').length;i++)
 Requete(RecuperationDonnee); //Recupere un tableau contenant les histoires
 var inputs = document.querySelectorAll("input");
 //inputs[0].addEventListener("click", EditerHistoire);
-inputs[4].addEventListener("click", ExecutionExercice);		//creation d'un evenement click sur le bouton associé à la fonction ExecutionExercice
+inputs[4].addEventListener("click", Miseenplace);		//creation d'un evenement click sur le bouton associé à la fonction ExecutionExercice

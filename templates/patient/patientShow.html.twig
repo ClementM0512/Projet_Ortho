@@ -27,7 +27,7 @@
 		<a href="{{ path('bilanCreate', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Ajouter un bilan</a> 
 		<a href="{{ path('bilansPatient', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Voir les bilans</a>
 		
-		<a href="{{ path('listeExosPatient', {'id': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Exercices</a>
+		<a href="{{ path('listeExosPatient', {'idPatient': patient.id})}}" class="btn btn-success btn-lg btn-create btn-bilan">Exercices</a>
 	</div>
 </section>
 {% endblock %}

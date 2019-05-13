@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, target-densitydpi=device-dpi">
 <title>{% block title %}jeux{% endblock %}</title>
 {% block stylesheets %}
-{# <link rel="stylesheet" href="\CSSFiles\stylesbootswatch.css">#}
+<link rel="stylesheet" href="\CSSFiles\stylesbootswatch.css">
 <link rel="stylesheet" href="\CSSFiles\app.css">
 <link rel="stylesheet" href="\CSSFiles\allfontawesome.css">
 <link rel="stylesheet" href="\CSSFiles\exercice.css">
@@ -15,15 +15,18 @@
 <body>
 	<div class="nav">
   		<div><a href="#"><i class="fas fa-question-circle logo" style="font-size:40px;"></i></a></div>
-  		<div><a href="/exercices"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
+  		<div><a href="{{ path('listeExosPatient',{'idPatient' : idPatient }) }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
   		<p>
 	        Orthop : <span id="idUser">{{ idUser }}</span>
         </p>
         <p>
-        	Patient : <span id="idPatient">{{ id }}</span>
+        	Patient : <span id="idPatient">{{ idPatient }}</span>
         </p>
+        <p>
+	      	Exercice : <span id="idExercice">{{ idExercice }}</span>
+		</p>
         <label>Enregistrer</label>
-        <input id="enregistrement" type="checkbox" {% if  id != 0 %} checked {% endif %} id="scales" name="Enregistrer">
+        <input id="enregistrement" type="checkbox" {% if  idPatient != 0 %} checked {% endif %} id="scales" name="Enregistrer">
         
 	</div>
 	<div id="application">

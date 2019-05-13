@@ -13,10 +13,10 @@ initialiseJeu();
 function majAffichage(noCarte){
 	switch(etatsCartes[noCarte]){
 		case 0:
-			imgCartes[noCarte].src="../image/fondcarte.png";
+			imgCartes[noCarte].src="../image/cartes/fondcarte.png";
 			break;
 		case 1:
-			imgCartes[noCarte].src="../image/carte"+motifsCartes[noCarte]+".png";
+			imgCartes[noCarte].src="../image/cartes/carte"+motifsCartes[noCarte]+".png";
 			break;
 		case -1:
 			imgCartes[noCarte].style.visibility="hidden";

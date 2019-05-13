@@ -1,21 +1,22 @@
 window.onload = function()
 {
-
 	 var contexts = new Array(document.getElementById('canvas1').getContext("2d"),document.getElementById('canvas2').getContext("2d"),document.getElementById('canvas3').getContext("2d"),document.getElementById('canvas4').getContext("2d"),document.getElementById('canvas5').getContext("2d"));
 	 var bounds = new Array(document.getElementById('canvas1').getBoundingClientRect(),document.getElementById('canvas2').getBoundingClientRect(),document.getElementById('canvas3').getBoundingClientRect(),document.getElementById('canvas4').getBoundingClientRect(),document.getElementById('canvas5').getBoundingClientRect())
 	 var btn = document.querySelectorAll("input");
      var CoordonneesPoints = new Array(new Array(),new Array(),new Array(),new Array(),new Array());
-     var paint = new Array(false,false,false,false,false);
-     var ecart = 0;
-     var intervalle= new Array();
-     var height = 100;
-     var width = 1000;
-     var result = new Array(false,false,false,false,false)
-     var clickX = new Array();
-     var clickY = new Array();
-     var canvasActuel;
-    // C'est ici que l'on placera tout le code servant à nos dessins.
-       
+     var paint = new Array(false,false,false,false,false); 	//autorise ou non le tracé des points
+     var intervalle= new Array();							//defini l'intervalle entre le trait du haut et celuis du bas
+     var height = 1000;										//longeur des canevas
+     var width = 100;										//largeur des canevas
+     var result = new Array(false,false,false,false,false)	//permet d'obtenir le resultat
+     var clickX = new Array();								//tableau des ordonés X
+     var clickY = new Array();								//tableau des absyse Y
+     var canvasActuel;										//variable int permet de savoir sur quelle canevas on agit
+     var color = "#000";									//couleur des trait
+     var sortie = false										//detecte les sortie du cannevas et des deux traits
+    
+     // C'est ici que l'on placera tout le code servant à nos dessins.
+////////////////////////////////////////////////////////////////////initialisation des canevas avec les dessins ////////////////////////////////
         for(i=0;i<=4;i++){       	
         	intervalle[i] = 90/(i+1);
         	contexts[i].beginPath();// On démarre un nouveau tracé
@@ -30,18 +31,13 @@ window.onload = function()
         	contexts[i].stroke();// On trace seulement les lignes.
 	        contexts[i].closePath();
         }
-        
-        function Coordonnees(a, b){		// constructeur d'objet ElementHTML
-        	  this.x = a;
-        	  this.y = b;
-        }
-        
-        
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////fonction qui trace a l'endroit ou la sourris passe////////////////////////////////////////////////////
         function Dessin(mouseX,mouseY){   
 
           clickX.push(mouseX);
           clickY.push(mouseY);
-          contexts[canvasActuel].strokeStyle = "#000";
+          contexts[canvasActuel].strokeStyle = color;
           contexts[canvasActuel].lineJoin = "round";
           contexts[canvasActuel].lineWidth = 1;
           contexts[canvasActuel].beginPath();
@@ -51,20 +47,27 @@ window.onload = function()
         	  contexts[canvasActuel].moveTo(clickX[clickX.length-2], clickY[clickY.length -2]);
           }
           if(clickY[clickY.length-1] > (50+intervalle[canvasActuel]/2) || clickY[clickY.length-1] < (50-intervalle[canvasActuel]/2)){
-         	 paint[canvasActuel]= false;
-         	 btn[canvasActuel].value = 'Recommencer';
-         	result[canvasActuel]= false;
-         	 alert("Vous n'êtes pas arrivé au bout")
-         	 }
-          if(clickX[clickX.length-1] >= 980 && clickX[0] <= 50){
-        	 result[canvasActuel]= true;
-          	 btn[canvasActuel].value = 'Recommencer';
+        	  result[canvasActuel]= false;
+        	  sortie = true;
+        	  color = "#F00";
+          }
+          else{
+        	  color = "#000";
+          }
+          if(clickX[clickX.length-1] >= 980){
+        	
+          	 btn[canvasActuel+1].value = 'Recommencer';
+          	 paint[canvasActuel]= false;
+          	 if(sortie == false && clickX[0] <= 50){
+          		 result[canvasActuel]= true;
+          	 }
           }
           contexts[canvasActuel].lineTo(clickX[clickX.length-1], clickY[clickY.length-1]);
           contexts[canvasActuel].closePath();
           contexts[canvasActuel].stroke();
         } 
-        
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////recuperation des coordoner et evoie a la fonction ci dessus////////////////////     
         function Dessin1(e){   
             if(paint[0] == true){
                 if(e.touches) {
@@ -163,19 +166,19 @@ window.onload = function()
                 }
             }
         }
-       
-       
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////remet a zero quand on recommence un dessin//////////////////////////////////////////////////////////////////////////////////////////////////////////////      
          function Update(){
         	 for (var i = 0; i < 4; i++) {
         		  btn[i].value = 'Commencer';
         		  paint[i]= false;
         		}
-        	 btn[canvasActuel].value = 'Tracer';
+        	 btn[canvasActuel+1].value = 'Tracer';
          	contexts[canvasActuel].beginPath();// On démarre un nouveau tracé
             contexts[canvasActuel].strokeStyle = "#000";
             contexts[canvasActuel].lineJoin = "miter";
             contexts[canvasActuel].lineWidth = 1;
-        	contexts[canvasActuel].clearRect(0, 0, width, height);
+        	contexts[canvasActuel].clearRect(0, 0, height, width);
 	    	contexts[canvasActuel].moveTo(0, 50-intervalle[canvasActuel]/2);
 	    	contexts[canvasActuel].lineTo(1000,50-intervalle[canvasActuel]/2);
 	    	contexts[canvasActuel].moveTo(0, 50+intervalle[canvasActuel]/2);
@@ -189,10 +192,12 @@ window.onload = function()
 	        paint[canvasActuel]=true;
 	        clickX = [];
 	        clickY = [];
+	        sortie = false;
          }
-         
-        function updateBtn1(){
-        	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////appelle de la function ci dessus///////////////////////////////////////////////////////////////////////////////
+
+         function updateBtn1(){	
         	canvasActuel= 0;
         	result[canvasActuel]= false;
         	Update();
@@ -221,20 +226,25 @@ window.onload = function()
         	result[canvasActuel]= false;
         	Update();
         }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
+///////////////////////////////////remet a zero tout les canvas ///////////////////////////////////////////////////////////////////////////////////////
         function updateAll(){
         	for(i=0;i<=4;i++){
         	canvasActuel = i;
         	result[canvasActuel]= false;
         	Update();
          	paint[canvasActuel] = false;
-         	btn[canvasActuel].value = 'Commencer'
+         	btn[canvasActuel+1].value = 'Commencer'
         	}
         }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         function PaintNo(){
-        	paint[canvasActuel] = false;
-        	btn[canvasActuel].value = 'Recommencer';
+	        clickX = [];
+	        clickY = [];
          }
-        
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
+       
 
         
 
@@ -269,23 +279,24 @@ window.onload = function()
     	document.getElementById('canvas5').addEventListener('mousedown', PaintNo);
     	document.getElementById('canvas5').addEventListener('mouseleave',PaintNo);
 
-   	 	btn[0].addEventListener('click', updateBtn1);
-   	 	btn[1].addEventListener('click', updateBtn2);
-   	 	btn[2].addEventListener('click', updateBtn3);
-   	 	btn[3].addEventListener('click', updateBtn4);
-   	 	btn[4].addEventListener('click', updateBtn5); 
+   	 	btn[1].addEventListener('click', updateBtn1);
+   	 	btn[2].addEventListener('click', updateBtn2);
+   	 	btn[3].addEventListener('click', updateBtn3);
+   	 	btn[4].addEventListener('click', updateBtn4);
+   	 	btn[5].addEventListener('click', updateBtn5); 
 
-   	 	btn[5].addEventListener('click', updateAll);
-   		btn[6].addEventListener('click', Requete2);
-   	 	// /////////////////////////////////////////////////////////////////////////////////////////////////fin
-		// de l'exercice//////////////////////////////
-   	   	    	
-   	 	
-   	 	var textresultat = document.querySelectorAll("p");
-   	 	Resultat();
+   	 	btn[6].addEventListener('click', updateAll);
+   		btn[7].addEventListener('click', Requete2, false);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
+//////////////////////////////////////fin de l'exercice//////////////////////////////
+////////////////////////////////affichage resultat et enregistrement//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
+
+   		var textresultat = document.querySelectorAll("p");
+   	 
    	 	
    	 	var info;
-   	 	
+   		Resultat();
+   		
    	 	function Resultat(){
    	 		
    	    info = 0;
@@ -294,26 +305,30 @@ window.onload = function()
    				 info += 1;
    			 }
    		 }
-   		 
-   		textresultat[0].innerHTML = "vous avez reussi " + info + " exercices";
-   		setTimeout(Resultat,100); // rappel après 0.1 secondes = 100
-									// millisecondes////////
+   		textresultat[3].innerHTML = "vous avez reussi " + info + " exercices";
+   		setTimeout(Resultat,100); // rappel après 0.1 secondes = 100 millisecondes////////
    		return info;
    	}
    	 	
    	 function Requete2(callback) {
-   		
-   		var xhr = new XMLHttpRequest();
-   				xhr.onreadystatechange = function() {
+   		if(document.getElementById("enregistrement").checked==true){
+   			var xhr = new XMLHttpRequest();
+   					xhr.onreadystatechange = function() {
    					
-   					if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-   						return callback(xhr.responseText);	
-   					}
-   				};	
-   				var id = document.querySelectorAll("p");
-   		var url = "/envoiajax?score="+Resultat()+"&exercice=4&patient="+ id[2].innerHTML +"&user="+ id[1].innerHTML +"&bilan=1"
-   		xhr.open("GET", url, true);
-   		xhr.send(null);	
+   						if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+   							return callback(xhr.responseText);	
+   						}
+   					};	
+   			
+				var idUser = document.getElementById("idUser");
+				var idPatient = document.getElementById("idPatient");
+				var idExercice = document.getElementById("idExercice");
+				var url = "/envoiajax?score=" + info + "&exercice="+idExercice.innerHTML +"&patient=" + idPatient.innerHTML + "&user=" + idUser.innerHTML + "&bilan=0";
+				EnregistrementResultat(EnvoiDonnees, url);
+   		}
+   		else{
+   			
+   		}
    	}
-             
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
 }
