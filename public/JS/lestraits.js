@@ -326,9 +326,6 @@ window.onload = function()
 				var url = "/envoiajax?score=" + info + "&exercice="+idExercice.innerHTML +"&patient=" + idPatient.innerHTML + "&user=" + idUser.innerHTML + "&bilan=0";
 				EnregistrementResultat(EnvoiDonnees, url);
    		}
-   		else{
-   			
-   		}
    	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
 }

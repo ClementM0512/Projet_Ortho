@@ -30,7 +30,7 @@ class MainController extends AbstractController
      * @Route("/exercices", name="listeExos")
      * @IsGranted("ROLE_USER")
      */
-    public function list_exos($idPatient, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice)
+    public function list_exos($idPatient = null, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice)
     {
         
         if ($this->getUser()) {
@@ -49,6 +49,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> null,
+            'bool' => true,
         ]);
     }
     /**
@@ -79,6 +80,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     
@@ -100,13 +102,14 @@ class MainController extends AbstractController
             $idUser = $this->getUser()->getid();
         }
         $histoires = $repo->findAll();
-        $idExercice = $repoExercice->findOneBy(['name' => 'motsoutil']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'Mots-Outil']);
         return $this->render('main/motsoutil.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     
@@ -132,6 +135,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     /**
@@ -160,6 +164,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     /**
@@ -187,6 +192,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     /**
@@ -215,6 +221,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     
@@ -246,6 +253,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     
