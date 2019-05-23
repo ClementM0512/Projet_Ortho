@@ -49,9 +49,31 @@ class PatientType extends AbstractType
             ->add('optnClasse')
             ->add('antecedent')
             ->add('autreBilan')
-            ->add('charge')
+            ->add('charge', ChoiceType::class,[
+                'choices' => [
+                    'orthophonie' => 'orthophonie',
+                    'psychomotricité' => 'psychomotricité',
+                    'psychologie' => 'psychologie',
+                    'neuro-psychologie' => 'psychologie',
+                    'ergothérapie' => 'ergothérapie',
+                ],
+            ])
+            ->add('precision', ChoiceType::class,[
+                'choices' => [
+                    'SESSAD' => 'SESSAD',
+                    'IME' => 'IME',
+                    'CMP' => 'CMP',
+                ],
+                'mapped' => false,
+            ])
             ->add('traitement')
-            ->add('lateralite')
+            ->add('lateralite', ChoiceType::class,[
+                'choices' => [
+                    'Droitier' => 'Droitier',
+                    'Gaucher' => 'Gaucher',
+                    'Non-defini' => 'Non-defini',
+                ],
+            ])
             ->add('motifs')
         ;
     }

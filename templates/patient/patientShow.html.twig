@@ -10,13 +10,22 @@
 {% block body %}
 
 <section class="patients">
-	<div class="">
+	<div class="resPatient">
 
 		<h3>{{ patient.nom}} {{ patient.prenom}}</h3>
-		Date de naissance : {{ patient.dateDeNaissance | date('d/m/Y')}}
+		<span class="defPatient"><b>Date de naissance</b> : {{ patient.dateDeNaissance | date('d/m/Y')}}</span>
 		{# Différent champ de la classe patient avec un formatage a l'aide
 		d'un filtre #}
-		<address> Adresse : {{ patient.adresse}}</address>
+		<span class="defPatient"><b>Adresse</b> : {{ patient.adresse}}</span>
+		<span class="defPatient"><b>Classe</b> : {{ patient.classe }} <b>Précision</b> : {{ patient.optnClasse }}</span>
+		<span class="defPatient"><b>Antécedent</b> : {{ patient.antecedent }}</span>
+		<span class="defPatient"><b>Autre(s) bilan(s)</b>: {{ patient.autreBilan }}</span>
+		{% if charge %}
+		<span class="defPatient"><b>Prise en charge</b> : {{charge[0]}}	<b>Précision</b> : {{charge[1]}}</span>
+		{% endif %}
+		<span class="defPatient"><b>Traitement</b> : {{ patient.traitement }}</span>
+		<span class="defPatient"><b>Latéralité</b> : {{ patient.lateralite }}</span>
+		<span class="defPatient"><b>Motif(s)</b> : {{ patient.motifs }}</span>
 
 	</div>
 

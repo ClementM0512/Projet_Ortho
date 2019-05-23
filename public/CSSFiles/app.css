@@ -32,7 +32,8 @@
 
 .btns-rightSide{
 	position: fixed;
-	right: 0%;
+    right: 0%;
+    top: 15%;
 	display: grid;
 	width: 15%;
 }
@@ -135,4 +136,13 @@
     position: fixed;
     left: 24%;
     width: 56%;
+}
+
+.resPatient{
+    display: grid;
+    font-size: large;
+}
+
+.defPatient{
+    margin-top: 6px;
 }
