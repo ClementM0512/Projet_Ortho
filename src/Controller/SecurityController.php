@@ -331,7 +331,7 @@ class SecurityController extends AbstractController
                 'Username' => $form->getData()['Username']
             ]); // on recherche si il y a deja un utilisateur qui porte le meme $Username
 
-            if ($compare) {
+            if ($compare != null && $compare != $user) {
                 $this->addFlash('danger', 'ce pseudonyme existe déjà');
                 return $this->render('security/gestionuser.html.twig', [ // creation de la vue
                     'form' => $form->createView(),
@@ -340,9 +340,32 @@ class SecurityController extends AbstractController
                 ]);
             }
             // ///////////////////////////////////////////////////////////////////////////////////////////////////
+            $user->setUsername($form->getData()['Username']); // on remplie les champs d'utilisateur avec les donnes du formulaire
+            $user->setEmail($form->getData()['Email']);
+            $user->setNom($form->getData()['Nom']);
+            $user->setPrenom($form->getData()['Prenom']);
+                       
+            $user->getPermission()->setRoles(array(
+                $form->getData()['Roles']
+            ));
+            if ($form->getData()['Roles'] == 'ROLE_ADMIN') {
+                $user->getPermission()->setRoles(array(
+                    'ROLE_ADMIN',
+                    'ROLE_USER'
+                ));
+            } elseif ($form->getData()['Roles'] == 'ROLE_SUPERADMIN') {
+                $user->getPermission()->setRoles(array(
+                    'ROLE_SUPERADMIN',
+                    'ROLE_ADMIN',
+                    'ROLE_USER'
+                ));
+            }
+            
+            /////////////////////////////////////////////////////////////////////////////////////////////////
             $entityManager = $this->getDoctrine()->getManager(); // on synchronise les donnes avec la base de donnee
             $entityManager->persist($user);
             $entityManager->flush();
+            return $this->redirectToRoute('security_admin');
         }
 
         return $this->render('security/gestionuser.html.twig', [ // on evoie la vue avec le formulaire et le message d'erreur
@@ -383,7 +406,7 @@ class SecurityController extends AbstractController
             $entityManager->flush();
             // ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-            return $this->redirectToRoute('security_register');
+            return $this->redirectToRoute('security_admin');
         }
         if (($form->getClickedButton() && 'NoDelete' === $form->getClickedButton()->getName())) {
             return $this->redirectToRoute('security_userEdit', [
@@ -391,7 +414,9 @@ class SecurityController extends AbstractController
             ]);
         }
         return $this->render('main/validation.html.twig', array(
-            'action' => $form->createView()
+            'action' => $form->createView(),
+            'patient' => null,
+            'user' => $user,
         ));
     }
 

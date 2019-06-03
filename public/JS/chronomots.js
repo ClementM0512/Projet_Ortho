@@ -54,12 +54,12 @@ function ExecutionExercice()
 		new ElementHtml('input', 'Fini')
 	];
 	CreationElement(elementsHtml);
-	var body = document.querySelector("body");
-	body.style.textAlign = "center";
-	var p = document.querySelector("p");
-	p.style.marginLeft = "100px";
-	p.style.marginRight = "100px";
-	p.style.fontSize = "1.3em";
+//	var body = document.querySelector("body");
+//	body.style.textAlign = "center";
+//	var p = document.querySelector("p");
+//	p.style.marginLeft = "100px";
+//	p.style.marginRight = "100px";
+//	p.style.fontSize = "1.3em";
 	btFin = document.querySelector("input");   
     btFin.addEventListener("click",ResultatExercice);
     document.body.addEventListener('keydown',ResultatExercice);

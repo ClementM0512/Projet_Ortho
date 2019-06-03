@@ -33,11 +33,19 @@ function enlevementlettre()
 {
 	var hist = document.querySelectorAll('p');
 	var texte = hist[3].innerHTML.split('');
+	if(texte[temoin]){
+		
+		if(texte[temoin] == ' ' || texte[temoin] == 'I' || texte[temoin] == ','){
+			texte[temoin]= '..';
+			temoin = temoin + 2;
+		}else{
+			texte[temoin]= '...';
+			temoin = temoin + 3;
+		}
 
-	texte[temoin]= ' ';
-	hist[3].innerHTML = texte.join('');
-	temoin = temoin + 1;
-	setTimeout(enlevementlettre,time.value); 
+		hist[3].innerHTML = texte.join('');
+		setTimeout(enlevementlettre,time.value); 
+	}
 }
 
 function Miseenplace()
@@ -49,6 +57,18 @@ function Miseenplace()
 	nbMotsSouhaite = editNbMotsSouhaite.value;		//Recuperation du nombre de mots
 	var texteExercice = TexteDecoupage(nbMotsSouhaite);			//Decoupage du texte
 	
+	
+	var texttest = texteExercice.split('');
+	var i = 0;
+	while(texttest[i]){
+
+		if(texteExercice.charCodeAt(i) >= 97){
+			texttest[i] = texteExercice.charCodeAt(i)-32;
+			texttest[i] = String.fromCharCode(texttest[i]);
+		}
+		i++;
+	}
+//	texttest = texttest.join('');
 	time = document.getElementById("vitesse");
 
 	// Suppression du body courant
@@ -57,8 +77,9 @@ function Miseenplace()
 	
 	var elementsHtml = [
 		new ElementHtml('h1',"Poursuite"),
-		new ElementHtml('p',texteExercice),
+		new ElementHtml('p',texttest.join('')),
 	];
+	
 	CreationElement(elementsHtml);
 
 

@@ -54,7 +54,7 @@ window.onload = function()
           else{
         	  color = "#000";
           }
-          if(clickX[clickX.length-1] >= 980){
+          if(clickX[clickX.length-1] >= 985){
         	
           	 btn[canvasActuel+1].value = 'Recommencer';
           	 paint[canvasActuel]= false;
