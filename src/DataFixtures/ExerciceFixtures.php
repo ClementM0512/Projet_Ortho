@@ -23,7 +23,7 @@ class ExerciceFixtures extends Fixture
         $manager->persist($exercice);
         
         $exercice = new Exercice();
-        $exercice->setName('lestraits')
+        $exercice->setName('Tracer droit')
             ->setImage('image/lestraits.png')
             ->setLien('lestraits')
             ->setDateCreation($faker->dateTime)

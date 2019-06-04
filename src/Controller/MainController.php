@@ -115,8 +115,8 @@ class MainController extends AbstractController
     
     /**
      *
-     * @Route("/exercices/lestraits", name="lestraits")
-     * @Route("/Patient/{idPatient}/exercices/lestraits", name="lestraitsAP")
+     * @Route("/exercices/Tracerdroit", name="lestraits")
+     * @Route("/Patient/{idPatient}/exercices/Tracerdroit", name="lestraitsAP")
      * @IsGranted("ROLE_USER")
      */
     public function lestraits(Patient $patient = null, HistoireRepository $repoHistoire, ExerciceRepository $repoExercice)
@@ -288,7 +288,7 @@ class MainController extends AbstractController
         ->setIdBilan($bilan)
         ->setScore($_GET['score']);
         
-        echo($_GET['exercice']);
+//         echo($_GET['exercice']);
 
         
         $manager->persist($resultat);
