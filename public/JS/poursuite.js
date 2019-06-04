@@ -36,10 +36,10 @@ function enlevementlettre()
 	if(texte[temoin]){
 		
 		if(texte[temoin] == ' ' || texte[temoin] == 'I' || texte[temoin] == ','){
-			texte[temoin]= '..';
+			texte[temoin]= ' .';
 			temoin = temoin + 2;
 		}else{
-			texte[temoin]= '...';
+			texte[temoin]= '. .';
 			temoin = temoin + 3;
 		}
 

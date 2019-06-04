@@ -88,6 +88,9 @@ function MoteurJeu()
 		}
 	}
 	
+//	var div = document.getElementById("motschoix");
+//	var p = document.querySelector('p');
+	
 	///////////// Place les boutons dans le html
 	for(i=0;i<motsATrouver.length;i++)
 	{
@@ -99,6 +102,7 @@ function MoteurJeu()
 	}
 	
 	///////////// Ecrit la premiere partie du texte a trou
+	//texte = document.createTextNode(tab[index].cut);
 	p.innerHTML+= " " + tab[index].cut;
 	
 	function deroulement()

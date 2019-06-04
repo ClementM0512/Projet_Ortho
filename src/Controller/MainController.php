@@ -74,7 +74,7 @@ class MainController extends AbstractController
             $idUser=0;
         }
         $histoires = $repo->findAll();
-        $idExercice = $repoExercice->findOneBy(['name' => 'chronomots']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
         return $this->render('main/chronomots.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
@@ -93,17 +93,14 @@ class MainController extends AbstractController
      */
     public function motsoutils(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice)
     {
-        if (isset($_GET['idPatient'])) {
+        if(isset($_GET['idPatient'])){
             $idPatient = $_GET['idPatient'];
         } else {
             $idPatient = 0;
         }
+        $idUser = 0;
         if ($this->getUser()) {
             $idUser = $this->getUser()->getid();
-        }
-        else
-        {
-            $idUser=0;
         }
         $histoires = $repo->findAll();
         $idExercice = $repoExercice->findOneBy(['name' => 'Mots-Outil']);
@@ -201,6 +198,7 @@ class MainController extends AbstractController
         ]);
     }
     
+
     /**
      *
      * @Route("/exercices/duction", name="duction")
