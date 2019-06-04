@@ -19,14 +19,79 @@ class Bilan
     private $id;
 
     /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $corrections;
+
+    /**     corrections: od, og
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $od;
+    private $allC;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $optotypes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $og;
+    private $echelle;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $affichages;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $distance;
+
+    /**      acuité visuelle loin: od, og, odg
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $allVL;
+
+    /**      acuité visuelle près: od, og, odg
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $allVP;
+
+    /**     PlusOptix: od,og
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $allPO;
+
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  */
+    // private $distance;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $couleurs;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $contrastes;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $accomodation;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $confrontation;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fixation;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Patient", inversedBy="bilans")
