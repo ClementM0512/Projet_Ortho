@@ -1,6 +1,5 @@
-﻿<?php 
+<?php 
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +19,6 @@ use App\Entity\Exercice;
 use App\Form\HistoireType;
 use App\Entity\User;
 use App\Entity\Bilan;
-
 /*
  * @IsGranted("ROLE_USER")
  */
@@ -198,7 +196,6 @@ class MainController extends AbstractController
         ]);
     }
     
-
     /**
      *
      * @Route("/exercices/duction", name="duction")
