@@ -72,7 +72,7 @@ class MainController extends AbstractController
             $idUser=0;
         }
         $histoires = $repo->findAll();
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'chronomots']);
         return $this->render('main/chronomots.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
@@ -90,17 +90,21 @@ class MainController extends AbstractController
      */
     public function motsoutils(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice)
     {
-        if(isset($_GET['idPatient'])){
+        if (isset($_GET['idPatient'])) {
             $idPatient = $_GET['idPatient'];
         } else {
             $idPatient = 0;
         }
-        $idUser = 0;
         if ($this->getUser()) {
             $idUser = $this->getUser()->getid();
         }
+        else
+        {
+            $idUser=0;
+        }
         $histoires = $repo->findAll();
-        $idExercice = $repoExercice->findOneBy(['name' => 'motsoutil']);
+        echo $repoExercice->findOneBy(['name' => 'Mots-Outil'])->getId();
+        $idExercice = $repoExercice->findOneBy(['name' => 'chronomots']);
         return $this->render('main/motsoutil.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
@@ -162,6 +166,36 @@ class MainController extends AbstractController
             'idExercice'=> $idExercice->getId(),
         ]);
     }
+    
+    /**
+     *
+     * @Route("/exercices/lettres", name="lettres")
+     * @Route("/Patient/{idPatient}/exercices/lettres", name="lettresAP")
+     * @IsGranted("ROLE_USER")
+     */
+    public function lettres(Patient $patient = null, ExerciceRepository $repoExercice)
+    {
+//         if(isset($_GET['idPatient'])){
+//             $idPatient = $_GET['idPatient'];
+//         } else {
+//             $idPatient = 0;
+//         }
+//         if ($this->getUser()) {
+//             $idUser = $this->getUser()->getid();
+//         }
+//         else
+//         {
+//             $idUser=0;
+//         }
+        $idExercice = $repoExercice->findOneBy(['name' => 'lettres']);
+        return $this->render('main/lettres.html.twig', [
+            'controller_name' => 'MainController',
+//             'idPatient' => $idPatient,
+//             'idUser' => $idUser,
+//             'idExercice'=> $idExercice->getId(),
+        ]);
+    }
+    
     /**
      *
      * @Route("/exercices/duction", name="duction")

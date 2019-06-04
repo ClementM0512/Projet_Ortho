@@ -1,3 +1,5 @@
+alert("dd");
+
 var canvas = document.getElementById('canvasDuction');
 ////////////// CSS ////////////////
 canvas.width = window.innerWidth/2;
@@ -22,7 +24,7 @@ function Coordonnees(a, b, c){		//constructeur d'objet ElementHTML
 function AffichageImage(){context.drawImage(image, 20, 20, canvas.width-20, canvas.height-20);} //Réaffiche l'image sur le canvas
 //AffichageImage();
 
-////////////////////////////////// Dessiner un plus //////////////////
+//////////////////////////////////// Dessiner un plus //////////////////
 function AffichagePlus(coordonnees)
 {
   context.beginPath();
@@ -36,18 +38,18 @@ function AffichagePlus(coordonnees)
   context.stroke();
 }
 
-fonction AffichageMoins(coordonnees)
-{
-	context.beginPath();
-	context.strokeStyle = "#0";
-	context.lineWidth = 2;
-	context.moveTo(coordonnees.x-8, coordonnees.y);
-	context.lineTo(coordonnees.x+8, coordonnees.y);
-	context.closePath();
-	context.stroke();
-}
+//fonction AffichageMoins(coordonnees)
+//{
+//	context.beginPath();
+//	context.strokeStyle = "#0";
+//	context.lineWidth = 2;
+//	context.moveTo(coordonnees.x-8, coordonnees.y);
+//	context.lineTo(coordonnees.x+8, coordonnees.y);
+//	context.closePath();
+//	context.stroke();
+//}
 
-////////////////////////////////// Fonction de dessin /////////////
+//////////////////////////////////// Fonction de dessin /////////////
 function Dessin(index = -1)
 { 
 	if(index>=0)elemActuel=index;			//Si la fonction est appelée sans argument on utilise la variable elemActuel pour savoir ou nous en sommes de l'affichage sinon on utilise la variable passée en parametre
@@ -61,7 +63,7 @@ function Dessin(index = -1)
 	 AffichageMoins(coordonnéesClics[elemActuel]);
 	}
 }
-
+//
 function Down(e)	//FOnction associée à un evenement de type "mousedown" -> Recupere les coordonnées de la souris relativement au canvas, les enregistre dans le tableau et appelle la fonction de dessin
 {
   if(choixBouton == 0) return 0;
@@ -70,9 +72,9 @@ function Down(e)	//FOnction associée à un evenement de type "mousedown" -> Rec
   coordonnéesClics.push(new Coordonnees(mouseX, mouseY, choixBouton));
   Dessin();
 }
-
-////////////// FONCTION EVENEMENTS LIES AU BOUTONS /////////////
-
+//
+//////////////// FONCTION EVENEMENTS LIES AU BOUTONS /////////////
+//
 function BoutonSuppression() // Boutons suppression : supprime le dernier element du tableau, réaffiche l'image (efface tous les dessins) et réaffiche le tableau 
 {	
 	choixBouton = 0;
@@ -94,20 +96,20 @@ function BoutonSuppression() // Boutons suppression : supprime le dernier elemen
 
 function BoutonEcriturePlus(){choixBouton = 1;}
 function BoutonEcritureMoins(){choixBouton = 2;}
-
-///////// EVENEMENTS SOURIS ///////////
+//
+/////////// EVENEMENTS SOURIS ///////////
 canvas.addEventListener('mousedown',Down);
-
-
+//
+//
 ///////// EVENEMENTS BOUTONS ///////////////
 boutons[2].addEventListener('click', BoutonSuppression);
 boutons[0].addEventListener('click', BoutonEcriturePlus);
 boutons[1].addEventListener('click', BoutonEcritureMoins);
-
-
-
-
-
-
-
-
+//
+//
+//
+//
+//
+//
+//
+//
