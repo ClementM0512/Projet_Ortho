@@ -102,8 +102,12 @@ class MainController extends AbstractController
             $idUser = $this->getUser()->getid();
         }
         $histoires = $repo->findAll();
+<<<<<<< HEAD
 
         $idExercice = $repoExercice->findOneBy(['name' => 'Mots-Outil']);
+=======
+        $idExercice = $repoExercice->findOneBy(['name' => 'motsoutil']);
+>>>>>>> parent of 7b64add... commit
         return $this->render('main/motsoutil.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
