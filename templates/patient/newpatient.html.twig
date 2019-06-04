@@ -28,8 +28,8 @@
 	{{ form_row(formPatient.precision, {'label' : "Précision"}) }}
 	{{ form_row(formPatient.traitement, {'label' : "Traitement"}) }}
 	{{ form_row(formPatient.lateralite, {'label' : "Latéralité"}) }}
-	{{ form_row(formPatient.motifs, {'label' : "Motif(s) de consultation"}) }}
-
+	{{ form_row(formPatient.textmotifs, {'label' : "Motif(s) de consultation" , 'id' : 'textmotif'}) }}
+	{{ form_row(formPatient.motifs, {'label' : false , 'id' : 'motif'}) }}
 
 	<button type="submit" class="btn btn-success">
 		{% if editMode %}
@@ -42,4 +42,28 @@
 	{{ form_end(formPatient) }}
 	{# Fin du formulaire #}
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+window.onload = function()
+{
+	function Remplissage(){
+		var text
+		if(textmotif.value != ''){
+    		if (motif.value){
+    			text = motif.value + '\n' +textmotif.value;
+    		}else{
+    			text = textmotif.value;
+    		}
+    		motif.value = text;
+		}
+	}
+	
+	var textmotif = document.getElementById('textmotif');
+	var motif = document.getElementById('motif');
+
+	textmotif.addEventListener("change", Remplissage); 
+}
+</script>
 {% endblock %}
