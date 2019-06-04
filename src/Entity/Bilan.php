@@ -19,7 +19,7 @@ class Bilan
     private $id;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     private $corrections;
 
