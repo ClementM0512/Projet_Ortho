@@ -62,7 +62,7 @@ class UserFixtures extends Fixture
         $user->setEmail('bougetesyeux@gmail.com');
         $user->setNom('secretaire');
         $user->setPrenom('utilisateur');
-        $user->setUsername('user');
+        $user->setUsername('secretaire');
         $security = new Security();
         $security->setChangePass(false);
         $Password = $this->passwordEncoder->encodePassword($user, 'secretaire');
