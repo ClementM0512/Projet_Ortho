@@ -54,7 +54,7 @@ window.onload = function()
           else{
         	  color = "#000";
           }
-          if(clickX[clickX.length-1] >= 980){
+          if(clickX[clickX.length-1] >= 985){
         	
           	 btn[canvasActuel+1].value = 'Recommencer';
           	 paint[canvasActuel]= false;
@@ -325,9 +325,6 @@ window.onload = function()
 				var idExercice = document.getElementById("idExercice");
 				var url = "/envoiajax?score=" + info + "&exercice="+idExercice.innerHTML +"&patient=" + idPatient.innerHTML + "&user=" + idUser.innerHTML + "&bilan=0";
 				EnregistrementResultat(EnvoiDonnees, url);
-   		}
-   		else{
-   			
    		}
    	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      

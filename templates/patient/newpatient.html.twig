@@ -9,6 +9,9 @@
 	<h1 class="center">Création d'une fiche patient!</h1>
 	{% endif %}
 
+	{% set ant = "parents avec forte amétropie ou strabisme, hospitalisation néonatale, prématurité, poids de naissance < 1500g, séroconversion de la toxoplasmose pendant la grossesse, atteinte vasculaire, maladie rare" %}
+	{% set auBilan = "Orthophonique, Psychomoteur, Psychométrique, Neuro-psychologique, d'Ergothérapue, Posturologique" %}
+
 	{{ form_start(formPatient) }}
 	{# Début du formulaire #}
 
@@ -17,6 +20,16 @@
 	{{ form_row(formPatient.prenom, {'attr' : {'placeholder' : "Prénom du patient"}}) }}
 	{{ form_row(formPatient.dateDeNaissance, {'attr' : {'placeholder' : "Date de naissance"}}) }}
 	{{ form_row(formPatient.adresse, {'attr' : {'placeholder' : "Adresse du patient"}}) }}
+	{{ form_row(formPatient.classe)}}
+	{{ form_row(formPatient.optnClasse, {'attr' : {'placeholder' : "Détail de la classe"}, 'label' : "Autre options"}) }}
+	{{ form_row(formPatient.antecedent, {'value' : ant, 'label' : "Antécédent"}) }}
+	{{ form_row(formPatient.autreBilan, {'label' : "Autre(s) bilan(s) déjà effectué(s)", 'value' : auBilan}) }}
+	{{ form_row(formPatient.charge, {'label' : "Prise en charge"}) }}
+	{{ form_row(formPatient.precision, {'label' : "Précision"}) }}
+	{{ form_row(formPatient.traitement, {'label' : "Traitement"}) }}
+	{{ form_row(formPatient.lateralite, {'label' : "Latéralité"}) }}
+	{{ form_row(formPatient.textmotifs, {'label' : "Motif(s) de consultation" , 'id' : 'textmotif'}) }}
+	{{ form_row(formPatient.motifs, {'label' : false , 'id' : 'motif'}) }}
 
 	<button type="submit" class="btn btn-success">
 		{% if editMode %}
@@ -29,4 +42,28 @@
 	{{ form_end(formPatient) }}
 	{# Fin du formulaire #}
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+window.onload = function()
+{
+	function Remplissage(){
+		var text
+		if(textmotif.value != ''){
+    		if (motif.value){
+    			text = motif.value + '\n' +textmotif.value;
+    		}else{
+    			text = textmotif.value;
+    		}
+    		motif.value = text;
+		}
+	}
+	
+	var textmotif = document.getElementById('textmotif');
+	var motif = document.getElementById('motif');
+
+	textmotif.addEventListener("change", Remplissage); 
+}
+</script>
 {% endblock %}

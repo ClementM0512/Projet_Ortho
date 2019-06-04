@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -30,7 +30,7 @@ class MainController extends AbstractController
      * @Route("/exercices", name="listeExos")
      * @IsGranted("ROLE_USER")
      */
-    public function list_exos($idPatient, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice)
+    public function list_exos($idPatient = null, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice)
     {
         
         if ($this->getUser()) {
@@ -49,6 +49,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> null,
+            'bool' => true,
         ]);
     }
     /**
@@ -79,6 +80,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     
@@ -103,21 +105,21 @@ class MainController extends AbstractController
             $idUser=0;
         }
         $histoires = $repo->findAll();
-        echo $repoExercice->findOneBy(['name' => 'Mots-Outil'])->getId();
-        $idExercice = $repoExercice->findOneBy(['name' => 'chronomots']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'Mots-Outil']);
         return $this->render('main/motsoutil.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     
     /**
      *
-     * @Route("/exercices/lestraits", name="lestraits")
-     * @Route("/Patient/{idPatient}/exercices/lestraits", name="lestraitsAP")
+     * @Route("/exercices/Tracerdroit", name="lestraits")
+     * @Route("/Patient/{idPatient}/exercices/Tracerdroit", name="lestraitsAP")
      * @IsGranted("ROLE_USER")
      */
     public function lestraits(Patient $patient = null, HistoireRepository $repoHistoire, ExerciceRepository $repoExercice)
@@ -136,6 +138,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     /**
@@ -164,6 +167,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     
@@ -221,6 +225,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     /**
@@ -249,6 +254,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     
@@ -280,6 +286,7 @@ class MainController extends AbstractController
             'idPatient' => $idPatient,
             'idUser' => $idUser,
             'idExercice'=> $idExercice->getId(),
+            'bool' => false,
         ]);
     }
     
@@ -314,7 +321,7 @@ class MainController extends AbstractController
         ->setIdBilan($bilan)
         ->setScore($_GET['score']);
         
-        echo($_GET['exercice']);
+//         echo($_GET['exercice']);
 
         
         $manager->persist($resultat);

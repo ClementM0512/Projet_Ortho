@@ -115,7 +115,8 @@ class PatientController extends AbstractController
         $form->handleRequest($request);             #Sert pour le traitement des données du formulaire
             
         if ($form->isSubmitted() && $form->isValid()) {
-                  
+            $patient->setCharge($form->get('charge')->getData().'/'.$form->get('precision')->getData());
+     
             $manager->persist($patient);            #Dit a doctrine que l'on veut save l'objet
             $manager->flush();                      #Execute la querie pour sauvegarder les données dans la table
             
@@ -177,9 +178,13 @@ class PatientController extends AbstractController
         
         
         $patient = $repo->find($id);
+       
+       $charge = explode("/", $patient->getCharge());
+    
         
         return $this->render('patient/patientShow.html.twig',[
-            'patient' => $patient
+            'patient' => $patient,
+            'charge' => $charge
         ]);
     }
     
