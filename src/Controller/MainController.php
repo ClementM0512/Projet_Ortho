@@ -1,4 +1,4 @@
-<?php
+﻿<?php 
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +20,7 @@ use App\Entity\Exercice;
 use App\Form\HistoireType;
 use App\Entity\User;
 use App\Entity\Bilan;
+
 /*
  * @IsGranted("ROLE_USER")
  */
@@ -41,7 +42,6 @@ class MainController extends AbstractController
         {
             $idUser=0;
         }
-
         $exercices = $repo->findAll(); // Sert � trouver tout les objets du type pass� en param
         // dd($exercices);
         return $this->render('main/listeExos.html.twig', [
@@ -168,6 +168,37 @@ class MainController extends AbstractController
             'bool' => false,
         ]);
     }
+    
+    /**
+     *
+     * @Route("/exercices/lettres", name="lettres")
+     * @Route("/Patient/{idPatient}/exercices/lettres", name="lettresAP")
+     * @IsGranted("ROLE_USER")
+     */
+    public function lettres(Patient $patient = null, ExerciceRepository $repoExercice)
+    {
+        //         if(isset($_GET['idPatient'])){
+        //             $idPatient = $_GET['idPatient'];
+        //         } else {
+        //             $idPatient = 0;
+        //         }
+        //         if ($this->getUser()) {
+        //             $idUser = $this->getUser()->getid();
+        //         }
+        //         else
+            //         {
+            //             $idUser=0;
+            //         }
+        $idExercice = $repoExercice->findOneBy(['name' => 'lettres']);
+        return $this->render('main/lettres.html.twig', [
+            'controller_name' => 'MainController',
+            //             'idPatient' => $idPatient,
+        //             'idUser' => $idUser,
+        //             'idExercice'=> $idExercice->getId(),
+        ]);
+    }
+    
+
     /**
      *
      * @Route("/exercices/duction", name="duction")
@@ -281,7 +312,7 @@ class MainController extends AbstractController
         $bilan = $repoBilan->find((int)$_GET['bilan']);
         $user = $repoUser->find((int)$_GET['user']);
         $patient = $repoPatient->find((int)$_GET['patient']);
-       
+        
         $resultat = new Resultat();
         $resultat->setIdExercice($exercice)
         ->setIdPatient($patient)
@@ -289,8 +320,7 @@ class MainController extends AbstractController
         ->setIdBilan($bilan)
         ->setScore($_GET['score']);
         
-//         echo($_GET['exercice']);
-
+        //         echo($_GET['exercice']);
         
         $manager->persist($resultat);
         $manager->flush();
@@ -298,9 +328,9 @@ class MainController extends AbstractController
         
     }
     /**
-     * 
+     *
      * @Route("/nouvellehistoire", name="HistoireCreation")
-     * @IsGranted("ROLE_USER")    
+     * @IsGranted("ROLE_USER")
      */
     public function createHistoire(Request $request, ObjectManager $manager)
     {
