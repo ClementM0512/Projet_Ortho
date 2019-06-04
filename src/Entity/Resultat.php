@@ -44,6 +44,11 @@ class Resultat
      */
     private $id_Bilan;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bilan01", inversedBy="resultats")
+     */
+    private $bilan01;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +110,18 @@ class Resultat
     public function setIdBilan(?Bilan $id_Bilan): self
     {
         $this->id_Bilan = $id_Bilan;
+
+        return $this;
+    }
+
+    public function getBilan01(): ?Bilan01
+    {
+        return $this->bilan01;
+    }
+
+    public function setBilan01(?Bilan01 $bilan01): self
+    {
+        $this->bilan01 = $bilan01;
 
         return $this;
     }

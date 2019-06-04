@@ -66,7 +66,7 @@ class Bilan
     // /**
     //  * @ORM\Column(type="string", length=255, nullable=true)
     //  */
-    // private $distance;
+    // private $stereoscopique;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

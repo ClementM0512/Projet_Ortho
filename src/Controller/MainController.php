@@ -19,7 +19,7 @@ use App\Entity\Histoire;
 use App\Entity\Exercice;
 use App\Form\HistoireType;
 use App\Entity\User;
-use App\Entity\Bilan;
+use App\Entity\Bilan01;
 /*
  * @IsGranted("ROLE_USER")
  */
