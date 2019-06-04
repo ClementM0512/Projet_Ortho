@@ -19,7 +19,8 @@ class PatientFixtures extends Fixture
             $patient->setNom($faker->firstName)
                     ->setPrenom($faker->lastName)
                     ->setDateDeNaissance($faker->dateTime)
-                    ->setAdresse($faker->address);
+                    ->setAdresse($faker->address)
+                    ->setCharge("orthophonie/CMP");
             
             
             $manager->persist($patient);

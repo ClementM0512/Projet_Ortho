@@ -20,9 +20,7 @@
 		<span class="defPatient"><b>Classe</b> : {{ patient.classe }} <b>Précision</b> : {{ patient.optnClasse }}</span>
 		<span class="defPatient"><b>Antécedent</b> : {{ patient.antecedent }}</span>
 		<span class="defPatient"><b>Autre(s) bilan(s)</b>: {{ patient.autreBilan }}</span>
-		{% if charge %}
 		<span class="defPatient"><b>Prise en charge</b> : {{charge[0]}}	<b>Précision</b> : {{charge[1]}}</span>
-		{% endif %}
 		<span class="defPatient"><b>Traitement</b> : {{ patient.traitement }}</span>
 		<span class="defPatient"><b>Latéralité</b> : {{ patient.lateralite }}</span>
 		<span class="defPatient"><b>Motif(s)</b> : {{ patient.motifs }}</span>
