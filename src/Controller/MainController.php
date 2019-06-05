@@ -12,7 +12,7 @@ use App\Repository\HistoireRepository;
 use App\Repository\PatientRepository;
 use App\Repository\ResultatRepository;
 use App\Repository\UserRepository;
-use App\Repository\BilanRepository;
+use App\Repository\Bilan01Repository;
 use App\Entity\Resultat;
 use App\Entity\Patient;
 use App\Entity\Histoire;
@@ -306,7 +306,7 @@ class MainController extends AbstractController
      *
      * @Route("/envoiajax", name="envoiajax")
      */
-    public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, PatientRepository $repoPatient, UserRepository $repoUser, BilanRepository $repoBilan)
+    public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, PatientRepository $repoPatient, UserRepository $repoUser, Bilan01Repository $repoBilan)
     {
         $exercice = $repoExo->find((int)$_GET['exercice']);
         $bilan = $repoBilan->find((int)$_GET['bilan']);

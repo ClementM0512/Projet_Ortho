@@ -67,12 +67,17 @@
 	width: 76%;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10%;
 }
 
 .center{
 	text-align: center;
 	margin-left: auto;
     margin-right: auto;
+}
+
+.titre{
+    margin-bottom: 4%;
 }
 
 .btn-confirm{
@@ -145,4 +150,47 @@
 
 .defPatient{
     margin-top: 6px;
+}
+
+#name{
+    display: inline-block;
+    margin-right: 9%;
+    width: 45%;
+}
+
+#firstname{
+    display: inline-block;
+    width: 45%;
+}
+
+#birthdate{
+    display: inline-block;
+    margin-right: 3%;
+}
+
+#address{
+    display: inline-block;
+    width: 70%;
+}
+
+#classe{
+    width: 35%;
+    margin-right: 4%;
+    display: inline-block;
+}
+
+#optnClasse{
+    width: 60%;
+    display: inline-block;
+}
+
+#charge{
+    width: 65%;
+    display: inline-block;
+    margin-right: 4%;
+}
+
+#precision{
+    width: 30%;
+    display: inline-block;
 }

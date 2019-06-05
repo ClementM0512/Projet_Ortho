@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\PatientRepository;
-use App\Repository\BilanRepository;
+use App\Repository\Bilan01Repository;
 use App\Form\PatientType;
 use App\Form\Bilan01Type;
 use App\Entity\Patient;
