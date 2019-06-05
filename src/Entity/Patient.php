@@ -79,11 +79,6 @@ class Patient
     private $motifs;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bilan", mappedBy="patient")
-     */
-    private $bilans;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="id_Patient", orphanRemoval=true)
      */
     private $resultats;

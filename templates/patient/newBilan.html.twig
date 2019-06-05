@@ -11,9 +11,22 @@
 
 	{{ form_start(formBilan) }}
 
-	{{ form_row(formBilan.odC) }}
-	{{ form_row(formBilan.ogC) }}
-
+	{{ form_row(formBilan.corrections) }}
+	{{ form_row(formBilan.allC) }}
+	{{ form_row(formBilan.optotypes) }}
+	{{ form_row(formBilan.echelle) }}
+	{{ form_row(formBilan.affichages) }}
+	{{ form_row(formBilan.distance) }}
+	{{ form_row(formBilan.allVL) }}
+	{{ form_row(formBilan.allVP) }}
+	{{ form_row(formBilan.allPO) }}
+	{{ form_row(formBilan.stereoscopique) }}
+	{{ form_row(formBilan.couleurs) }}
+	{{ form_row(formBilan.contrastes) }}
+	{{ form_row(formBilan.accomodation) }}
+	{{ form_row(formBilan.confrontation) }}
+	{{ form_row(formBilan.fixation) }}
+									
 
 	<button type="submit" class="btn btn-success">
 		{% if editMode %}

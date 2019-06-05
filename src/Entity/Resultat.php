@@ -40,14 +40,9 @@ class Resultat
     private $id_User;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Bilan", inversedBy="resultats")
-     */
-    private $id_Bilan;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Bilan01", inversedBy="resultats")
      */
-    private $bilan01;
+    private $id_Bilan01;
 
     public function getId(): ?int
     {

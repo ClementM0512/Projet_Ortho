@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\PatientRepository;
 use App\Repository\BilanRepository;
 use App\Form\PatientType;
-use App\Form\BilanType;
+use App\Form\Bilan01Type;
 use App\Entity\Patient;
 use App\Entity\Bilan01;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -217,12 +217,12 @@ class PatientController extends AbstractController
      */
     public function _formCreateBilan(Patient $patient, Request $request, ObjectManager $manager)
     {
-
+        
         $bilan = new Bilan01();
         
         $bilan->setPatient($patient);
         
-        $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
+        $form = $this->createForm(Bilan01Type::class, $bilan); #constructeur form article
         
         $form->handleRequest($request);
         
@@ -272,7 +272,7 @@ class PatientController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Patient::class);
         $patient = $repo->find($idP);
         
-        $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
+        $form = $this->createForm(Bilan01Type::class, $bilan); #constructeur form article
         
         $form->handleRequest($request);
         
