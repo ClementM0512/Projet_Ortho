@@ -199,3 +199,23 @@
     width: 20%;
     display: inline-block;
 }
+
+#od{
+    margin-right: 3%;
+}
+
+#opto, #echel, #aff, #dist{
+    width: 45%;
+    display: inline-block;
+}
+
+#opto, #aff{
+    margin-right: 9%;
+}
+
+.odvl, .ogvl, .odgvl{
+    width: 15%;
+    display: inline-block;
+    margin-right: 1%;
+    text-align: center;
+}

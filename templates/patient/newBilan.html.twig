@@ -21,20 +21,29 @@
 	<div>
 		<div>
 			<div id="opto">{{ form_row(formBilan.optotypes) }}</div>
-			<div id="echelle">{{ form_row(formBilan.echelle) }}</div>
+			<div id="echel">{{ form_row(formBilan.echelle, {'id' : 'echelle', 'label' : 'Echelle de près'}) }}</div>
 		</div>
 		<div>
-			<div id="">{{ form_row(formBilan.affichages) }}</div>
-			<div id="">{{ form_row(formBilan.distance) }}</div>
+			<div id="aff">{{ form_row(formBilan.affichages) }}</div>
+			<div id="dist">{{ form_row(formBilan.distance) }}</div>
 		</div>
 	</div>
 
-
-	{{ form_row(formBilan.allVL) }}
+	<div>
+		<div class="odvl">{{ form_row(formBilan.allVL, {'label' : 'OD'}) }}</div>
+		<div class="ogvl">{{ form_row(formBilan.OGvl, {'label' : 'OG'}) }}</div>
+		<div class="odgvl">{{ form_row(formBilan.ODGvl, {'label' : 'ODG'}) }}</div>
+	</div>
 
 	<div>
-		{{ form_row(formBilan.allVP, {'id' : 'Pavp'}) }}
-		{{ form_row(formBilan.Rosano, {'id' : 'Ravp'}) }}
+		<div id="Pavp" class="odvl">{{ form_row(formBilan.allVP, {'label' : 'OD'}) }}</div> 
+		<div id="Ravp" class="odvl">{{ form_row(formBilan.Rosano, {'label' : 'OD'}) }}</div >
+
+		<div id="Pavp" class="ogvl">{{ form_row(formBilan.OGvpP, {'label' : 'OG'}) }}</div>
+		<div id="Ravp" class="ogvl">{{ form_row(formBilan.OGvpR, {'label' : 'OG'}) }}</div>
+
+		<div id="Pavp" class="odgvl">{{ form_row(formBilan.ODGvpP, {'label' : 'ODG'}) }}</div>
+		<div id="Ravp" class="odgvl">{{ form_row(formBilan.ODGvpR, {'label' : 'ODG'}) }}</div>
 	</div>
 
 	{{ form_row(formBilan.allPO) }}
