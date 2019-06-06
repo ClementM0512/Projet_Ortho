@@ -131,7 +131,7 @@ class MainController extends AbstractController
         if ($this->getUser()) {
             $idUser = $this->getUser()->getid();
         }
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'Tracer droit']);
         return $this->render('main/lestraits.html.twig', [
             'idPatient' => $idPatient,
             'idUser' => $idUser,
