@@ -36,13 +36,16 @@
         	</p>
   			{% else %}
   		  		<p>
-        		<span id="idPatient">Pas de patient</span>
+        		<span id="idPatient"></span>
       		  	</p>
   			{% endif %}
-        
+        {% if idExercice %}
         <p>
 	      	Exercice : <span id="idExercice">{{ idExercice.name }}</span>
 		</p>
+		{% else %}
+		<p><span id="idExercice"></span></p>
+			{% endif %}
         <label>Enregistrer</label>
         <input id="enregistrement" type="checkbox" {% if  idPatient %} checked {% endif %} id="scales" name="Enregistrer">
         

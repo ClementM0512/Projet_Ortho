@@ -31,55 +31,54 @@ class MainController extends AbstractController
      * @Route("/exercices", name="listeExos")
      * @IsGranted("ROLE_USER")
      */
-    public function list_exos($idPatient = null, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice)
+    public function list_exos($idPatient = null, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
     {
         
+        if(isset($_GET['idPatient'])){
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+            
+        } else {
+            $Patient = null;
+        }
+        
         if ($this->getUser()) {
-            $idUser = $this->getUser()->getid();
+            $User = $this->getUser();
         }
-        else
-        {
-            $idUser=0;
-        }
-        $exercices = $repo->findAll(); // Sert ï¿½ trouver tout les objets du type passï¿½ en param
+        $exercices = $repo->findAll(); // Sert à trouver tout les objets du type passé en param
         // dd($exercices);
         return $this->render('main/listeExos.html.twig', [
-            'controller_name' => 'MainController',
             'exercices' => $exercices,
-            'idPatient' => $idPatient,
-            'idUser' => $idUser,
+            'idPatient' => $Patient,
+            'idUser' => $User,
             'idExercice'=> null,
             'bool' => true,
         ]);
     }
+    
     /**
      *
      * @Route("/exercices/chronomots", name="chronomots")
      * @Route("/Patient/{idPatient}/exercices/chronomots", name="chronomotsAP")
      * @IsGranted("ROLE_USER")
      */
-    public function chronomots(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice)
+    public function chronomots(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
     {
-        if (isset($_GET['idPatient'])) {
-            $idPatient = $_GET['idPatient'];
+        if(isset($_GET['idPatient'])){
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+            
         } else {
-            $idPatient = 0;
+            $Patient = null;
         }
+        
         if ($this->getUser()) {
-            $idUser = $this->getUser()->getid();
+            $User = $this->getUser();
         }
-        else
-        {
-            $idUser=0;
-        }
-        $histoires = $repo->findAll();
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $Exercice = $repoExercice->findOneBy(['name' => 'Chronomots']);
         return $this->render('main/chronomots.html.twig', [
-            'controller_name' => 'MainController',
-            'histoires' => $histoires,
-            'idPatient' => $idPatient,
-            'idUser' => $idUser,
-            'idExercice'=> $idExercice->getId(),
+            'histoires'=> $repo->findAll(),
+            'idPatient' => $Patient,
+            'idUser' => $User,
+            'idExercice'=> $Exercice,
             'bool' => false,
         ]);
     }
@@ -90,25 +89,24 @@ class MainController extends AbstractController
      * @Route("/Patient/{idPatient}/exercices/motsoutils", name="motsoutilsAP")
      * @IsGranted("ROLE_USER")
      */
-    public function motsoutils(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice)
+    public function motsoutils(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
     {
         if(isset($_GET['idPatient'])){
-            $idPatient = $_GET['idPatient'];
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+            
         } else {
-            $idPatient = 0;
+            $Patient = null;
         }
-        $idUser = 0;
+        
         if ($this->getUser()) {
-            $idUser = $this->getUser()->getid();
+            $User = $this->getUser();
         }
-        $histoires = $repo->findAll();
-        $idExercice = $repoExercice->findOneBy(['name' => 'Mots-Outil']);
+        $Exercice = $repoExercice->findOneBy(['name' => 'Mots-Outil']);
         return $this->render('main/motsoutil.html.twig', [
-            'controller_name' => 'MainController',
-            'histoires' => $histoires,
-            'idPatient' => $idPatient,
-            'idUser' => $idUser,
-            'idExercice'=> $idExercice->getId(),
+            'histoires'=> $repo->findAll(),
+            'idPatient' => $Patient,
+            'idUser' => $User,
+            'idExercice'=> $Exercice,
             'bool' => false,
         ]);
     }
@@ -145,26 +143,23 @@ class MainController extends AbstractController
      * @Route("/Patient/{idPatient}/exercices/lancaster", name="lancasterAP")
      * @IsGranted("ROLE_USER")
      */
-    public function lancaster(Patient $patient = null, ExerciceRepository $repoExercice)
+    public function lancaster(Patient $patient = null, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
     {
         if(isset($_GET['idPatient'])){
-            $idPatient = $_GET['idPatient'];
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+            
         } else {
-            $idPatient = 0;
+            $Patient = null;
         }
+        
         if ($this->getUser()) {
-            $idUser = $this->getUser()->getid();
+            $User = $this->getUser();
         }
-        else
-        {
-            $idUser=0;
-        }
-        $idExercice = $repoExercice->findOneBy(['name' => 'lancaster']);
+        $Exercice = $repoExercice->findOneBy(['name' => 'lancaster']);
         return $this->render('main/lancaster.html.twig', [
-            'controller_name' => 'MainController',
-            'idPatient' => $idPatient,
-            'idUser' => $idUser,
-            'idExercice'=> $idExercice->getId(),
+            'idPatient' => $Patient,
+            'idUser' => $User,
+            'idExercice'=> $Exercice,
             'bool' => false,
         ]);
     }
@@ -175,86 +170,79 @@ class MainController extends AbstractController
      * @Route("/Patient/{idPatient}/exercices/lettres", name="lettresAP")
      * @IsGranted("ROLE_USER")
      */
-    public function lettres(Patient $patient = null, ExerciceRepository $repoExercice)
+    public function lettres(Patient $patient = null, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
     {
-        //         if(isset($_GET['idPatient'])){
-        //             $idPatient = $_GET['idPatient'];
-        //         } else {
-        //             $idPatient = 0;
-        //         }
-        //         if ($this->getUser()) {
-        //             $idUser = $this->getUser()->getid();
-        //         }
-        //         else
-        //         {
-        //             $idUser=0;
-            //         }
-            $idExercice = $repoExercice->findOneBy(['name' => 'lettres']);
-            return $this->render('main/lettres.html.twig', [
-                'controller_name' => 'MainController',
-                //             'idPatient' => $idPatient,
-                //             'idUser' => $idUser,
-                //             'idExercice'=> $idExercice->getId(),
-            ]);
+        if(isset($_GET['idPatient'])){
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+            
+        } else {
+            $Patient = null;
         }
+        
+        if ($this->getUser()) {
+            $User = $this->getUser();
+        }
+        $Exercice = $repoExercice->findOneBy(['name' => 'Lettres']);
+        return $this->render('main/lettres.html.twig', [
+            'idPatient' => $Patient,
+            'idUser' => $User,
+            'idExercice'=> $Exercice,
+            'bool' => false,
+        ]);
+    }
         
         /**
          *
          * @Route("/exercices/duction", name="duction")
          * @Route("/Patient/{idPatient}/exercices/duction", name="ductionAP")
          */
-        public function duction(Patient $patient = null, ExerciceRepository $repoExercice)
-        {
-            if(isset($_GET['idPatient'])){
-                $idPatient = $_GET['idPatient'];
-            } else {
-                $idPatient = 0;
-            }
-            if ($this->getUser()) {
-                $idUser = $this->getUser()->getid();
-            }
-            else
-            {
-                $idUser=0;
-            }
-            $idExercice = $repoExercice->findOneBy(['name' => 'duction']);
-            return $this->render('main/duction.html.twig', [
-                'controller_name' => 'MainController',
-                'idPatient' => $idPatient,
-                'idUser' => $idUser,
-                'idExercice'=> $idExercice->getId(),
-                'bool' => false,
-            ]);
+    public function duction(Patient $patient = null, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
+    {
+        if(isset($_GET['idPatient'])){
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+            
+        } else {
+            $Patient = null;
         }
+        
+        if ($this->getUser()) {
+            $User = $this->getUser();
+        }
+        $Exercice = $repoExercice->findOneBy(['name' => 'duction']);
+        return $this->render('main/duction.html.twig', [
+            'idPatient' => $Patient,
+            'idUser' => $User,
+            'idExercice'=> $Exercice,
+            'bool' => false,
+        ]);
+    }
+    
         /**
          *
          * @Route("/exercices/cartememoire", name="cartememoire")
          * @Route("/Patient/{idPatient}/exercices/cartememoire", name="cartememoireAP")
          * @IsGranted("ROLE_USER")
          */
-        public function cartememoire(Patient $patient = null ,ExerciceRepository $repoExercice)
-        {
-            if(isset($_GET['idPatient'])){
-                $idPatient = $_GET['idPatient'];
-            } else {
-                $idPatient = 0;
-            }
-            if ($this->getUser()) {
-                $idUser = $this->getUser()->getid();
-            }
-            else
-            {
-                $idUser=0;
-            }
-            $idExercice = $repoExercice->findOneBy(['name' => 'cartememoire']);
-            return $this->render('main/cartememoire.html.twig', [
-                'controller_name' => 'MainController',
-                'idPatient' => $idPatient,
-                'idUser' => $idUser,
-                'idExercice'=> $idExercice->getId(),
-                'bool' => false,
-            ]);
+    public function cartememoire(Patient $patient = null ,ExerciceRepository $repoExercice, PatientRepository $repoPatient)
+    {
+        if(isset($_GET['idPatient'])){
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+            
+        } else {
+            $Patient = null;
         }
+        
+        if ($this->getUser()) {
+            $User = $this->getUser();
+        }
+        $Exercice = $repoExercice->findOneBy(['name' => 'cartememoire']);
+        return $this->render('main/cartememoire.html.twig', [
+            'idPatient' => $Patient,
+            'idUser' => $User,
+            'idExercice'=> $Exercice,
+            'bool' => false,
+        ]);
+    }
         
         /**
          *
@@ -262,31 +250,27 @@ class MainController extends AbstractController
          * @Route("/Patient/{idPatient}/exercices/poursuite", name="poursuiteAP")
          * @IsGranted("ROLE_USER")
          */
-        public function Poursuite(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice)
-        {
-            if (isset($_GET['idPatient'])) {
-                $idPatient = $_GET['idPatient'];
-            } else {
-                $idPatient = 0;
-            }
-            if ($this->getUser()) {
-                $idUser = $this->getUser()->getid();
-            }
-            else
-            {
-                $idUser=0;
-            }
-            $histoires = $repo->findAll();
-            $idExercice = $repoExercice->findOneBy(['name' => 'poursuite']);
-            return $this->render('main/poursuite.html.twig', [
-                'controller_name' => 'MainController',
-                'histoires' => $histoires,
-                'idPatient' => $idPatient,
-                'idUser' => $idUser,
-                'idExercice'=> $idExercice->getId(),
-                'bool' => false,
-            ]);
+    public function Poursuite(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
+    {
+        if(isset($_GET['idPatient'])){
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+            
+        } else {
+            $Patient = null;
         }
+        
+        if ($this->getUser()) {
+            $User = $this->getUser();
+        }
+        $Exercice = $repoExercice->findOneBy(['name' => 'poursuite']);
+        return $this->render('main/poursuite.html.twig', [
+            'histoires'=> $repo->findAll(),
+            'idPatient' => $Patient,
+            'idUser' => $User,
+            'idExercice'=> $Exercice,
+            'bool' => false,
+        ]);
+    }
         
         /**
          *
