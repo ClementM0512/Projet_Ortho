@@ -14,7 +14,7 @@
 	{{ form_row(formBilan.corrections) }}
 	{{ form_row(formBilan.allC) }}
 	{{ form_row(formBilan.optotypes) }}
-	{{ form_row(formBilan.echelle) }}
+	{{ form_row(formBilan.echelle, {'id' : 'echelle'}) }}
 	{{ form_row(formBilan.affichages) }}
 	{{ form_row(formBilan.distance) }}
 	{{ form_row(formBilan.allVL) }}
@@ -41,4 +41,30 @@
 
 	{{ form_end(formBilan) }}
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+window.onload = function()
+{
+	echelle = document.getElementById('echelle');
+	Pavp = document.getElementById('Pavp');
+	Ravp = document.getElementById('Ravp');
+	Test();
+	function Test(){
+		if(echelle.value == 'Parinaud')
+			{
+				Pavp.style.display = 'inline-block';
+				Ravp.style.display = 'none';
+			}
+		if(echelle.value == 'Rosano')
+		{
+			Pavp.style.display = 'none';
+			Ravp.style.display = 'inline-block';
+		}
+
+	}
+	echelle.addEventListener("change", Test); 
+}
+</script>
 {% endblock %}

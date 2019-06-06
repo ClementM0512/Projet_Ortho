@@ -81,8 +81,10 @@ function Miseenplace()
 	];
 	
 	CreationElement(elementsHtml);
-
-
+	
+	p = document.querySelectorAll('p');
+	p[3].style.color = "#FFF";
+	
 	setTimeout(enlevementlettre,1000); // appel après 0.1 secondes = 100 millisecondes////////
 
 }
