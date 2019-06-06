@@ -119,22 +119,23 @@ class MainController extends AbstractController
      * @Route("/Patient/{idPatient}/exercices/Tracerdroit", name="lestraitsAP")
      * @IsGranted("ROLE_USER")
      */
-    public function lestraits(Patient $patient = null, HistoireRepository $repoHistoire, ExerciceRepository $repoExercice)
+    public function lestraits(Patient $patient = null, HistoireRepository $repoHistoire, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
     {
         if(isset($_GET['idPatient'])){
-            $idPatient = $_GET['idPatient'];
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+            
         } else {
-            $idPatient = 0;
+            $Patient = null;
         }
-        $idUser = 0;
+        
         if ($this->getUser()) {
-            $idUser = $this->getUser()->getid();
+            $User = $this->getUser();
         }
-        $idExercice = $repoExercice->findOneBy(['name' => 'Tracer droit']);
+        $Exercice = $repoExercice->findOneBy(['name' => 'Tracer droit']);
         return $this->render('main/lestraits.html.twig', [
-            'idPatient' => $idPatient,
-            'idUser' => $idUser,
-            'idExercice'=> $idExercice->getId(),
+            'idPatient' => $Patient,
+            'idUser' => $User,
+            'idExercice'=> $Exercice,
             'bool' => false,
         ]);
     }

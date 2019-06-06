@@ -37,7 +37,7 @@ Les traits
 		<input type="button" class="btn btn-info"  value="Recommencer">
 
 		{% if idPatient %}
-		<a  href="{{ path('listeExosPatient',{'idPatient' : idPatient }) }}"> <input
+		<a  href="{{ path('listeExosPatient',{'idPatient' : idPatient.id }) }}"> <input
 			type="button" class="btn btn-success" value="fini">
 		</a>
 		{% else %}
