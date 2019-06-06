@@ -194,3 +194,8 @@
     width: 30%;
     display: inline-block;
 }
+
+#od, #og{
+    width: 20%;
+    display: inline-block;
+}

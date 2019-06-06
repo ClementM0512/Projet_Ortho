@@ -33,10 +33,10 @@
 		<div id="charge">{{ form_row(formPatient.charge, {'label' : "Prise en charge"}) }}</div>
 		<div id="precision">{{ form_row(formPatient.precision, {'label' : "Précision"}) }}</div>
 	</div>
-	<div>{{ form_row(formPatient.traitement, {'label' : "Traitement", 'attr': {'rows' : '4'}}) }}</div>
-	<div>{{ form_row(formPatient.lateralite, {'label' : "Latéralité"}) }}</div>
-	<div>{{ form_row(formPatient.textmotifs, {'label' : "Motif(s) de consultation" , 'id' : 'textmotif'}) }}</div>
-	<div>{{ form_row(formPatient.motifs, {'label' : false , 'id' : 'motif', 'attr': {'rows' : '4'}}) }}</div>
+	{{ form_row(formPatient.traitement, {'label' : "Traitement", 'attr': {'rows' : '4'}}) }}
+	{{ form_row(formPatient.lateralite, {'label' : "Latéralité"}) }}
+	{{ form_row(formPatient.textmotifs, {'label' : "Motif(s) de consultation" , 'id' : 'textmotif'}) }}
+	{{ form_row(formPatient.motifs, {'label' : false , 'id' : 'motif', 'attr': {'rows' : '4'}}) }}
 
 	<button type="submit" class="btn btn-success">
 		{% if editMode %}

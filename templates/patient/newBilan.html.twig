@@ -4,24 +4,36 @@
 {% block body %}
 <div class="form-app">
 	{% if editMode %}
-	<h1 class="center">Modification d'un bilan!</h1>
+	<h1 class="center titre">Modification d'un bilan!</h1>
 	{% else %}
-	<h1 class="center">Création d'un bilan!</h1>
+	<h1 class="center titre">Création d'un bilan!</h1>
 	{% endif %}
 
 	{{ form_start(formBilan) }}
 
-	{{ form_row(formBilan.corrections) }}
-	{{ form_row(formBilan.allC) }}
-	{{ form_row(formBilan.optotypes) }}
-	{{ form_row(formBilan.echelle) }}
-	{{ form_row(formBilan.affichages) }}
-	{{ form_row(formBilan.distance) }}
+	<div>
+		<div id="correc">{{ form_row(formBilan.corrections) }}</div>
+		<div id="od">{{ form_row(formBilan.allC, {'label' : 'OD'}) }}</div>
+		<div id="og">{{ form_row(formBilan.OG, {'label' : 'OG'}) }}</div>
+	</div>
+
+	<div>
+		<div>
+			<div id="opto">{{ form_row(formBilan.optotypes) }}</div>
+			<div id="">{{ form_row(formBilan.echelle) }}</div>
+		</div>
+		<div>
+			<div id="">{{ form_row(formBilan.affichages) }}</div>
+			<div id="">{{ form_row(formBilan.distance) }}</div>
+		</div>
+	</div>
 	{{ form_row(formBilan.allVL) }}
+
 	<div>
 		{{ form_row(formBilan.allVP, {'id' : 'Pavp'}) }}
 		{{ form_row(formBilan.Rosano, {'id' : 'Ravp'}) }}
 	</div>
+
 	{{ form_row(formBilan.allPO) }}
 	{{ form_row(formBilan.stereoscopique) }}
 	{{ form_row(formBilan.couleurs) }}

@@ -23,6 +23,7 @@ class PatientType extends AbstractType
             ->add('adresse')
             ->add('classe', ChoiceType::class, [
                 'choices' => [
+                    ' ' => ' ',
                     'Primaire' => [
                         'PS' => 'PS',
                         'MS' => 'MS',
@@ -52,6 +53,7 @@ class PatientType extends AbstractType
             ->add('autreBilan')
             ->add('charge', ChoiceType::class,[
                 'choices' => [
+                    ' ' => ' ',
                     'orthophonie' => 'orthophonie',
                     'psychomotricité' => 'psychomotricité',
                     'psychologie' => 'psychologie',
@@ -61,6 +63,7 @@ class PatientType extends AbstractType
             ])
             ->add('precision', ChoiceType::class,[
                 'choices' => [
+                    ' ' => ' ',
                     'SESSAD' => 'SESSAD',
                     'IME' => 'IME',
                     'CMP' => 'CMP',
@@ -70,6 +73,7 @@ class PatientType extends AbstractType
             ->add('traitement')
             ->add('lateralite', ChoiceType::class,[
                 'choices' => [
+                    ' ' => ' ',
                     'Droitier' => 'Droitier',
                     'Gaucher' => 'Gaucher',
                     'Non-defini' => 'Non-defini',
