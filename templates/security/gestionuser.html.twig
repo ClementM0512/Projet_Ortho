@@ -4,6 +4,8 @@
 {% block body %}
 <h1 class="center">Modification utilisateur</h1>
 
+<input type="checkbox" id="modiffication" name="modiffication">
+<label for="modiffication">Modiffication</label>
 <div class="form-app">
 {{ form_start(form) }}
 
@@ -25,4 +27,38 @@
     {{ form_end(form) }}
     <a href="{{ path('security_DeleteUser', {'id' : user.id}) }}"><button  class="btn btn-danger">Suppression de l'utilisateur</button></a>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+window.onload = function()
+{
+	var i;
+	function Modiffication(){
+		
+		for(i = 1 ; i < 5 ; i++){
+			if (champs[i].disabled == true)
+			{
+				champs[i].disabled = false;
+				select[0].disabled = false;
+			}else {
+				champs[i].disabled = true;
+				select[0].disabled = true;
+			}
+		}
+
+	}
+
+	
+	var Modif = document.getElementById('modiffication');
+	var champs = document.querySelectorAll("input");
+	var select = document.querySelectorAll("select");
+
+	Modiffication();
+	
+	Modif.addEventListener("change", Modiffication); 
+
+	
+}
+</script>
 {% endblock %}
