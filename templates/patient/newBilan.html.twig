@@ -11,6 +11,7 @@
 
 	{{ form_start(formBilan) }}
 
+
 	<div>
 		<div id="correc">{{ form_row(formBilan.corrections) }}</div>
 		<div id="od">{{ form_row(formBilan.allC, {'label' : 'OD'}) }}</div>
@@ -20,13 +21,15 @@
 	<div>
 		<div>
 			<div id="opto">{{ form_row(formBilan.optotypes) }}</div>
-			<div id="">{{ form_row(formBilan.echelle) }}</div>
+			<div id="echelle">{{ form_row(formBilan.echelle) }}</div>
 		</div>
 		<div>
 			<div id="">{{ form_row(formBilan.affichages) }}</div>
 			<div id="">{{ form_row(formBilan.distance) }}</div>
 		</div>
 	</div>
+
+
 	{{ form_row(formBilan.allVL) }}
 
 	<div>
@@ -53,4 +56,30 @@
 
 	{{ form_end(formBilan) }}
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+window.onload = function()
+{
+	echelle = document.getElementById('echelle');
+	Pavp = document.getElementById('Pavp');
+	Ravp = document.getElementById('Ravp');
+	Test();
+	function Test(){
+		if(echelle.value == 'Parinaud')
+			{
+				Pavp.style.display = 'inline-block';
+				Ravp.style.display = 'none';
+			}
+		if(echelle.value == 'Rosano')
+		{
+			Pavp.style.display = 'none';
+			Ravp.style.display = 'inline-block';
+		}
+
+	}
+	echelle.addEventListener("change", Test); 
+}
+</script>
 {% endblock %}
