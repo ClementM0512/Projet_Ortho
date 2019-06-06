@@ -79,19 +79,20 @@ class Patient
     private $motifs;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bilan", mappedBy="patient")
-     */
-    private $bilans;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="id_Patient", orphanRemoval=true)
      */
     private $resultats;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Bilan01", mappedBy="patient")
+     */
+    private $bilan01s;
 
     public function __construct()
     {
         $this->bilans = new ArrayCollection();
         $this->resultats = new ArrayCollection();
+        $this->bilan01s = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -299,6 +300,37 @@ class Patient
             // set the owning side to null (unless already changed)
             if ($resultat->getIdPatient() === $this) {
                 $resultat->setIdPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bilan01[]
+     */
+    public function getBilan01s(): Collection
+    {
+        return $this->bilan01s;
+    }
+
+    public function addBilan01(Bilan01 $bilan01): self
+    {
+        if (!$this->bilan01s->contains($bilan01)) {
+            $this->bilan01s[] = $bilan01;
+            $bilan01->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBilan01(Bilan01 $bilan01): self
+    {
+        if ($this->bilan01s->contains($bilan01)) {
+            $this->bilan01s->removeElement($bilan01);
+            // set the owning side to null (unless already changed)
+            if ($bilan01->getPatient() === $this) {
+                $bilan01->setPatient(null);
             }
         }
 

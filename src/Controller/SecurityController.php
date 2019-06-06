@@ -168,16 +168,15 @@ class SecurityController extends AbstractController
                 }
                 $testPositif ? $testPositif = 0 : $rechercheResultats[] = $recherche;
             }
-            if (! $rechercheResultats) {
+            if ($rechercheResultats != null) {
                 goto listeUser;
             }
             if (! $resultat) {
                 listeUser:
                 $rechercheResultats = $userRepository->findAll();
             }
-            // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            if (! $rechercheResultats) {
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if ($rechercheResultats == null) {
                 $this->addFlash('danger', 'pas de resultat, incomplet ou innexistant');
                 return $this->render('security/gestion.html.twig', [
                     'Users' => null,

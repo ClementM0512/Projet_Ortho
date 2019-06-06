@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -11,14 +11,16 @@ use App\Repository\HistoireRepository;
 use App\Repository\PatientRepository;
 use App\Repository\ResultatRepository;
 use App\Repository\UserRepository;
-use App\Repository\BilanRepository;
+use App\Repository\Bilan01Repository;
 use App\Entity\Resultat;
 use App\Entity\Patient;
 use App\Entity\Histoire;
 use App\Entity\Exercice;
 use App\Form\HistoireType;
 use App\Entity\User;
-use App\Entity\Bilan;
+
+use App\Entity\Bilan01;
+
 /*
  * @IsGranted("ROLE_USER")
  */
@@ -129,7 +131,7 @@ class MainController extends AbstractController
         if ($this->getUser()) {
             $idUser = $this->getUser()->getid();
         }
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $idExercice = $repoExercice->findOneBy(['name' => 'Tracer droit']);
         return $this->render('main/lestraits.html.twig', [
             'idPatient' => $idPatient,
             'idUser' => $idUser,
@@ -303,7 +305,7 @@ class MainController extends AbstractController
      *
      * @Route("/envoiajax", name="envoiajax")
      */
-    public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, PatientRepository $repoPatient, UserRepository $repoUser, BilanRepository $repoBilan)
+    public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, PatientRepository $repoPatient, UserRepository $repoUser, Bilan01Repository $repoBilan)
     {
         $exercice = $repoExo->find((int)$_GET['exercice']);
         $bilan = $repoBilan->find((int)$_GET['bilan']);

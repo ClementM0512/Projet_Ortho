@@ -40,9 +40,9 @@ class Resultat
     private $id_User;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Bilan", inversedBy="resultats")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bilan01", inversedBy="resultats")
      */
-    private $id_Bilan;
+    private $id_Bilan01;
 
     public function getId(): ?int
     {
@@ -105,6 +105,18 @@ class Resultat
     public function setIdBilan(?Bilan $id_Bilan): self
     {
         $this->id_Bilan = $id_Bilan;
+
+        return $this;
+    }
+
+    public function getBilan01(): ?Bilan01
+    {
+        return $this->bilan01;
+    }
+
+    public function setBilan01(?Bilan01 $bilan01): self
+    {
+        $this->bilan01 = $bilan01;
 
         return $this;
     }

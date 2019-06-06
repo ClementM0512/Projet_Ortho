@@ -8,11 +8,11 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\PatientRepository;
-use App\Repository\BilanRepository;
+use App\Repository\Bilan01Repository;
 use App\Form\PatientType;
-use App\Form\BilanType;
+use App\Form\Bilan01Type;
 use App\Entity\Patient;
-use App\Entity\Bilan;
+use App\Entity\Bilan01;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
@@ -145,7 +145,7 @@ class PatientController extends AbstractController
         
         if (($form->getClickedButton() && 'Delete' === $form->getClickedButton()->getName()))
         {
-            $repo = $this->getDoctrine()->getRepository(Bilan::class);
+            $repo = $this->getDoctrine()->getRepository(Bilan01::class);
             $bilans = $repo->findBy(['patient' => $patient->getId()]);
 
             foreach ($bilans as $bilan) {
@@ -198,7 +198,7 @@ class PatientController extends AbstractController
      */
     public function showBilans(Patient $patient)
     {
-        $repo = $this->getDoctrine()->getRepository(Bilan::class);
+        $repo = $this->getDoctrine()->getRepository(Bilan01::class);
         
         $bilan = $repo->findBy(
             ['patient' => $patient->getId()]);
@@ -217,12 +217,12 @@ class PatientController extends AbstractController
      */
     public function _formCreateBilan(Patient $patient, Request $request, ObjectManager $manager)
     {
-
-        $bilan = new Bilan();
+        
+        $bilan = new Bilan01();
         
         $bilan->setPatient($patient);
         
-        $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
+        $form = $this->createForm(Bilan01Type::class, $bilan); #constructeur form article
         
         $form->handleRequest($request);
         
@@ -247,7 +247,7 @@ class PatientController extends AbstractController
     public function bilanShow($idP, $idB)
     {
 
-        $repo = $this->getDoctrine()->getRepository(Bilan::class);      
+        $repo = $this->getDoctrine()->getRepository(Bilan01::class);      
         $bilan = $repo->find($idB);
         
         $repo = $this->getDoctrine()->getRepository(Patient::class);
@@ -266,13 +266,13 @@ class PatientController extends AbstractController
      */
     public function _formEditBilan($idP, $idB, Request $request, ObjectManager $manager)
     {
-        $repo = $this->getDoctrine()->getRepository(Bilan::class);
+        $repo = $this->getDoctrine()->getRepository(Bilan01::class);
         $bilan = $repo->find($idB);
         
         $repo = $this->getDoctrine()->getRepository(Patient::class);
         $patient = $repo->find($idP);
         
-        $form = $this->createForm(BilanType::class, $bilan); #constructeur form article
+        $form = $this->createForm(Bilan01Type::class, $bilan); #constructeur form article
         
         $form->handleRequest($request);
         
@@ -301,7 +301,7 @@ class PatientController extends AbstractController
         ->add('NoDelete', SubmitType::class, ['label' => 'Retour', 'attr' => ['class' => 'btn btn-primary btn-confirm']])
         ->getForm();
         
-        $repo = $this->getDoctrine()->getRepository(Bilan::class);
+        $repo = $this->getDoctrine()->getRepository(Bilan01::class);
         $bilan = $repo->find($idB);
         
         $repo = $this->getDoctrine()->getRepository(Patient::class);
