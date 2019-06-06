@@ -18,7 +18,10 @@
 	{{ form_row(formBilan.affichages) }}
 	{{ form_row(formBilan.distance) }}
 	{{ form_row(formBilan.allVL) }}
-	{{ form_row(formBilan.allVP) }}
+	<div>
+		{{ form_row(formBilan.allVP, {'id' : 'Pavp'}) }}
+		{{ form_row(formBilan.Rosano, {'id' : 'Ravp'}) }}
+	</div>
 	{{ form_row(formBilan.allPO) }}
 	{{ form_row(formBilan.stereoscopique) }}
 	{{ form_row(formBilan.couleurs) }}

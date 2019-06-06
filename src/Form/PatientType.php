@@ -44,6 +44,7 @@ class PatientType extends AbstractType
                         'Techno' => 'Techno',
                         'Pro' => 'Pro',
                     ],
+                    'Autres' => 'Autres' 
                 ],
             ])
             ->add('optnClasse')
