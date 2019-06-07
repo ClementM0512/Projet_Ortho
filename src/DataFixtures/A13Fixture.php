@@ -227,63 +227,63 @@ class A13Fixture extends Fixture
         
         $manager->persist($A13);
         $A13=new A13();
-        $A13->setAgeEquiv("<3-11")
-        ->setEH("<87")
-        ->setPS("<6")
-        ->setCO("<6")
-        ->setFG("<7")
-        ->setSR("<1")
-        ->setVC("<3")
-        ->setVMS("<2")
-        ->setFC("1");
+        $A13->setAgeEquiv("5-4")
+        ->setEH("128-129")
+        ->setPS("12")
+        ->setCO("14")
+        ->setFG("9")
+        ->setSR("19")
+        ->setVC("6")
+        ->setVMS("4")
+        ->setFC("6");
         
         $manager->persist($A13);
         $A13=new A13();
-        $A13->setAgeEquiv("<3-11")
-        ->setEH("<87")
-        ->setPS("<6")
-        ->setCO("<6")
-        ->setFG("<7")
-        ->setSR("<1")
-        ->setVC("<3")
-        ->setVMS("<2")
-        ->setFC("1");
+        $A13->setAgeEquiv("5-5")
+        ->setEH("130-131")
+        ->setPS("13")
+        ->setCO("15")
+        ->setFG("9")
+        ->setSR("20")
+        ->setVC("6")
+        ->setVMS("4")
+        ->setFC("6");
         
         $manager->persist($A13);
         $A13=new A13();
-        $A13->setAgeEquiv("<3-11")
-        ->setEH("<87")
-        ->setPS("<6")
-        ->setCO("<6")
-        ->setFG("<7")
-        ->setSR("<1")
-        ->setVC("<3")
-        ->setVMS("<2")
-        ->setFC("1");
+        $A13->setAgeEquiv("5-6")
+        ->setEH("132-133")
+        ->setPS("13")
+        ->setCO("15")
+        ->setFG("9")
+        ->setSR("21")
+        ->setVC("7")
+        ->setVMS("4")
+        ->setFC("6");
         
         $manager->persist($A13);
         $A13=new A13();
-        $A13->setAgeEquiv("<3-11")
-        ->setEH("<87")
-        ->setPS("<6")
-        ->setCO("<6")
-        ->setFG("<7")
-        ->setSR("<1")
-        ->setVC("<3")
-        ->setVMS("<2")
-        ->setFC("1");
+        $A13->setAgeEquiv("5-7")
+        ->setEH("134-135")
+        ->setPS("14")
+        ->setCO("16")
+        ->setFG("10")
+        ->setSR("22")
+        ->setVC("7")
+        ->setVMS("4")
+        ->setFC("7");
         
         $manager->persist($A13);
         $A13=new A13();
-        $A13->setAgeEquiv("<3-11")
-        ->setEH("<87")
-        ->setPS("<6")
-        ->setCO("<6")
-        ->setFG("<7")
-        ->setSR("<1")
-        ->setVC("<3")
-        ->setVMS("<2")
-        ->setFC("1");
+        $A13->setAgeEquiv("5-8")
+        ->setEH("136-137")
+        ->setPS("14")
+        ->setCO("16")
+        ->setFG("10")
+        ->setSR("23")
+        ->setVC("7")
+        ->setVMS("4")
+        ->setFC("7");
         
         $manager->persist($A13);
         $A13=new A13();
