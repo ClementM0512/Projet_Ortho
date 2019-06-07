@@ -20,7 +20,8 @@ class Bilan01Type extends AbstractType
             ->add('corrections')
             ->add('allC', EntityType::class,[
                 'class' => DataODG::class,
-                'choice_label' => 'ODG'
+                'choice_label' => 'ODG',
+                'mapped' => false
             ])
             ->add('OG', EntityType::class,[
                 'class' => DataODG::class,
@@ -37,7 +38,6 @@ class Bilan01Type extends AbstractType
             ])
             ->add('echelle', ChoiceType::class, [
                 'choices' => [
-                    ' ' => ' ',
                     'Parinaud' => 'Parinaud',
                     'Rosano' => 'Rosano',
                 ],
@@ -61,7 +61,8 @@ class Bilan01Type extends AbstractType
             ])
             ->add('allVL', EntityType::class,[
                 'class' => DataODG::class,
-                'choice_label' => 'ODG'
+                'choice_label' => 'ODG',
+                'mapped' => false
             ])
             ->add('OGvl', EntityType::class,[
                 'class' => DataODG::class,
@@ -75,7 +76,8 @@ class Bilan01Type extends AbstractType
             ])
             ->add('allVP', EntityType::class,[  //---Parinaud---//
                 'class' => Parinaud::class,
-                'choice_label' => 'data'
+                'choice_label' => 'data',
+                'mapped' => false
             ])
             ->add('OGvpP', EntityType::class,[
                 'class' => Parinaud::class,
@@ -111,31 +113,12 @@ class Bilan01Type extends AbstractType
                     'TNO' => 'TNO',
                 ],
             ])
-            ->add('LANGI', ChoiceType::class,[
+            ->add('stereo', ChoiceType::class,[
                 'choices' => [
                     ' ' => ' ',
-                    '1200" chat' => '1200" chat',
-                    '600" étoile' => '600" étoile',
-                    '550" voiture' => '550" voiture',
-                ],
-                'mapped' => false
-            ])
-            ->add('LANGII', ChoiceType::class,[
-                'choices' => [
-                    ' ' => ' ',
-                    '600" éléphant' => '600" éléphant',
-                    '400" voiture' => '400" voiture',
-                    '200" lune' => '200" lune',
-                ],
-                'mapped' => false
-            ])
-            ->add('TNO', ChoiceType::class,[
-                'choices' => [
-                    ' ' => ' ',
-                    '240"' => '240"',
-                    '120"' => '120"',
-                    '60"' => '60"',
-                    '30"' => '30"',
+                    '1200" chat, 600" étoile, 550" voiture' => '1200" chat, 600" étoile, 550" voiture',
+                    '600" éléphant, 400" voiture, 200" lune' => '600" éléphant, 400" voiture, 200" lune',
+                    '240", 120", 60", 30"' => '240", 120", 60", 30"',
                 ],
                 'mapped' => false
             ])
