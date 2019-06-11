@@ -5,8 +5,8 @@
 <h1 class="center titre">Modification utilisateur</h1>
 
 <div class="checkbox">
-	<input type="checkbox" id="modiffication" name="modiffication">
-	<label for="modiffication">Modification</label>
+	<input type="checkbox" id="modification" name="modification">
+	<label for="modification">Modification</label>
 </div>
 
 <div class="form-app">
@@ -25,10 +25,10 @@
         {% endif %}
            <div class="roles">{{ form_row(form.Roles, { 'label': 'Statut'}) }}</div>
 		<button type="submit" class="btn btn-success register-admin">Enregistrer les modifications</button>
-		<a href="{{ path('security_DeleteUser', {'id' : user.id}) }}"><button  class="suppr-admin btn btn-danger">Suppression de l'utilisateur</button></a>
+		
 		
     {{ form_end(form) }}
-    
+    <a href="{{ path('security_DeleteUser', {'id' : user.id}) }}"><button  class="suppr-admin btn btn-danger">Suppression de l'utilisateur</button></a>
 </div>
 {% endblock %}
 
@@ -37,29 +37,36 @@
 window.onload = function()
 {
 	var i;
-	function Modiffication(){
+
+	function Modification(){
 		
 		for(i = 1 ; i < 5 ; i++){
 			if (champs[i].disabled == true)
 			{
 				champs[i].disabled = false;
 				select[0].disabled = false;
+				btn[0].disabled = false;
+				btn[1].disabled = false;
 			}else {
 				champs[i].disabled = true;
 				select[0].disabled = true;
+				btn[0].disabled = true;
+				btn[1].disabled = true;
 			}
 		}
 
 	}
 
+
 	
-	var Modif = document.getElementById('modiffication');
+	var Modif = document.getElementById('modification');
 	var champs = document.querySelectorAll("input");
 	var select = document.querySelectorAll("select");
+	var btn = document.querySelectorAll("button");
 
-	Modiffication();
-	
-	Modif.addEventListener("change", Modiffication); 
+	Modification();
+
+	Modif.addEventListener("change", Modification); 
 
 	
 }
