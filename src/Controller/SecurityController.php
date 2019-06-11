@@ -397,7 +397,7 @@ class SecurityController extends AbstractController
             ->getForm();
 
         $form->handleRequest($request);
-
+        
         if (($form->getClickedButton() && 'Delete' === $form->getClickedButton()->getName())) {
             // ///////////////////////////////////////////////////////////////////////////////////////////////////
             $entityManager = $this->getDoctrine()->getManager();

@@ -93,21 +93,23 @@ window.onload = function()
 	echelle = document.getElementById('echelle');
 	Pavp = document.getElementById('Pavp');
 	Ravp = document.getElementById('Ravp');
-	Test();
-	function Test(){
+	ParinaudRosano();
+	function ParinaudRosano(){
 		if(echelle.value == 'Parinaud')
 			{
 				Pavp.style.display = 'inline-block';
 				Ravp.style.display = 'none';
+				Ravp.value = '';
 			}
 		if(echelle.value == 'Rosano')
 		{
 			Pavp.style.display = 'none';
 			Ravp.style.display = 'inline-block';
+			Pavp.value = '';
 		}
 
 	}
-	echelle.addEventListener("change", Test); 
+	echelle.addEventListener("change", ParinaudRosano); 
 }
 </script>
 {% endblock %}
