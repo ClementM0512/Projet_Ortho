@@ -22,7 +22,6 @@ use App\Entity\DataODG;
 
 /**
  * @IsGranted("ROLE_USER")
- * 
  */
 class PatientController extends AbstractController
 {    
