@@ -152,13 +152,13 @@
     margin-top: 6px;
 }
 
-#name{
+.name{
     display: inline-block;
     margin-right: 9%;
     width: 45%;
 }
 
-#firstname{
+.firstname{
     display: inline-block;
     width: 45%;
 }
@@ -198,6 +198,7 @@
 #od, #og{
     width: 20%;
     display: inline-block;
+    text-align: center;
 }
 
 #od{
@@ -209,13 +210,63 @@
     display: inline-block;
 }
 
-#opto, #aff{
+#opto, #aff, .stereo-a, .color-a, .const-a{
     margin-right: 9%;
 }
 
 .odvl, .ogvl, .odgvl{
-    width: 15%;
+    width: 29%;
     display: inline-block;
-    margin-right: 1%;
+    text-align: center;
+}
+
+.odvl, .ogvl{
+    margin-right: 6%;
+}
+
+#Pavp, #Ravp{
+    width: 100%;
+}
+
+.stereo, .color, .const{
+    width: 45%;
+    display: inline-block;
+}
+
+.AV{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.quart{
+    margin-left: 25%;
+}
+
+.DS{
+    margin-bottom: 2%;
+}
+
+.email{
+    display: inline-block;
+    margin-right: 9%;
+    width: 45%;
+}
+
+.roles{
+    display: inline-block;
+    width: 45%;
+}
+
+.register-admin{
+    position: relative;
+    right: 36%;
+}
+
+.suppr-admin{
+    position: relative;
+    right: 8%;
+}
+
+.checkbox{
     text-align: center;
 }

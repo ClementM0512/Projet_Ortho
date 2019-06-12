@@ -25,7 +25,7 @@ class UserRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
         ->andwhere('u.'.$column.' like :param')
-        ->setParameter('param','%'.$param.'%')
+        ->setParameter('param',$param.'%')
         ->orderBy('u.Nom', 'ASC')
         ->getQuery()
         ->getResult();

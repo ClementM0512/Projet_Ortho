@@ -81,7 +81,7 @@ class PatientType extends AbstractType
             ])
             ->add('textmotifs', ChoiceType::class,[
                 'choices' => [
-                    ' ' => '',
+                    '' => '',
                     'Sur demmande de l\'ophtalmologiste, de l\'ORL, du neurologue.' => 'Sur demmande de l\'ophtalmologiste, de l\'ORL, du neurologue.',
                     'En rapport à des troubles du neuro-développement, TSA, DYS.' => 'En rapport à des troubles du neuro-développement, TSA, DYS.',
                     'En rapport à des difficultés dans l\'apprentissages et à l\'école, attention, concentration, lecture, retranscription.' => 'En rapport à des difficultés dans l\'apprentissages et à l\'école, attention, concentration, lecture, retranscription.',
@@ -89,6 +89,7 @@ class PatientType extends AbstractType
 
                 ],
                 'mapped' => false,
+                'required' => false,
             ])
             ->add('motifs')
         ;

@@ -245,37 +245,6 @@ class Patient
     }
 
     /**
-     * @return Collection|Bilan[]
-     */
-    public function getBilans(): Collection
-    {
-        return $this->bilans;
-    }
-
-    public function addBilan(Bilan $bilan): self
-    {
-        if (!$this->bilans->contains($bilan)) {
-            $this->bilans[] = $bilan;
-            $bilan->setPatient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBilan(Bilan $bilan): self
-    {
-        if ($this->bilans->contains($bilan)) {
-            $this->bilans->removeElement($bilan);
-            // set the owning side to null (unless already changed)
-            if ($bilan->getPatient() === $this) {
-                $bilan->setPatient(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Resultat[]
      */
     public function getResultats(): Collection

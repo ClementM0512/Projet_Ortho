@@ -2,30 +2,33 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-<h1 class="center">Modification utilisateur</h1>
+<h1 class="center titre">Modification utilisateur</h1>
 
-<input type="checkbox" id="modiffication" name="modiffication">
-<label for="modiffication">Modiffication</label>
+<div class="checkbox">
+	<input type="checkbox" id="modification" name="modification">
+	<label for="modification">Modification</label>
+</div>
+
 <div class="form-app">
 {{ form_start(form) }}
 
-        {{ form_row(form.Nom , { 'attr': {'value': user.nom} }) }}
-        {{ form_row(form.Prenom, { 'attr': {'value': user.prenom} }) }}
+        <div class="name">{{ form_row(form.Nom , { 'attr': {'value': user.nom} }) }}</div>
+        <div class="firstname">{{ form_row(form.Prenom, { 'attr': {'value': user.prenom} }) }}</div>
         {{ form_row(form.Username, { 'label': 'Pseudonyme', 'attr': {'value': user.username} }) }}
-        {{ form_row(form.Email, { 'attr': {'value': user.email} }) }}
+        <div class="email">{{ form_row(form.Email, { 'attr': {'value': user.email} }) }}</div>
      
         {% if role == 3 %}
-            {{ form_row(form.Roles, {'label': 'Statut', 'value': "ROLE_SUPERADMIN" } ) }}
+           <div class="roles"> {{ form_row(form.Roles, {'label': 'Statut', 'value': "ROLE_SUPERADMIN" } ) }}</div>
         {% endif %}
         {% if role == 2 %}
-            {{ form_row(form.Roles, {'label': 'Statut', 'value': "ROLE_ADMIN" } ) }}
+           <div class="roles"> {{ form_row(form.Roles, {'label': 'Statut', 'value': "ROLE_ADMIN" } ) }}</div>
         {% endif %}
-            {{ form_row(form.Roles, { 'label': 'Statut'}) }}
-		<button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+           <div class="roles">{{ form_row(form.Roles, { 'label': 'Statut'}) }}</div>
+		<button type="submit" class="btn btn-success register-admin">Enregistrer les modifications</button>
 		
 		
     {{ form_end(form) }}
-    <a href="{{ path('security_DeleteUser', {'id' : user.id}) }}"><button  class="btn btn-danger">Suppression de l'utilisateur</button></a>
+    <a href="{{ path('security_DeleteUser', {'id' : user.id}) }}"><button  class="suppr-admin btn btn-danger">Suppression de l'utilisateur</button></a>
 </div>
 {% endblock %}
 
@@ -34,29 +37,36 @@
 window.onload = function()
 {
 	var i;
-	function Modiffication(){
+
+	function Modification(){
 		
 		for(i = 1 ; i < 5 ; i++){
 			if (champs[i].disabled == true)
 			{
 				champs[i].disabled = false;
 				select[0].disabled = false;
+				btn[0].disabled = false;
+				btn[1].disabled = false;
 			}else {
 				champs[i].disabled = true;
 				select[0].disabled = true;
+				btn[0].disabled = true;
+				btn[1].disabled = true;
 			}
 		}
 
 	}
 
+
 	
-	var Modif = document.getElementById('modiffication');
+	var Modif = document.getElementById('modification');
 	var champs = document.querySelectorAll("input");
 	var select = document.querySelectorAll("select");
+	var btn = document.querySelectorAll("button");
 
-	Modiffication();
-	
-	Modif.addEventListener("change", Modiffication); 
+	Modification();
+
+	Modif.addEventListener("change", Modification); 
 
 	
 }
