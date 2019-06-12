@@ -11,6 +11,10 @@ class RossanoFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $rossano = new Rossano();
+        $rossano->setData("");
+        $manager->persist($rossano);
+
+        $rossano = new Rossano();
         $rossano->setData("R1/2");
         $manager->persist($rossano);
 
