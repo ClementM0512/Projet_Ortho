@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use App\Repository\UserRepository;
 
 class SecurityController extends AbstractController
 {
@@ -151,7 +152,6 @@ class SecurityController extends AbstractController
             }
 
             // //////////////////////////////////////////////////////////////////////////////RECHERCHE DES UTILISATEUR////////////////
-            $resultat = $form->getData()['Recherche'];
             $rechercheResultatsNom = $repo->loadByElementBegin('Nom', $resultat); // Les trois lignes sont des requêtes personnalisées
             $rechercheResultatsPrenom = $repo->loadByElementBegin('Prenom', $resultat); // Elles récupèrent tout les champs commencant par $rechercheResultats = [];
             $testPositif = 0;
@@ -168,12 +168,12 @@ class SecurityController extends AbstractController
                 }
                 $testPositif ? $testPositif = 0 : $rechercheResultats[] = $recherche;
             }
-            if ($rechercheResultats != null) {
+            if ($rechercheResultats == null) {
                 goto listeUser;
             }
             if (! $resultat) {
                 listeUser:
-                $rechercheResultats = $userRepository->findAll();
+                $rechercheResultats = $repo->findAll();
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ($rechercheResultats == null) {

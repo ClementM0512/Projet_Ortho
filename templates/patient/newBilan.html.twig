@@ -41,14 +41,14 @@
 	<h4 class="quart AV">Acuité visuelle de PRES:</h4>
 	<div>
 		<div id="Pavp">
-			<div class="odvl">{{ form_row(formBilan.allVP, {'label' : 'OD', 'id' : 'Pod'}}) }}</div> 
-			<div class="ogvl">{{ form_row(formBilan.OGvpP, {'label' : 'OG', 'id' : 'Pog'}}) }}</div>
-			<div class="odgvl">{{ form_row(formBilan.ODGvpP, {'label' : 'ODG', 'id' : 'Podg'}) }}</div>
+			<div class="odvl">{{ form_row(formBilan.allVP, {'label' : 'OD'}) }}</div> 
+			<div class="ogvl">{{ form_row(formBilan.OGvpP, {'label' : 'OG'}) }}</div>
+			<div class="odgvl">{{ form_row(formBilan.ODGvpP, {'label' : 'ODG'}) }}</div>
 		</div>
 		<div id="Ravp">
-			<div class="odvl">{{ form_row(formBilan.Rosano, {'label' : 'OD', 'id' : 'Rod'}) }}</div>
-			<div class="ogvl">{{ form_row(formBilan.OGvpR, {'label' : 'OG', 'id' : 'Rog'}) }}</div>
-			<div class="odgvl">{{ form_row(formBilan.ODGvpR, {'label' : 'ODG', 'id' : 'Rodg'}) }}</div>
+			<div class="odvl">{{ form_row(formBilan.Rosano, {'label' : 'OD'}) }}</div>
+			<div class="ogvl">{{ form_row(formBilan.OGvpR, {'label' : 'OG'}) }}</div>
+			<div class="odgvl">{{ form_row(formBilan.ODGvpR, {'label' : 'ODG'}) }}</div>
 		</div>
 	</div>
 
@@ -90,8 +90,13 @@
 <script>
 window.onload = function()
 {
+	
 	echelle = document.getElementById('echelle');
 	Pavp = document.getElementById('Pavp');
+	Parinaud = new Array(document.getElementById('bilan01_allVP'), document.getElementById('bilan01_OGvpP'), document.getElementById('bilan01_ODGvpP'));
+	Rosano = new Array(document.getElementById('bilan01_Rosano'), document.getElementById('bilan01_OGvpR'), document.getElementById('bilan01_ODGvpR'));
+	defaultP = Parinaud[0].options[0];
+	defaultR = Rosano[0].options[0];
 	Ravp = document.getElementById('Ravp');
 	ParinaudRosano();
 	function ParinaudRosano(){
@@ -99,13 +104,17 @@ window.onload = function()
 			{
 				Pavp.style.display = 'inline-block';
 				Ravp.style.display = 'none';
-				Ravp.value = '';
+				Rosano[0].value = defaultR;
+				Rosano[1].value = defaultR;
+				Rosano[2].value = defaultR;
 			}
 		if(echelle.value == 'Rosano')
 		{
 			Pavp.style.display = 'none';
 			Ravp.style.display = 'inline-block';
-			Pavp.value = '';
+			Parinaud[0].value = defaultP;
+			Parinaud[1].value = defaultP;
+			Parinaud[2].value = defaultP;
 		}
 
 	}
