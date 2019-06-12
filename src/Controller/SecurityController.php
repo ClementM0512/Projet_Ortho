@@ -258,8 +258,6 @@ class SecurityController extends AbstractController
             $repo = $this->getDoctrine()->getRepository(User::class); // on recherche la fiche complete de l'utilisateur
             $user = $repo->findOneBy([
                 'Username' => $form->getData()['username'],
-                'Nom' => $form->getData()['nom'],
-                'Prenom' => $form->getData()['prenom'],
                 'Email' => $form->getData()['email']
             ]);
             // ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -277,7 +275,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('security_login');
             }
             // /////////////////////////////////////////////////////////////////////////////////////////////////
-            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'; // création d'un mot de passe randome
+            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
             $longueurMax = strlen($caracteres);
             $chaineAleatoire = '';
             $longueur = 10;
