@@ -17,6 +17,7 @@ use App\Form\Bilan01Type;
 use App\Entity\Patient;
 use App\Entity\Bilan01;
 use App\Entity\DataODG;
+use App\Entity\User;
 
 
 
@@ -35,7 +36,13 @@ class PatientController extends AbstractController
      */
     public function indexPatient(PatientRepository $repo, Request $request)
     {
-
+        if($this->getUser()->getSecurity()->getChangePass())
+        {
+           return  $this->redirectToRoute('security_newPassword');
+        }
+        
+   
+        
         $patient = $repo->loadByAlphaOrder();        #Sert à trouver tout les objets du type passé en param
         
         $form = $this->createFormBuilder()
