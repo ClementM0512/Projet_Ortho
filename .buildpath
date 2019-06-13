@@ -83,7 +83,7 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/doctrine/lexer/lib/Doctrine/Common/Lexer">
+	<buildpathentry kind="src" path="vendor/doctrine/lexer/lib">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>
@@ -349,11 +349,6 @@
 		</attributes>
 	</buildpathentry>
 	<buildpathentry kind="src" path="vendor/symfony/maker-bundle/src">
-		<attributes>
-			<attribute name="composer" value="vendor"/>
-		</attributes>
-	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/symfony/mime">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>
