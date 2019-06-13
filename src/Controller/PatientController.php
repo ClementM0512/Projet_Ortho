@@ -229,13 +229,21 @@ class PatientController extends AbstractController
    
         $form->handleRequest($request);
         
-        
+        dd($bilan);
         if ($form->isSubmitted() && $form->isValid()) {
             
             $bilan->setALLC($form->get('allC')->getData()->getId().';'.$form->get('OG')->getData()->getId());
             $bilan->setALLVL($form->get('allVL')->getData()->getId().';'.$form->get('OGvl')->getData()->getId().';'.$form->get('ODGvl')->getData()->getId());
-            $bilan->setALLVP($form->get('allVP')->getData()->getId().';'.$form->get('OGvpP')->getData()->getId().';'.$form->get('ODGvpP')->getData()->getId()
-            .';'.$form->get('Rosano')->getData()->getId().';'.$form->get('OGvpR')->getData()->getId().';'.$form->get('ODGvpR')->getData()->getId());
+            
+
+            if ($form->get('echelle')->getData() == "Parinaud") {
+                $bilan->setALLVP($form->get('allVP')->getData()->getId().';'.$form->get('OGvpP')->getData()->getId().';'.$form->get('ODGvpP')->getData()->getId());
+            }
+            else {
+                $bilan->setALLVP($form->get('Rosano')->getData()->getId().';'.$form->get('OGvpR')->getData()->getId().';'.$form->get('ODGvpR')->getData()->getId());
+            }
+               
+
             $bilan->setStereoscopique($form->get('stereoscopique')->getData().';'.$form->get('stereo')->getData());
             $bilan->setCouleurs($form->get('couleurs')->getData().';'.$form->get('couleurs2')->getData());
             $bilan->setContrastes($form->get('contrastes')->getData().';'.$form->get('SERRET')->getData());
@@ -274,7 +282,7 @@ class PatientController extends AbstractController
         $constrastes = explode(";", $bilan->getContrastes());
 
         $param = [$allC, $allVL, $allVP, $stereoscopique, $couleurs, $constrastes];
-        //dd($param);
+
         $repo = $this->getDoctrine()->getRepository(Patient::class);
         $patient = $repo->find($idP);
         
