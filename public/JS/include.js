@@ -10,7 +10,6 @@ function Requete(callback) {
 }
 function RecuperationDonnee(sData) {
 	recuperationAjax = JSON.parse(sData);	
-//	alert(sData);
 }
 function EnregistrementResultat(callback, url) {
 	

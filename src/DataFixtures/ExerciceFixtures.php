@@ -19,7 +19,7 @@ class ExerciceFixtures extends Fixture
                  ->setImage('image/chronomots.png')
                  ->setLien('chronomots')
                  ->setDateCreation($faker->dateTime)
-                 ->setDescription("d");
+                 ->setDescription("Calcul le débit de mots lu par secondes");
         $manager->persist($exercice);
         
         $exercice = new Exercice();
@@ -27,7 +27,7 @@ class ExerciceFixtures extends Fixture
             ->setImage('image/lestraits.png')
             ->setLien('lestraits')
             ->setDateCreation($faker->dateTime)
-            ->setDescription("d");
+            ->setDescription("Tracer un trait sans dépasser les limites");
         $manager->persist($exercice);
         
         $exercice = new Exercice();
@@ -35,7 +35,7 @@ class ExerciceFixtures extends Fixture
             ->setImage('image/duction.png')
             ->setLien('duction')
             ->setDateCreation($faker->dateTime)
-            ->setDescription("d");
+            ->setDescription("Permet à l'orthoptiste de prendre des notes à propos du handicape du patient");
         $manager->persist($exercice);
         
         $exercice = new Exercice();
@@ -43,7 +43,7 @@ class ExerciceFixtures extends Fixture
             ->setImage('image/lancaster.png')
             ->setLien('lancaster')
             ->setDateCreation($faker->dateTime)
-            ->setDescription("d");
+            ->setDescription("Permet de reporter les points vu par le patient lors du test de Lancaster");
         $manager->persist($exercice);
         
         $exercice = new Exercice();
@@ -51,7 +51,7 @@ class ExerciceFixtures extends Fixture
         ->setImage('image/cartememoire.png')
         ->setLien('cartememoire')
         ->setDateCreation($faker->dateTime)
-        ->setDescription("d");
+        ->setDescription("Demande au patient d'associer les paires de mêmes cartes");
         $manager->persist($exercice);
         
         $exercice = new Exercice();
@@ -59,7 +59,7 @@ class ExerciceFixtures extends Fixture
         ->setImage('image/poursuite.png')
         ->setLien('poursuite')
         ->setDateCreation($faker->dateTime)
-        ->setDescription("d");
+        ->setDescription("Fait défiler un texte à une vitesse pré-définie");
         $manager->persist($exercice);
         
         $exercice = new Exercice();
@@ -67,7 +67,7 @@ class ExerciceFixtures extends Fixture
         ->setImage('image/motsoutil.png')
         ->setLien('motsoutil')
         ->setDateCreation($faker->dateTime)
-        ->setDescription("d");
+        ->setDescription("Demande au patient de completer un texte à trou");
         $manager->persist($exercice);
         $manager->flush();
     }

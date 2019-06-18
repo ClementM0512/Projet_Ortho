@@ -27,28 +27,28 @@ use App\Entity\Bilan01;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/Patient/{idPatient}/exercices", name="listeExosPatient")
      * @Route("/exercices", name="listeExos")
+     * @Route("/Patient/{idPatient}/exercices", name="listeExosPatient")
      * @IsGranted("ROLE_USER")
      */
-    public function list_exos($idPatient = null, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice)
+    public function list_exos($idPatient = null, Patient $patient = null, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
     {
-        
-        if ($this->getUser()) {
-            $idUser = $this->getUser()->getid();
+        var_dump($_GET);
+        echo($_SERVER['REQUEST_URI']);
+        if (isset($_GET['idPatient'])) {
+            echo("dddddddd");
+            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
+        } else {
+            $Patient = 0;
         }
-        else
-        {
-            $idUser=0;
-        }
-        $exercices = $repo->findAll(); // Sert � trouver tout les objets du type pass� en param
+        $exercices = $repoExercice->findAll(); // Sert � trouver tout les objets du type pass� en param
         // dd($exercices);
         return $this->render('main/listeExos.html.twig', [
             'controller_name' => 'MainController',
             'exercices' => $exercices,
-            'idPatient' => $idPatient,
-            'idUser' => $idUser,
-            'idExercice'=> null,
+            'Patient' => $Patient,
+//             'idUser' => $idUser,
+            'Exercice'=> null,
             'bool' => true,
         ]);
     }
@@ -73,13 +73,13 @@ class MainController extends AbstractController
             $idUser=0;
         }
         $histoires = $repo->findAll();
-        $idExercice = $repoExercice->findOneBy(['name' => 'lestraits']);
+        $Exercice = $repoExercice->findOneBy(['name' => 'chronomots']);
         return $this->render('main/chronomots.html.twig', [
             'controller_name' => 'MainController',
             'histoires' => $histoires,
-            'idPatient' => $idPatient,
+            'Patient' => $idPatient,
             'idUser' => $idUser,
-            'idExercice'=> $idExercice->getId(),
+            'Exercice'=> $Exercice,
             'bool' => false,
         ]);
     }
@@ -93,6 +93,8 @@ class MainController extends AbstractController
     public function motsoutils(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice)
     {
         if(isset($_GET['idPatient'])){
+            echo("ca marche");
+            echo($_GET['idPatient']);
             $idPatient = $_GET['idPatient'];
         } else {
             $idPatient = 0;

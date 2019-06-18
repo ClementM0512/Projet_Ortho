@@ -99,6 +99,13 @@ canvas{
 #imageYeux{
 	display: none;
 }
+/*		Chronomots		 */
+#nbMotsSouhaite::placeholder{ 
+  color: red;
+  opacity: 4; 
+}
+
+
 
 /* 		Mots-Outils		 */
 
@@ -142,4 +149,8 @@ canvas{
 
 #motsFaux{
 	color: red;
+}
+
+p{
+	color: white;
 }

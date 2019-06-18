@@ -15,29 +15,33 @@
 <body>
 
 		<div class="nav">
-  		<div><a href="#"><i class="fas fa-question-circle logo" style="font-size:40px;"></i></a></div>
+		<br>
+{#   		<div><a href="#"><i class="fas fa-question-circle logo" style="font-size:40px;"></i></a></div>#}
   		{% if bool %}
-  			{% if idPatient %}
-  				<div><a href="{{ path('patient_show',{'id' : idPatient }) }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
+  			{% if Patient %}
+  				<div><a href="{{ path('patient_show',{'id' : Patient.id }) }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div><br><br>
+  				<p><span id="Patient">{{ Patient.nom }} {{ Patient.prenom }}</span></p>
   			{% else %}
-  		  		<div><a href="{{ path('patients') }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
+  		  		<div><a href="{{ path('patients') }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div><br><br>
+  		  		<p>Sans Patient</p>
   			{% endif %}
-  		{% elseif idPatient %}
-  		<div><a href="{{ path('listeExosPatient',{'idPatient' : idPatient }) }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
+  		{% elseif Patient %}
+  		<div><a href="{{ path('listeExosPatient',{'idPatient' : Patient.id }) }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div><br><br>
+  		<p><span id="idExercice">{{ Exercice.name }}</span></p>
+  		<p><span id="idPatient">{{ idPatient }}</span></p>
+  		
   		{% else %}
-  		<div><a href="{{ path('listeExos') }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
+  		<div><a href="{{ path('listeExos') }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div><br><br>
+  		<p><span id="idExercice">{{ Exercice.name }}</span></p>
+  		<p>Sans Patient</p>
   		{% endif %}
-  		<p>
-	        Orthop : <span id="idUser">{{ idUser }}</span>
-        </p>
-        <p>
-        	Patient : <span id="idPatient">{{ idPatient }}</span>
-        </p>
-        <p>
-	      	Exercice : <span id="idExercice">{{ idExercice }}</span>
-		</p>
-        <label>Enregistrer</label>
-        <input id="enregistrement" type="checkbox" {% if  idPatient != 0 %} checked {% endif %} id="scales" name="Enregistrer">
+{#   		<p>#}
+{# 	        Orthop : <span id="idUser">{{ idUser }}</span>#}
+{#         </p>#}
+        
+        <br>
+        <label><p>Enregistrer</p></label>
+        <input id="enregistrement" type="checkbox" {% if  Patient != 0 %} checked {% endif %} id="scales" name="Enregistrer">
         
 	</div>
 	<div id="application">

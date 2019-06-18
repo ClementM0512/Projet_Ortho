@@ -13,8 +13,11 @@ Liste Appli
 
 {% for exercice in exercices %}
 {# <div class="metadata">#}
-	
-    <a id="id" href="{{ path(exercice.lien, {'idPatient': idPatient})}}" aria-label="{{ exercice.name }} : {{ exercice.description }}">
+	{% if Patient %}
+    <a id="id" href="{{ path(exercice.lien, {'idPatient': Patient.id})}}" aria-label="{{ exercice.name }} : {{ exercice.description }}">
+    {% else %}
+    <a id="id" href="{{ path(exercice.lien, {'idPatient': 0})}}" aria-label="{{ exercice.name }} : {{ exercice.description }}">
+    {% endif %}
    		<img class="btn-logo" src="{{asset(exercice.image)}}" alt="{{ exercice.name }}">
 	</a>
 {# </div>#}
