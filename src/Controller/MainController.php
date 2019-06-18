@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -38,10 +38,14 @@ class MainController extends AbstractController
         if(isset($idPatient)){
             $patient = $repoPatient->findOneBy(['id' => $idPatient]);
             
+
+    
         } else {
             $patient = null;
         }
+
         $exercices = $repo->findAll(); // Sert � trouver tout les objets du type pass� en param
+
 
         return $this->render('main/listeExos.html.twig', [
             'exercices' => $exercices,
