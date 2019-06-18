@@ -37,9 +37,6 @@ class MainController extends AbstractController
         
         if(isset($idPatient)){
             $patient = $repoPatient->findOneBy(['id' => $idPatient]);
-            
-
-    
         } else {
             $patient = null;
         }

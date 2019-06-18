@@ -12,14 +12,15 @@ function ResultatExercice(){
 	var secondTemps = new Date().getTime();		//Enregistrement du temps actuel
 	
 	var tempsLecture = (Math.round((secondTemps-premierTemps)/100)/10);		//Calcul du temps de lecture arrondi au dixieme
+	alert(nbMotsSouhaite);
 	var motsParSeconde = (Math.round(10*nbMotsSouhaite/tempsLecture))/10;	//Calcul du nombre de mots lus par seconde
 	var txtResultat = "Votre temps est de " + tempsLecture + " secondes, votre score est donc de " + motsParSeconde +" mots/s.";
 	//document.body.removeChild(document.querySelector("input"));				//Suppression du bouton "Fini"
 				
     
     elementsHtml=[													//Affichage resultat et boutons 
-    	new ElementHtml("p", txtResultat),
-    	new ElementHtml("input","Recommencer"), 
+    	new ElementHtml("p", txtResultat)
+//    	new ElementHtml("input","Recommencer"), 
     	];    
     
 //    var aLien1 = document.createElement("a");
@@ -28,19 +29,20 @@ function ResultatExercice(){
 //    aLien2.href = "/exercices";   
     //Creation affichage resultat, boutons recommencer et quitter associes à des evenement "click" qui redirige vers la page voulue
     CreationElement(elementsHtml);    
-    var inputs = document.querySelectorAll("input");
-    inputs[0].addEventListener("click", EnregistrementResultat);
-    aLien1.appendChild(inputs[1]);
-    aLien2.appendChild(inputs[2]);
-    document.body.appendChild(aLien1);
-    document.body.appendChild(aLien2);
-    
+//    var inputs = document.querySelectorAll("input");
+//    inputs[0].addEventListener("click", EnregistrementResultat);
+//    aLien1.appendChild(inputs[1]);
+//    aLien2.appendChild(inputs[2]);
+//    document.body.appendChild(aLien1);
+//    document.body.appendChild(aLien2);
+    alert("dd");
     
     if(document.getElementById("enregistrement").checked==true){
 		var exerciceNom = document.getElementById("exercice").innerHTML;
 		var patientNom = document.getElementById("patient").innerHTML;
-		alert(patientNom +" / "+exerciceNom)
-		var url = "/envoiajax?score=" + motsParSeconde + "&exercice="+ exerciceNom +"&patient=" + PatientNom + "bilan=1";
+		alert(patientNom +" / "+exerciceNom);
+		var url = "/envoiajax?score=" + motsParSeconde + "&exercice="+ exerciceNom +"&patient=" + patientNom + "&bilan=1";
+		
 		EnregistrementResultat(EnvoiDonnees, url);
 	}
     
@@ -67,7 +69,7 @@ function ExecutionExercice()
 	histoire = recuperationAjax[document.querySelector('select').value];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	
 	premierTemps = new Date().getTime();	//Enregistrement du temps actuel
-	if(!editNbMotsSouhaite.value){var texteExercice = histoire;nbMotsSouhaite = histoire.length;} // Si aucune valeur entrée -> texte en entier
+	if(!editNbMotsSouhaite.value){var texteExercice = histoire;nbMotsSouhaite = histoire.split(' ').length;} // Si aucune valeur entrée -> texte en entier
 	else{var texteExercice = TexteDecoupage(editNbMotsSouhaite.value);nbMotsSouhaite=editNbMotsSouhaite.value;} 	//Decoupage du texte
 				
 	

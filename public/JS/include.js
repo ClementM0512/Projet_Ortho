@@ -11,20 +11,21 @@ function Requete(callback) {
 function RecuperationDonnee(sData) {
 	recuperationAjax = JSON.parse(sData);	
 }
+
 function EnregistrementResultat(callback, url) {
-	
+		alert("1");
 		var xhr = new XMLHttpRequest();
-				xhr.onreadystatechange = function() {
-					
-					if (xhr.readyState == 4) {
-						alert(xhr.status);
-						if(xhr.status == 200 || xhr.status == 0)
-						{
-							return callback(xhr.responseText);	
-						}
-						alert(xhr.status);
-					}
-				};	
+		xhr.onreadystatechange = function() {
+			alert("2");
+			if (xhr.readyState == 4) {
+				alert(xhr.status);
+				if(xhr.status == 200 || xhr.status == 0)
+				{
+					return callback(xhr.responseText);	
+				}
+				alert(xhr.status);
+			}
+		};	
 		xhr.open("GET", url, true);
 		
 		xhr.send(null);	
