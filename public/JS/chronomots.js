@@ -37,9 +37,10 @@ function ResultatExercice(){
     
     
     if(document.getElementById("enregistrement").checked==true){
-		var idUser = document.getElementById("idUser");
-		var idPatient = document.getElementById("idPatient");
-		var url = "/envoiajax?score=" + motsParSeconde + "&exercice=4&patient=" + idPatient.innerHTML + "&user=1&bilan=1";
+		var exerciceNom = document.getElementById("exercice").innerHTML;
+		var patientNom = document.getElementById("patient").innerHTML;
+		alert(patientNom +" / "+exerciceNom)
+		var url = "/envoiajax?score=" + motsParSeconde + "&exercice="+ exerciceNom +"&patient=" + PatientNom + "bilan=1";
 		EnregistrementResultat(EnvoiDonnees, url);
 	}
     

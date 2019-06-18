@@ -24,7 +24,7 @@
           </select>
           
      </form>
-     <a href="{{ path('HistoireCreation') }}"><input type="button" class="btn btn-primary" value="Ajouter histoire" /></a>
+     <a href="{{ path('HistoireCreation', {'idPatient': patient.id}) }}"><input type="button" class="btn btn-primary" value="Ajouter histoire" /></a>
      </br>
      <p id="erreur">Combien de mot dans le texte? Laisser vide pour tout afficher</p>
      <input size="20" type="text" id="nbMotsSouhaite" />
