@@ -15,7 +15,7 @@ Liste Appli
 	{% if patient %}
     <a id="id" href="{{ path(exercice.lien, {'idPatient': patient.id})}}" aria-label="{{ exercice.name }} : {{ exercice.description }}">
     {% else %}
-    <a id="id" href="{{ path(exercice.nom)}}" aria-label="{{ exercice.name }} : {{ exercice.description }}">
+    <a id="id" href="{{ path(exercice.name)}}" aria-label="{{ exercice.name }} : {{ exercice.description }}">
     {% endif %}
    		<img class="btn-logo" src="{{asset(exercice.image)}}" alt="{{ exercice.name }}">
 	</a>

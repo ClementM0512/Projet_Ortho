@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/Controller/MainController.php=UTF-8
 encoding//src/Controller/PatientController.php=UTF-8
 encoding//src/Controller/SecurityController.php=UTF-8
 encoding//src/DataFixtures/A13Fixture.php=UTF-8
