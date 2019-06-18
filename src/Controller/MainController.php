@@ -27,11 +27,12 @@ use App\Entity\Bilan01;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/Patient/{idPatient}/exercices", name="listeExosPatient")
      * @Route("/exercices", name="listeExos")
+     * @Route("/Patient/{idPatient}/exercices", name="listeExosPatient")
      * @IsGranted("ROLE_USER")
      */
     public function list_exos( $idPatient = null, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
+
     {
         if($idPatient){
             $Patient = $repoPatient->findOneBy(['id' => $idPatient]); 
@@ -42,9 +43,9 @@ class MainController extends AbstractController
             $User = $this->getUser();
         }
         $exercices = $repo->findAll(); // Sert à trouver tout les objets du type passé en param
-    
         return $this->render('main/listeExos.html.twig', [
             'exercices' => $exercices,
+
             'idPatient' => $Patient,
             'idUser' => $User,
             'idExercice'=> null,
@@ -70,12 +71,14 @@ class MainController extends AbstractController
         if ($this->getUser()) {
             $User = $this->getUser();
         }
-        $Exercice = $repoExercice->findOneBy(['name' => 'Chronomots']);
+        $histoires = $repo->findAll();
+        $Exercice = $repoExercice->findOneBy(['name' => 'chronomots']);
         return $this->render('main/chronomots.html.twig', [
-            'histoires'=> $repo->findAll(),
-            'idPatient' => $Patient,
-            'idUser' => $User,
-            'idExercice'=> $Exercice,
+            'controller_name' => 'MainController',
+            'histoires' => $histoires,
+            'idPatient' => $idPatient,
+            'idUser' => $idUser,
+            'Exercice'=> $Exercice,
             'bool' => false,
         ]);
     }
@@ -89,6 +92,7 @@ class MainController extends AbstractController
     public function motsoutils(Patient $patient = null, HistoireRepository $repo, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
     {
         if(isset($_GET['idPatient'])){
+
             $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
             
         } else {
