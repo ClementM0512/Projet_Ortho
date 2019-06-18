@@ -236,13 +236,12 @@ class PatientController extends AbstractController
    
         $form->handleRequest($request);
         
-        dd($bilan);
         if ($form->isSubmitted() && $form->isValid()) {
             
             $bilan->setALLC($form->get('allC')->getData()->getId().';'.$form->get('OG')->getData()->getId());
             $bilan->setALLVL($form->get('allVL')->getData()->getId().';'.$form->get('OGvl')->getData()->getId().';'.$form->get('ODGvl')->getData()->getId());
             
-
+            
             if ($form->get('echelle')->getData() == "Parinaud") {
                 $bilan->setALLVP($form->get('allVP')->getData()->getId().';'.$form->get('OGvpP')->getData()->getId().';'.$form->get('ODGvpP')->getData()->getId());
             }
@@ -255,7 +254,7 @@ class PatientController extends AbstractController
             $bilan->setCouleurs($form->get('couleurs')->getData().';'.$form->get('couleurs2')->getData());
             $bilan->setContrastes($form->get('contrastes')->getData().';'.$form->get('SERRET')->getData());
 
-
+            
             $manager->persist($bilan);
             $manager->flush();
             
@@ -271,7 +270,7 @@ class PatientController extends AbstractController
     /**
      * @Route("/{idP}/bilan/{idB}", name="bilan_show")
      */
-    public function bilanShow($idP, $idB, Request $request)
+    public function bilanShow($idP, $idB, Request $request, ObjectManager $manager)
     {
 
         $repo = $this->getDoctrine()->getRepository(Bilan01::class); 
@@ -292,6 +291,31 @@ class PatientController extends AbstractController
 
         $repo = $this->getDoctrine()->getRepository(Patient::class);
         $patient = $repo->find($idP);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $bilan->setALLC($form->get('allC')->getData()->getId().';'.$form->get('OG')->getData()->getId());
+            $bilan->setALLVL($form->get('allVL')->getData()->getId().';'.$form->get('OGvl')->getData()->getId().';'.$form->get('ODGvl')->getData()->getId());
+            
+            
+            if ($form->get('echelle')->getData() == "Parinaud") {
+                $bilan->setALLVP($form->get('allVP')->getData()->getId().';'.$form->get('OGvpP')->getData()->getId().';'.$form->get('ODGvpP')->getData()->getId());
+            }
+            else {
+                $bilan->setALLVP($form->get('Rosano')->getData()->getId().';'.$form->get('OGvpR')->getData()->getId().';'.$form->get('ODGvpR')->getData()->getId());
+            }
+               
+
+            $bilan->setStereoscopique($form->get('stereoscopique')->getData().';'.$form->get('stereo')->getData());
+            $bilan->setCouleurs($form->get('couleurs')->getData().';'.$form->get('couleurs2')->getData());
+            $bilan->setContrastes($form->get('contrastes')->getData().';'.$form->get('SERRET')->getData());
+
+            
+            $manager->persist($bilan);
+            $manager->flush();
+            
+            return $this->redirectToRoute('bilan_show', ['idP' => $patient->getId(), 'idB' => $bilan->getId()]);
+        }
         
         return $this->render('patient/bilanShow.html.twig',[
             'formBilan' => $form->createView(),
@@ -300,36 +324,6 @@ class PatientController extends AbstractController
             'param' => $param
         ]);
     }   
-   
-    //Formulaire pour l'édition d'un bilan
-    /**
-     * @Route("/{idP}/bilan/{idB}/edit", name="bilanEdit")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function _formEditBilan($idP, $idB, Request $request, ObjectManager $manager)
-    {
-        $repo = $this->getDoctrine()->getRepository(Bilan01::class);
-        $bilan = $repo->find($idB);
-        
-        $repo = $this->getDoctrine()->getRepository(Patient::class);
-        $patient = $repo->find($idP);
-        
-        $form = $this->createForm(Bilan01Type::class, $bilan); #constructeur form article
-        
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            $manager->persist($bilan);
-            $manager->flush();
-            
-            return $this->redirectToRoute('bilansPatient', ['id' => $patient->getId()]);
-        }
-        return $this->render('patient/newbilan.html.twig', [
-            'formBilan' => $form->createView(),
-            'editMode' => $bilan->getId() !== null    #si on est en mode édition true/false
-        ]);
-    }
     
     //Suppression d'un bilan
     /**

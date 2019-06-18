@@ -1,8 +1,14 @@
 function MoteurJeu()
 {
-	
 	var texte = recuperationAjax[document.querySelector('select').value];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
-
+	nbMotsATrouver = document.getElementById("nbMotsATrouver").value;							//nombre de mots a trouver
+	alert(Math.round(texte.split(' ').length/7));
+	
+	if((!nbMotsATrouver) || (isNaN(nbMotsATrouver)) || (nbMotsATrouver<0) || (nbMotsATrouver>Math.round(texte.split(' ').length/6))){ // Test si le nbMotsSouhaité est une valeur acceptable et affiche un message d'erreur dans le cas contraire
+		
+		return 0;
+	}
+	
 	function DoubleTexte(full, cut)
 	{
 		this.full = full;
@@ -14,7 +20,7 @@ function MoteurJeu()
 	var indexMots = new Array();		//La place des mots a chercher dans le texte afin de pouvoir changer sa couleur a la fin en fonction de la reussite ou non de l'user
 	var tailleMinMots = 4;				//Taille minimale des mots a enlever
 	var recadrageTaille = 0;			//Variable qui permet de changer la taille min si aucun mots assez petits
-	nbMotsATrouver = document.getElementById("nbMotsATrouver").value;							//nombre de mots a trouver
+	
 	var tab = new Array();				//Tableau des parties de phrase ou se trouvent les mots à retrouver
 	var index = 0;						//Variable incrémentée dans une fonction servant à couper le texte en 'nbMotsATrouver' petits texte, puis sert a savoir quel partie de texte afficher
 	var verif = 0;						//Sert a savoir si un mots a enlever a ete trouver pour chaque petit texte, sinon on reduit la taille grace a "recadrageTaille"

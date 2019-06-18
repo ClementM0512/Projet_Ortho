@@ -15,18 +15,25 @@
 <body>
 
 		<div class="nav">
-  		<div><a href="#"><i class="fas fa-question-circle logo" style="font-size:40px;"></i></a></div>
+		<br>
+{#   		<div><a href="#"><i class="fas fa-question-circle logo" style="font-size:40px;"></i></a></div>#}
   		{% if bool %}
+
   			{% if idPatient %}
   				<div><a href="{{ path('patient_show',{'id' : idPatient.id }) }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
   			{% else %}
-  		  		<div><a href="{{ path('patients') }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
+  		  		<div><a href="{{ path('patients') }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div><br><br>
+  		  		<p>Sans Patient</p>
   			{% endif %}
+
   		{% elseif idPatient %}
   		<div><a href="{{ path('listeExosPatient',{'idPatient' : idPatient.id }) }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
   		{% else %}
-  		<div><a href="{{ path('listeExos') }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div>
+  		<div><a href="{{ path('listeExos') }}"><i class="fas fa-door-open logo" style="font-size:40px;"></i></a></div><br><br>
+  		<p><span id="idExercice">{{ Exercice.name }}</span></p>
+  		<p>Sans Patient</p>
   		{% endif %}
+
   		<p>
 	        Orthop : <span id="idUser">{{ idUser.username }}</span>
         </p>

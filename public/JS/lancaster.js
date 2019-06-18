@@ -15,6 +15,7 @@
     var margePoint = 7*interligne;
     var interPoint = 8*interligne;
     
+    var resultat = "";
     var state=1;  // 1:canvasgauche/2:canvasdroit/3:stopecriture/0:PointNonVu
     
     
@@ -156,6 +157,22 @@
 		    	context.stroke();
     		}
     	}
+    	alert("dd");
+    	if((state==3) && (document.getElementById("enregistrement").checked==true))
+		{
+    		alert("dehors");
+    		for(i=0;i<2;i++)
+    		{
+    			for(j=0;j<9;j++)
+    			{
+    				resultat += "" + CoordonneesPoints[i][j].x + ";" + CoordonneesPoints[i][j].y + ";" + CoordonneesPoints[i][j].seen + "/"; 
+    			}	
+    		}
+			var idUser = document.getElementById("idUser");
+			var idPatient = document.getElementById("idPatient");
+			var url = "/envoiajax?score=" + resultat + "&exercice=4&patient=1&user=1&bilan=1";
+			EnregistrementResultat(EnvoiDonnees, url);
+		}
     }
     
     
@@ -202,8 +219,8 @@
         
         if(CoordonneesPoints[1].length==9)
       	  {
+        	state=3;
       	  	Liaison(contexts[1], CoordonneesPoints[1]);
-      	  	state=3;
       	  }
         else {state=2;}
     } 
