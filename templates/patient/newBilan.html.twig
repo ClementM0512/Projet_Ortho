@@ -4,27 +4,73 @@
 {% block body %}
 <div class="form-app">
 	{% if editMode %}
-	<h1 class="center">Modification d'un bilan!</h1>
+	<h1 class="center titre">Modification d'un bilan</h1>
 	{% else %}
-	<h1 class="center">Création d'un bilan!</h1>
+	<h1 class="center titre">Création d'un bilan</h1>
 	{% endif %}
 
 	{{ form_start(formBilan) }}
 
-	{{ form_row(formBilan.corrections) }}
-	{{ form_row(formBilan.allC) }}
-	{{ form_row(formBilan.optotypes) }}
-	{{ form_row(formBilan.echelle) }}
-	{{ form_row(formBilan.affichages) }}
-	{{ form_row(formBilan.distance) }}
-	{{ form_row(formBilan.allVL) }}
-	{{ form_row(formBilan.allVP) }}
-	{{ form_row(formBilan.allPO) }}
-	{{ form_row(formBilan.stereoscopique) }}
-	{{ form_row(formBilan.couleurs) }}
-	{{ form_row(formBilan.contrastes) }}
-	{{ form_row(formBilan.accomodation) }}
-	{{ form_row(formBilan.confrontation) }}
+	<h3 class="center DS">DONNEES SENSORIELLES:</h3>
+
+	<div>
+		<div id="correc">{{ form_row(formBilan.corrections, {'label' : 'Porte des corrections'}) }}</div>
+		<div id="od">{{ form_row(formBilan.allC, {'label' : 'OD'}) }}</div>
+		<div id="og">{{ form_row(formBilan.OG, {'label' : 'OG'}) }}</div>
+	</div>
+
+	<h4 class="center AV">Acuité visuelle:</h4>
+	<div>
+		<div>
+			<div id="opto">{{ form_row(formBilan.optotypes) }}</div>
+			<div id="echel">{{ form_row(formBilan.echelle, {'id' : 'echelle', 'label' : 'Echelle de près'}) }}</div>
+		</div>
+		<div>
+			<div id="aff">{{ form_row(formBilan.affichages) }}</div>
+			<div id="dist">{{ form_row(formBilan.distance) }}</div>
+		</div>
+	</div>
+
+	<h4 class="quart AV">Acuité visuelle de LOIN:</h4>
+	<div>
+		<div class="odvl">{{ form_row(formBilan.allVL, {'label' : 'OD'}) }}</div>
+		<div class="ogvl">{{ form_row(formBilan.OGvl, {'label' : 'OG'}) }}</div>
+		<div class="odgvl">{{ form_row(formBilan.ODGvl, {'label' : 'ODG'}) }}</div>
+	</div>
+
+	<h4 class="quart AV">Acuité visuelle de PRES:</h4>
+	<div>
+		<div id="Pavp">
+			<div class="odvl">{{ form_row(formBilan.allVP, {'label' : 'OD'}) }}</div> 
+			<div class="ogvl">{{ form_row(formBilan.OGvpP, {'label' : 'OG'}) }}</div>
+			<div class="odgvl">{{ form_row(formBilan.ODGvpP, {'label' : 'ODG'}) }}</div>
+		</div>
+		<div id="Ravp">
+			<div class="odvl">{{ form_row(formBilan.Rosano, {'label' : 'OD'}) }}</div>
+			<div class="ogvl">{{ form_row(formBilan.OGvpR, {'label' : 'OG'}) }}</div>
+			<div class="odgvl">{{ form_row(formBilan.ODGvpR, {'label' : 'ODG'}) }}</div>
+		</div>
+	</div>
+
+	{{ form_row(formBilan.allPO, {'label' : 'Dépistage réactif PlusOptix', 'attr': {'rows' : '4'}}) }}
+
+	<div>
+		<div class="stereo stereo-a">{{ form_row(formBilan.stereoscopique, {'label' : 'Acuité stéréoscopique'}) }}</div>
+		<div class="stereo">{{ form_row(formBilan.stereo, {'label' : false}) }}</div>
+	</div>
+
+	<div>
+		<div class="color color-a">{{ form_row(formBilan.couleurs, {'label' : 'Vison des couleurs'}) }}</div>
+		<div class="color">{{ form_row(formBilan.couleurs2, {'label' : false}) }}</div>
+	</div>
+	
+	<div>
+		<div class="const const-a">{{ form_row(formBilan.contrastes, {'label' : 'Vison des contrastes'}) }}</div>
+		<div class="const">{{ form_row(formBilan.SERRET, {'label' : 'Test de SERRET'}) }}</div>
+	</div>
+	
+	{{ form_row(formBilan.accomodation, {'label' : 'Accommodation'}) }}
+	{{ form_row(formBilan.confrontation, {'label' : 'Champ visuel par confrontation'}) }}
 	{{ form_row(formBilan.fixation) }}
 									
 
@@ -38,4 +84,41 @@
 
 	{{ form_end(formBilan) }}
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+window.onload = function()
+{
+	
+	echelle = document.getElementById('echelle');
+	Pavp = document.getElementById('Pavp');
+	Parinaud = new Array(document.getElementById('bilan01_allVP'), document.getElementById('bilan01_OGvpP'), document.getElementById('bilan01_ODGvpP'));
+	Rosano = new Array(document.getElementById('bilan01_Rosano'), document.getElementById('bilan01_OGvpR'), document.getElementById('bilan01_ODGvpR'));
+	defaultP = Parinaud[0].options[0];
+	defaultR = Rosano[0].options[0];
+	Ravp = document.getElementById('Ravp');
+	ParinaudRosano();
+	function ParinaudRosano(){
+		if(echelle.value == 'Parinaud')
+			{
+				Pavp.style.display = 'inline-block';
+				Ravp.style.display = 'none';
+				Rosano[0].value = defaultR;
+				Rosano[1].value = defaultR;
+				Rosano[2].value = defaultR;
+			}
+		if(echelle.value == 'Rosano')
+		{
+			Pavp.style.display = 'none';
+			Ravp.style.display = 'inline-block';
+			Parinaud[0].value = defaultP;
+			Parinaud[1].value = defaultP;
+			Parinaud[2].value = defaultP;
+		}
+
+	}
+	echelle.addEventListener("change", ParinaudRosano); 
+}
+</script>
 {% endblock %}

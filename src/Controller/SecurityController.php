@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use App\Repository\UserRepository;
 
 class SecurityController extends AbstractController
 {
@@ -151,7 +152,6 @@ class SecurityController extends AbstractController
             }
 
             // //////////////////////////////////////////////////////////////////////////////RECHERCHE DES UTILISATEUR////////////////
-            $resultat = $form->getData()['Recherche'];
             $rechercheResultatsNom = $repo->loadByElementBegin('Nom', $resultat); // Les trois lignes sont des requêtes personnalisées
             $rechercheResultatsPrenom = $repo->loadByElementBegin('Prenom', $resultat); // Elles récupèrent tout les champs commencant par $rechercheResultats = [];
             $testPositif = 0;
@@ -168,12 +168,12 @@ class SecurityController extends AbstractController
                 }
                 $testPositif ? $testPositif = 0 : $rechercheResultats[] = $recherche;
             }
-            if ($rechercheResultats != null) {
+            if ($rechercheResultats == null) {
                 goto listeUser;
             }
             if (! $resultat) {
                 listeUser:
-                $rechercheResultats = $userRepository->findAll();
+                $rechercheResultats = $repo->findAll();
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ($rechercheResultats == null) {
@@ -258,8 +258,6 @@ class SecurityController extends AbstractController
             $repo = $this->getDoctrine()->getRepository(User::class); // on recherche la fiche complete de l'utilisateur
             $user = $repo->findOneBy([
                 'Username' => $form->getData()['username'],
-                'Nom' => $form->getData()['nom'],
-                'Prenom' => $form->getData()['prenom'],
                 'Email' => $form->getData()['email']
             ]);
             // ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -277,7 +275,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('security_login');
             }
             // /////////////////////////////////////////////////////////////////////////////////////////////////
-            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'; // création d'un mot de passe randome
+            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
             $longueurMax = strlen($caracteres);
             $chaineAleatoire = '';
             $longueur = 10;
@@ -397,7 +395,7 @@ class SecurityController extends AbstractController
             ->getForm();
 
         $form->handleRequest($request);
-
+        
         if (($form->getClickedButton() && 'Delete' === $form->getClickedButton()->getName())) {
             // ///////////////////////////////////////////////////////////////////////////////////////////////////
             $entityManager = $this->getDoctrine()->getManager();

@@ -23,6 +23,7 @@ class PatientType extends AbstractType
             ->add('adresse')
             ->add('classe', ChoiceType::class, [
                 'choices' => [
+                    ' ' => ' ',
                     'Primaire' => [
                         'PS' => 'PS',
                         'MS' => 'MS',
@@ -44,6 +45,7 @@ class PatientType extends AbstractType
                         'Techno' => 'Techno',
                         'Pro' => 'Pro',
                     ],
+                    'Autres' => 'Autres' 
                 ],
             ])
             ->add('optnClasse')
@@ -51,6 +53,7 @@ class PatientType extends AbstractType
             ->add('autreBilan')
             ->add('charge', ChoiceType::class,[
                 'choices' => [
+                    ' ' => ' ',
                     'orthophonie' => 'orthophonie',
                     'psychomotricité' => 'psychomotricité',
                     'psychologie' => 'psychologie',
@@ -60,6 +63,7 @@ class PatientType extends AbstractType
             ])
             ->add('precision', ChoiceType::class,[
                 'choices' => [
+                    ' ' => ' ',
                     'SESSAD' => 'SESSAD',
                     'IME' => 'IME',
                     'CMP' => 'CMP',
@@ -69,6 +73,7 @@ class PatientType extends AbstractType
             ->add('traitement')
             ->add('lateralite', ChoiceType::class,[
                 'choices' => [
+                    ' ' => ' ',
                     'Droitier' => 'Droitier',
                     'Gaucher' => 'Gaucher',
                     'Non-defini' => 'Non-defini',
@@ -76,7 +81,7 @@ class PatientType extends AbstractType
             ])
             ->add('textmotifs', ChoiceType::class,[
                 'choices' => [
-                    ' ' => '',
+                    '' => '',
                     'Sur demmande de l\'ophtalmologiste, de l\'ORL, du neurologue.' => 'Sur demmande de l\'ophtalmologiste, de l\'ORL, du neurologue.',
                     'En rapport à des troubles du neuro-développement, TSA, DYS.' => 'En rapport à des troubles du neuro-développement, TSA, DYS.',
                     'En rapport à des difficultés dans l\'apprentissages et à l\'école, attention, concentration, lecture, retranscription.' => 'En rapport à des difficultés dans l\'apprentissages et à l\'école, attention, concentration, lecture, retranscription.',
@@ -84,6 +89,7 @@ class PatientType extends AbstractType
 
                 ],
                 'mapped' => false,
+                'required' => false,
             ])
             ->add('motifs')
         ;

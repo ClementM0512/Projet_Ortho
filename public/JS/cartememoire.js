@@ -1,8 +1,15 @@
+//Le jeu comporte 10 motifs différents qui sont numérotés de 1 à 10.
+//Le tableau est initialisé avec les numéros de motifs qui se suivent
 var motifsCartes=[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10];
+//Le codage utilisé pour l'état des cartes est le suivant :
+//0 : face cachée
+//1 : face visible
+//-1 : enlevée
+//Au départ toutes les cartes sont présentées de dos.
 var etatsCartes=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var cartesRetournees=[];
 var nbPairesTrouvees=0;
-var imgCartes=document.getElementById("tapis").getElementsByTagName("img");		
+var imgCartes=document.getElementById("tapis").getElementsByTagName("img");	
 for(var i=0;i<imgCartes.length;i++){
 	imgCartes[i].noCarte=i; //Ajout de la propriété noCarte à l'objet img
 	imgCartes[i].onclick=function(){
@@ -10,6 +17,11 @@ for(var i=0;i<imgCartes.length;i++){
 	}                      
 }
 initialiseJeu();
+//La fonction majAffichage met à jour l'affichage de la carte dont on passe le numéro en paramètre.
+//L'affichage rendu dépend de l'état actuel de la carte (donné par le tableau etatsCartes) :
+//état 0 : carte face cachée, on affichage l'image de dos de carte : fondcarte.png,
+//état 1 : carte retournée, on affiche l'image du motif correspondant, on notera que les différentes images des motifs sont dans les fichiers nommés carte1.png, carte2.png, etc.,
+//état -1 : carte enlevée du jeu, on cache l'élément img.
 function majAffichage(noCarte){
 	switch(etatsCartes[noCarte]){
 		case 0:

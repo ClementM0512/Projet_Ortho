@@ -11,6 +11,10 @@ class DataODGFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $odg = new DataODG();
+        $odg->setODG("");
+        $manager->persist($odg);
+
+        $odg = new DataODG();
         $odg->setODG("PL");
         $manager->persist($odg);
 

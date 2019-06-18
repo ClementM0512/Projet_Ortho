@@ -11,6 +11,10 @@ class ParinaudFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $parinaud = new Parinaud();
+        $parinaud->setData("");
+        $manager->persist($parinaud);
+
+        $parinaud = new Parinaud();
         $parinaud->setData("P1.5");
         $manager->persist($parinaud);
 

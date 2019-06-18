@@ -4,9 +4,9 @@
 {% block body %}
 <div class="form-app">
 	{% if editMode %}
-	<h1 class="center titre">Modification d'une fiche patient!</h1>
+	<h1 class="center titre">Modification d'une fiche patient</h1>
 	{% else %}
-	<h1 class="center titre">Création d'une fiche patient!</h1>
+	<h1 class="center titre">Création d'une fiche patient</h1>
 	{% endif %}
 
 	{% set ant = "parents avec forte amétropie ou strabisme, hospitalisation néonatale, prématurité, poids de naissance < 1500g, séroconversion de la toxoplasmose pendant la grossesse, atteinte vasculaire, maladie rare" %}
@@ -16,8 +16,8 @@
 	{# Début du formulaire #}
 
 	<div>
-		<div id="name">{{ form_row(formPatient.nom, {'attr' : {'placeholder' : "Nom du patient"}}) }}</div>
-		<div id="firstname">{{ form_row(formPatient.prenom, {'attr' : {'placeholder' : "Prénom du patient"}}) }}</div>
+		<div class="name">{{ form_row(formPatient.nom, {'attr' : {'placeholder' : "Nom du patient"}}) }}</div>
+		<div class="firstname">{{ form_row(formPatient.prenom, {'attr' : {'placeholder' : "Prénom du patient"}}) }}</div>
 	</div>
 	<div>
 		<div id="birthdate">{{ form_row(formPatient.dateDeNaissance, {'attr' : {'placeholder' : "Date de naissance"}}) }}</div>
@@ -33,10 +33,10 @@
 		<div id="charge">{{ form_row(formPatient.charge, {'label' : "Prise en charge"}) }}</div>
 		<div id="precision">{{ form_row(formPatient.precision, {'label' : "Précision"}) }}</div>
 	</div>
-	<div>{{ form_row(formPatient.traitement, {'label' : "Traitement", 'attr': {'rows' : '4'}}) }}</div>
-	<div>{{ form_row(formPatient.lateralite, {'label' : "Latéralité"}) }}</div>
-	<div>{{ form_row(formPatient.textmotifs, {'label' : "Motif(s) de consultation" , 'id' : 'textmotif'}) }}</div>
-	<div>{{ form_row(formPatient.motifs, {'label' : false , 'id' : 'motif', 'attr': {'rows' : '4'}}) }}</div>
+	{{ form_row(formPatient.traitement, {'label' : "Traitement", 'attr': {'rows' : '4'}}) }}
+	{{ form_row(formPatient.lateralite, {'label' : "Latéralité"}) }}
+	{{ form_row(formPatient.textmotifs, {'label' : "Motif(s) de consultation" , 'id' : 'textmotif'}) }}
+	{{ form_row(formPatient.motifs, {'label' : false , 'id' : 'motif', 'attr': {'rows' : '4'}}) }}
 
 	<button type="submit" class="btn btn-success">
 		{% if editMode %}

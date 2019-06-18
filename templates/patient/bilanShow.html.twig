@@ -10,16 +10,109 @@
 {% endblock %}
 
 {% block body %}
+	
+<div class="form-app">
 
-<section class="patients">
-	<div class="metadata">
-		
-		OD {{ bilan.od}}
-		OG {{ bilan.og}}
+	<h1 class="center titre">Modification d'un bilan</h1>
+
+<div class="checkbox">
+	<input type="checkbox" id="modiffication" name="modiffication">
+	<label for="modiffication">Modification</label>
+</div>
+
+	{{ form_start(formBilan) }}
+
+	<h3 class="center DS">DONNEES SENSORIELLES:</h3>
+
+	<div>
+		<div id="correc">{{ form_row(formBilan.corrections, {'label' : 'Porte des corrections', 'attr' : {'value' : bilan.corrections}}) }}</div>
+		<div id="od">{{ form_row(formBilan.allC, {'label' : 'OD', 'value' : param[0][0]}) }}</div>
+		<div id="og">{{ form_row(formBilan.OG, {'label' : 'OG', 'value' : param[0][1]}) }}</div>
 	</div>
-	<div class="btns-rightSide">
-		<a href="{{ path('bilanEdit', {'idB': bilan.id, 'idP': patient.id})}}"class="btn btn-primary btn-bilan">modifier</a> 
-		<a href="{{ path('bilanDelete', {'idB': bilan.id, 'idP': patient.id})}}"class="btn btn-danger btn-bilan">supprimer</a>
+
+	<h4 class="center AV">Acuité visuelle:</h4>
+	<div>
+		<div>
+			<div id="opto">{{ form_row(formBilan.optotypes, {'attr' : {'value' : bilan.optotypes}}) }}</div>
+			<div id="echel">{{ form_row(formBilan.echelle, {'id' : 'echelle', 'label' : 'Echelle de près', 'value' : bilan.echelle}) }}</div>
+		</div>
+		<div>
+			<div id="aff">{{ form_row(formBilan.affichages, {'attr' : {'value' : bilan.affichages}}) }}</div>
+			<div id="dist">{{ form_row(formBilan.distance, { 'attr' : {'value' : bilan.distance}}) }}</div>
+		</div>
 	</div>
-</section>
+
+	<h4 class="quart AV">Acuité visuelle de LOIN:</h4>
+	<div>
+		<div class="odvl">{{ form_row(formBilan.allVL, {'label' : 'OD', 'value' : param[1][0]}) }}</div>
+		<div class="ogvl">{{ form_row(formBilan.OGvl, {'label' : 'OG', 'value' : param[1][1]}) }}</div>
+		<div class="odgvl">{{ form_row(formBilan.ODGvl, {'label' : 'ODG', 'value' : param[1][2]}) }}</div>
+	</div>
+
+	<h4 class="quart AV">Acuité visuelle de PRES:</h4>
+	<div>
+		<div id="Pavp">
+			<div class="odvl">{{ form_row(formBilan.allVP, {'label' : 'OD', 'value' : param[2][0]}) }}</div> 
+			<div class="ogvl">{{ form_row(formBilan.OGvpP, {'label' : 'OG', 'value' : param[2][1]}) }}</div>
+			<div class="odgvl">{{ form_row(formBilan.ODGvpP, {'label' : 'ODG', 'value' : param[2][2]}) }}</div>
+		</div>
+		<div id="Ravp">
+			<div class="odvl">{{ form_row(formBilan.Rosano, {'label' : 'OD', 'value' : param[2][0]}) }}</div>
+			<div class="ogvl">{{ form_row(formBilan.OGvpR, {'label' : 'OG', 'value' : param[2][1]}) }}</div>
+			<div class="odgvl">{{ form_row(formBilan.ODGvpR, {'label' : 'ODG', 'value' : param[2][2]}) }}</div>
+		</div>
+	</div>
+
+	{{ form_row(formBilan.allPO, {'label' : 'Dépistage réactif PlusOptix', 'attr': {'rows' : '4', 'value' : bilan.allPO}}) }}
+
+	<div>
+		<div class="stereo stereo-a">{{ form_row(formBilan.stereoscopique, {'label' : 'Acuité stéréoscopique', 'value' : param[3][0]}) }}</div>
+		<div class="stereo">{{ form_row(formBilan.stereo, {'label' : false, 'value' : param[3][0]}) }}</div>
+	</div>
+
+	<div>
+		<div class="color color-a">{{ form_row(formBilan.couleurs, {'label' : 'Vison des couleurs', 'value' : param[4][0]}) }}</div>
+		<div class="color">{{ form_row(formBilan.couleurs2, {'label' : false, 'value' : param[4][0]}) }}</div>
+	</div>
+	
+	<div>
+		<div class="const const-a">{{ form_row(formBilan.contrastes, {'label' : 'Vison des contrastes', 'value' : param[5][0]}) }}</div>
+		<div class="const">{{ form_row(formBilan.SERRET, {'label' : 'Test de SERRET', 'value' : param[5][0]}) }}</div>
+	</div>
+	
+	{{ form_row(formBilan.accomodation, {'label' : 'Accommodation', 'attr' : {'value' : bilan.accomodation}}) }}
+	{{ form_row(formBilan.confrontation, {'label' : 'Champ visuel par confrontation', 'attr' : {'value' : bilan.confrontation}}) }}
+	{{ form_row(formBilan.fixation, { 'attr' : {'value' : bilan.fixation}}) }}
+									
+
+	<button type="submit" class="btn btn-success">Modifier le bilan</button>
+
+	{{ form_end(formBilan) }}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+window.onload = function()
+{
+	echelle = document.getElementById('echelle');
+	Pavp = document.getElementById('Pavp');
+	Ravp = document.getElementById('Ravp');
+	Test();
+	function Test(){
+		if(echelle.value == 'Parinaud')
+			{
+				Pavp.style.display = 'inline-block';
+				Ravp.style.display = 'none';
+			}
+		if(echelle.value == 'Rosano')
+		{
+			Pavp.style.display = 'none';
+			Ravp.style.display = 'inline-block';
+		}
+
+	}
+	echelle.addEventListener("change", Test); 
+}
+</script>
 {% endblock %}
