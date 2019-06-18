@@ -31,21 +31,18 @@ class MainController extends AbstractController
      * @Route("/exercices", name="listeExos")
      * @IsGranted("ROLE_USER")
      */
-    public function list_exos($idPatient = null, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
+    public function list_exos( $idPatient = null, Patient $patient = null, ExerciceRepository $repo, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
     {
-        
-        if(isset($_GET['idPatient'])){
-            $Patient = $repoPatient->findOneBy(['id' => $_GET['idPatient']]);
-            
+        if($idPatient){
+            $Patient = $repoPatient->findOneBy(['id' => $idPatient]); 
         } else {
             $Patient = null;
         }
-        
         if ($this->getUser()) {
             $User = $this->getUser();
         }
         $exercices = $repo->findAll(); // Sert à trouver tout les objets du type passé en param
-        // dd($exercices);
+    
         return $this->render('main/listeExos.html.twig', [
             'exercices' => $exercices,
             'idPatient' => $Patient,
