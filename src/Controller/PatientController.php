@@ -254,7 +254,7 @@ class PatientController extends AbstractController
             $bilan->setCouleurs($form->get('couleurs')->getData().';'.$form->get('couleurs2')->getData());
             $bilan->setContrastes($form->get('contrastes')->getData().';'.$form->get('SERRET')->getData());
 
-            
+
             $manager->persist($bilan);
             $manager->flush();
             

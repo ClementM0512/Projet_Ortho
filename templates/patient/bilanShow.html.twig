@@ -67,17 +67,17 @@
 
 	<div>
 		<div class="stereo stereo-a">{{ form_row(formBilan.stereoscopique, {'label' : 'Acuité stéréoscopique', 'value' : param[3][0]}) }}</div>
-		<div class="stereo">{{ form_row(formBilan.stereo, {'label' : false, 'value' : param[3][0]}) }}</div>
+		<div class="stereo">{{ form_row(formBilan.stereo, {'label' : false, 'value' : param[3][1]}) }}</div>
 	</div>
 
 	<div>
 		<div class="color color-a">{{ form_row(formBilan.couleurs, {'label' : 'Vison des couleurs', 'value' : param[4][0]}) }}</div>
-		<div class="color">{{ form_row(formBilan.couleurs2, {'label' : false, 'value' : param[4][0]}) }}</div>
+		<div class="color">{{ form_row(formBilan.couleurs2, {'label' : false, 'value' : param[4][1]}) }}</div>
 	</div>
 	
 	<div>
 		<div class="const const-a">{{ form_row(formBilan.contrastes, {'label' : 'Vison des contrastes', 'value' : param[5][0]}) }}</div>
-		<div class="const">{{ form_row(formBilan.SERRET, {'label' : 'Test de SERRET', 'value' : param[5][0]}) }}</div>
+		<div class="const">{{ form_row(formBilan.SERRET, {'label' : 'Test de SERRET', 'value' : param[5][1]}) }}</div>
 	</div>
 	
 	{{ form_row(formBilan.accomodation, {'label' : 'Accommodation', 'attr' : {'value' : bilan.accomodation}}) }}
