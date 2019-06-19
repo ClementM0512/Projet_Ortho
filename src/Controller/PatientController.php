@@ -235,7 +235,7 @@ class PatientController extends AbstractController
         $form = $this->createForm(Bilan01Type::class, $bilan); #constructeur form article
    
         $form->handleRequest($request);
-        
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------//      
         if ($form->isSubmitted() && $form->isValid()) {
             
             $bilan->setALLC($form->get('allC')->getData()->getId().';'.$form->get('OG')->getData()->getId());
@@ -278,8 +278,7 @@ class PatientController extends AbstractController
 
         $form = $this->createForm(Bilan01Type::class, $bilan);
         $form->handleRequest($request);
-
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------//
         $allC = explode(";", $bilan->getALLC());     
         $allVL = explode(";", $bilan->getALLVL());
         $allVP = explode(";", $bilan->getALLVP());
@@ -292,6 +291,7 @@ class PatientController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Patient::class);
         $patient = $repo->find($idP);
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------//
         if ($form->isSubmitted() && $form->isValid()) {
             
             $bilan->setALLC($form->get('allC')->getData()->getId().';'.$form->get('OG')->getData()->getId());
@@ -316,7 +316,7 @@ class PatientController extends AbstractController
             
             return $this->redirectToRoute('bilan_show', ['idP' => $patient->getId(), 'idB' => $bilan->getId()]);
         }
-        
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------//      
         return $this->render('patient/bilanShow.html.twig',[
             'formBilan' => $form->createView(),
             'bilan' => $bilan,
