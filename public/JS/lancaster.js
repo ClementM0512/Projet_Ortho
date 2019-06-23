@@ -1,4 +1,5 @@
-	var contexts = new Array(document.getElementById('canvasgauche').getContext("2d"),document.getElementById('canvasdroit').getContext("2d")); //Surface de dessin des canvas
+
+var contexts = new Array(document.getElementById('canvasgauche').getContext("2d"),document.getElementById('canvasdroit').getContext("2d")); //Surface de dessin des canvas
 	
 	document.getElementById('canvasgauche').width = window.innerWidth/3;
 	document.getElementById('canvasgauche').height = window.innerWidth/3;
@@ -37,17 +38,6 @@
     	return tab;
     }
     
-    function listerToutesLesPropriétés(o){
-    	  var objectToInspect;
-    	  var result = [];
-    	  
-    	  for(objectToInspect = o;
-    	      objectToInspect !== null;
-    	      objectToInspect = Object.getPrototypeOf(objectToInspect)){  
-    	    result = result.concat(Object.getOwnPropertyNames(objectToInspect));  
-    	  }
-    	  return result; 
-    	}
     
     ///////////////////// FONCTION TRI DES POINTS //////////////////////////
     function TriPoints(tab)
@@ -157,10 +147,8 @@
 		    	context.stroke();
     		}
     	}
-    	alert("dd");
     	if((state==3) && (document.getElementById("enregistrement").checked==true))
 		{
-    		alert("dehors");
     		for(i=0;i<2;i++)
     		{
     			for(j=0;j<9;j++)
@@ -168,10 +156,10 @@
     				resultat += "" + CoordonneesPoints[i][j].x + ";" + CoordonneesPoints[i][j].y + ";" + CoordonneesPoints[i][j].seen + "/"; 
     			}	
     		}
-			var idUser = document.getElementById("idUser");
-			var idPatient = document.getElementById("idPatient");
-			var url = "/envoiajax?score=" + resultat + "&exercice=4&patient=1&user=1&bilan=1";
-			EnregistrementResultat(EnvoiDonnees, url);
+    		var exerciceNom = document.getElementById("exercice").innerHTML;
+    		var patientNom = document.getElementById("patient").innerHTML;
+    		var url = "/envoiajax?score=" + resultat + "&exercice="+ exerciceNom +"&patient=" + patientNom + "&bilan=true";
+    		Enregistrement(EnvoiDonnees, url);
 		}
     }
     

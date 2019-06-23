@@ -6,18 +6,19 @@
 
 
 {% block body %}
+<body onload="AffichageImage()">
 
-
-      <div class="boutonEcriture">
+      <div>
           <button> + </button>
           <button> - </button>
           <button>Suppression</button>
       </div>
      <div>
-         <img id="imageYeux" onload="AffichageImage()" src="/image/duction.png">
+         <img id="imageYeux" src="/image/duction.png">
          <canvas id="canvasDuction"></canvas>
      </div>
      
 {% block javascripts %}<script src="/JS/duction.js"></script>{% endblock %}
 
+</body>
 {% endblock %}

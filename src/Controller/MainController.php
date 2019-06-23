@@ -77,7 +77,7 @@ class MainController extends AbstractController
     
     /**
      *
-     * @Route("/exercices/motsoutils", name="Motsoutil")
+     * @Route("/exercices/motsoutils", name="Mots-Outil")
      * @Route("/Patient/{idPatient}/exercices/motsoutils", name="motsoutil")
      * @IsGranted("ROLE_USER")
      */
@@ -101,7 +101,7 @@ class MainController extends AbstractController
     
     /**
      *
-     * @Route("/exercices/Tracerdroit", name="Lestraits")
+     * @Route("/exercices/Tracerdroit", name="Tracer droit")
      * @Route("/Patient/{idPatient}/exercices/Tracerdroit", name="lestraits")
      * @IsGranted("ROLE_USER")
      */
@@ -139,6 +139,20 @@ class MainController extends AbstractController
             'patient' => $patient,
             'Exercice'=> $Exercice,
             'bool' => false,
+        ]);
+    }
+    
+    /**
+     * @Route("/{idPatient}/bilansPatient/lancaster/{idLancaster}", name="lancasterAffichage")
+     * @IsGranted("ROLE_USER")
+     */
+    public function lancasterAffichage(int $idPatient = null, int $idLancaster = null, Patient $patient = null, ResultatRepository $repoResultat, ExerciceRepository $repoExercice, PatientRepository $repoPatient)
+    {
+        $resultat = $repoResultat->findOneBy(['id' => $idLancaster]);
+        $coordonnees = $resultat->getScore();
+        return $this->render('main/lancasterAffichage.html.twig', [
+            'idPatient' => $idPatient,
+            'coordonnees' => $coordonnees
         ]);
     }
     
@@ -240,33 +254,47 @@ class MainController extends AbstractController
             for ($i = 0; $i < count($histoires); $i ++) {
                 $arr[$i] = $histoires[$i]->getTexte();
             }
-            echo (json_encode($arr));
+            echo(json_encode($arr));
             return $this->render('main/sendarticle.html.twig');
         }
         /**
          *
          * @Route("/envoiajax", name="envoiajax")
          */
-        public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, PatientRepository $repoPatient, UserRepository $repoUser, Bilan01Repository $repoBilan)
+public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, PatientRepository $repoPatient, UserRepository $repoUser, Bilan01Repository $repoBilan)
         {
-            $exercice = $repoExo->find((int)$_GET['exercice']);
-            $bilan = $repoBilan->find((int)$_GET['bilan']);
-            $user = $repoUser->find((int)$_GET['user']);
-            $patient = $repoPatient->find((int)$_GET['patient']);
-            
-            if ($this->getUser()) {
-                $User = $this->getUser();
+            //RECUPERATION EXO
+            $exercice = $repoExo->findOneBy(['name' => $_GET['exercice']]);
+            //RECUPERATION PATIENT SI EXISTANT
+            if(isset($_GET['patient']))
+            {
+                $patient = $_GET['patient'];
+                $arrPatient = explode(' ', $patient);
+                $patient = $repoPatient->findOneBy([
+                    'nom' => $arrPatient[0],
+                    'prenom' => $arrPatient[1],
+                ]);
             }
-            
+            else{$patient=null;}
+            //RECUPERATION BILAN SI EXISTANT
+            if($_GET['bilan']=="null"){$bilan=null;}
+            else{
+                $bilan = $repoBilan->findOneBy(['patient' => $patient->getId()]);
+            }
+            //RECUPERATION UTILISATEUR 
+            if ($this->getUser()) {
+                $user = $this->getUser();
+            }
+            else{$user=null;}
+            //Création du resultat
             $resultat = new Resultat();
             $resultat->setIdExercice($exercice)
-            ->setIdPatient($patient)
-            ->setIdUser($user)
-            ->setIdBilan($bilan)
-            ->setScore($_GET['score']);
-            
-            //         echo($_GET['exercice']);
-            
+                     ->setIdPatient($patient)
+                     ->setIdUser($user)
+                     ->setScore($_GET['score'])
+                     ->setIdBilan01($bilan);
+//             dd($resultat);
+            //Enregistrement en BDD
             $manager->persist($resultat);
             $manager->flush();
             return $this->render('main/sendarticle.html.twig');

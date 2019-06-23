@@ -114,9 +114,9 @@ class Resultat
         return $this->bilan01;
     }
 
-    public function setBilan01(?Bilan01 $bilan01): self
+    public function setIdBilan01(?Bilan01 $bilan01): self
     {
-        $this->bilan01 = $bilan01;
+        $this->id_Bilan01 = $bilan01;
 
         return $this;
     }

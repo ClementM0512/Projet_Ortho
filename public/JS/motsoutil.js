@@ -2,18 +2,14 @@ function MoteurJeu()
 {
 	var texte = recuperationAjax[document.querySelector('select').value];         //recuperation de la bonne histoire en utilisant qui est le premier caractere de chaque element de la liste déroulante
 	nbMotsATrouver = document.getElementById("nbMotsATrouver").value;							//nombre de mots a trouver
-	alert(Math.round(texte.split(' ').length/7));
+
 	
-	if((!nbMotsATrouver) || (isNaN(nbMotsATrouver)) || (nbMotsATrouver<0) || (nbMotsATrouver>Math.round(texte.split(' ').length/6))){ // Test si le nbMotsSouhaité est une valeur acceptable et affiche un message d'erreur dans le cas contraire
+	if((!nbMotsATrouver) || (isNaN(nbMotsATrouver)) || (nbMotsATrouver<0) || (nbMotsATrouver>Math.round(texte.split(' ').length/7))){ // Test si le nbMotsSouhaité est une valeur acceptable et affiche un message d'erreur dans le cas contraire
 		
 		return 0;
 	}
 	
-	function DoubleTexte(full, cut)
-	{
-		this.full = full;
-	    this.cut = cut;
-	}
+	
 	var boutons = new Array();			//bouton pour choisir le mots
 	var motsATrouver = new Array();		//Les mots effacer à retrouver
 	var motsTrouves = new Array();		//Les mots choisis par l'utilisateur
@@ -34,6 +30,11 @@ function MoteurJeu()
 	pRes = document.createElement("p");
 	document.getElementById('application').appendChild(pRes);
 	/////////////	Mets une structure de deux chaines : partie de texte entiere/partie de texte trouée, dans tableau	//////////////
+	function DoubleTexte(full, cut)
+	{
+		this.full = full;
+	    this.cut = cut;
+	}
 	for(i=0;i<nbMotsATrouver;i++)
 	{
 		tab.push(new DoubleTexte(new Array(), new Array()));
@@ -54,15 +55,14 @@ function MoteurJeu()
 	//////////////  Fait des trou dans le texte a trou (cut), garde les mots a trouver en memoire puis converti les tableau en chaine
 	for(i=0;i<nbMotsATrouver;i++)
 	{
-			
-			for(var j=0; j<(tab[i].cut).length;j++)
-			{
-	    		if((tab[i].cut[j]).length<tailleMinMots) {        	
+		for(var j=0; j<(tab[i].cut).length;j++)
+		{
+    		if((tab[i].cut[j]).length<tailleMinMots) {        	
 	        	motsATrouver.push(tab[i].cut[j]);
 	        	tab[i].cut[j]="_____";
 	        	indexMots.push(j);
-	          verif++;
-	          break;
+				verif++;
+				break;
 	        }
 	        if((!verif) && (j+1==tab[i].cut.length))
 	        {
@@ -71,7 +71,6 @@ function MoteurJeu()
 	            j=0;
 	        }
 	    }
-	    //tab[i].full = tab[i].full.join(' ');
 	    tab[i].cut = tab[i].cut.join(' ');
 	    verif=0;
 	    tailleMinMots-=recadrageTaille;
@@ -146,12 +145,11 @@ function MoteurJeu()
 			pRes.innerHTML = "Le score est de " + res + " mots trouvés sur " + nbMotsATrouver;
 			
 			if(document.getElementById("enregistrement").checked==true){
-				var idUser = document.getElementById("idUser");
-				var idPatient = document.getElementById("idPatient");
-				var url = "/envoiajax?score=" + (res*1000/nbMotsATrouver) + "&exercice=4&patient=" + idPatient.innerHTML + "&user=1&bilan=1";
-				EnregistrementResultat(EnvoiDonnees, url);
-			}
-			
+				var exerciceNom = document.getElementById("exercice").innerHTML;
+				var patientNom = document.getElementById("patient").innerHTML;
+				var url = "/envoiajax?score=" + (res*1000/nbMotsATrouver) + "&exercice="+ exerciceNom +"&patient=" + patientNom + "&bilan=null";
+				Enregistrement(EnvoiDonnees, url);
+			}		
 			
 		}
 	}

@@ -5,22 +5,21 @@ canvas.height = window.innerHeight /2;
 canvas.style.position = "absolute";
 ///////////////////////////////////
 var context = canvas.getContext("2d");
-var image = document.querySelector('img');
 var boutons = document.querySelectorAll("button");
 var coordonnéesClics = new Array();
 var choixBouton = 0;
 var elemActuel;
 var decalage = canvas.getBoundingClientRect();
+var image = document.getElementById("imageYeux");
 
-function Coordonnees(a, b, c){		//constructeur d'objet ElementHTML
+function Coordonnees(a, b, c){		//constructeur d'objet Coordonnees
 	  this.x = a;
 	  this.y = b;
 	  this.type = c;   //0 : Rien; 1 : Plus; 2 : Moins;
 }
 ////// AFFICHAGE IMAGE ////////////
-//image.addEventListener("load", AffichageImage);
 function AffichageImage(){context.drawImage(image, 20, 20, canvas.width-20, canvas.height-20);} //Réaffiche l'image sur le canvas
-//AffichageImage();
+
 
 ////////////////////////////////// Dessiner un plus //////////////////
 function AffichagePlus(coordonnees)
@@ -36,7 +35,7 @@ function AffichagePlus(coordonnees)
   context.stroke();
 }
 
-fonction AffichageMoins(coordonnees)
+function AffichageMoins(coordonnees)
 {
 	context.beginPath();
 	context.strokeStyle = "#0";
@@ -47,7 +46,7 @@ fonction AffichageMoins(coordonnees)
 	context.stroke();
 }
 
-////////////////////////////////// Fonction de dessin /////////////
+//////////////////////////////////// Fonction de dessin /////////////
 function Dessin(index = -1)
 { 
 	if(index>=0)elemActuel=index;			//Si la fonction est appelée sans argument on utilise la variable elemActuel pour savoir ou nous en sommes de l'affichage sinon on utilise la variable passée en parametre
@@ -104,7 +103,8 @@ boutons[2].addEventListener('click', BoutonSuppression);
 boutons[0].addEventListener('click', BoutonEcriturePlus);
 boutons[1].addEventListener('click', BoutonEcritureMoins);
 
-
+function BoutonEcriturePlus(){choixBouton = 1;}
+function BoutonEcritureMoins(){choixBouton = 2;}
 
 
 
