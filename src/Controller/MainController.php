@@ -302,7 +302,7 @@ public function envoieAjax(ObjectManager $manager, ExerciceRepository $repoExo, 
         }
         /**
          *
-         * @Route("/nouvellehistoire/{idPatient}", name="HistoireCreation")
+         * @Route("/nouvellehistoire", name="HistoireCreation")
          * @IsGranted("ROLE_USER")
          */
         public function createHistoire(int $idPatient = null, Patient $patient = null, Request $request, ObjectManager $manager, PatientRepository $repoPatient)
