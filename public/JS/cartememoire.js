@@ -17,11 +17,6 @@ for(var i=0;i<imgCartes.length;i++){
 	}                      
 }
 initialiseJeu();
-//La fonction majAffichage met à jour l'affichage de la carte dont on passe le numéro en paramètre.
-//L'affichage rendu dépend de l'état actuel de la carte (donné par le tableau etatsCartes) :
-//état 0 : carte face cachée, on affichage l'image de dos de carte : fondcarte.png,
-//état 1 : carte retournée, on affiche l'image du motif correspondant, on notera que les différentes images des motifs sont dans les fichiers nommés carte1.png, carte2.png, etc.,
-//état -1 : carte enlevée du jeu, on cache l'élément img.
 function majAffichage(noCarte){
 	switch(etatsCartes[noCarte]){
 		case 0:

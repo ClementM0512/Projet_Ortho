@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\PatientRepository;
 use App\Repository\Bilan01Repository;
 use App\Repository\DataODGRepository;
+use App\Repository\ResultatRepository;
 use App\Form\PatientType;
 use App\Form\Bilan01Type;
 use App\Entity\Patient;
@@ -205,17 +206,26 @@ class PatientController extends AbstractController
     /**
      * @Route("/{id}/bilansPatient", name="bilansPatient")
      */
-    public function showBilans(Patient $patient)
+    public function showBilans(Patient $patient, ResultatRepository $repoResultat)
     {
         $repo = $this->getDoctrine()->getRepository(Bilan01::class);
         
         $bilan = $repo->findBy(
             ['patient' => $patient->getId()]);
         
+        if($bilan and ($repoResultat->findOneBy(['id_Bilan01' => $bilan[0]->getId()])))
+        {
+            $resultat = $repoResultat->findOneBy(['id_Bilan01' => $bilan[0]->getId()]);
+        }
+        else{
+            $resultat = null;
+        }
+        
         return $this->render('patient/showBilans.html.twig', [
             'controller_name' => 'BilanController',
             'bilans' => $bilan,
-            'patient' => $patient
+            'patient' => $patient,
+            'resultat' => $resultat
         ]);
     }
     

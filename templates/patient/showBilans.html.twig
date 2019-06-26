@@ -20,6 +20,13 @@
 				Bilan n°{{ bilan.id}}
 			</button>
 		</a>
+		{% if resultat %}
+		<a href="{{ path('lancasterAffichage', {'idPatient': patient.id, 'idLancaster': resultat.id}) }}">
+			<button type="submit" class="btn btn-outline-primary">
+				Lancaster
+			</button>
+		</a>
+		{% endif %}
 	</div>
 	{% endfor %}
 </section>

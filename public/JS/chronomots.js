@@ -12,7 +12,6 @@ function ResultatExercice(){
 	var secondTemps = new Date().getTime();		//Enregistrement du temps actuel
 	
 	var tempsLecture = (Math.round((secondTemps-premierTemps)/100)/10);		//Calcul du temps de lecture arrondi au dixieme
-	alert(nbMotsSouhaite);
 	var motsParSeconde = (Math.round(10*nbMotsSouhaite/tempsLecture))/10;	//Calcul du nombre de mots lus par seconde
 	var txtResultat = "Votre temps est de " + tempsLecture + " secondes, votre score est donc de " + motsParSeconde +" mots/s.";
 	//document.body.removeChild(document.querySelector("input"));				//Suppression du bouton "Fini"
@@ -29,21 +28,13 @@ function ResultatExercice(){
 //    aLien2.href = "/exercices";   
     //Creation affichage resultat, boutons recommencer et quitter associes à des evenement "click" qui redirige vers la page voulue
     CreationElement(elementsHtml);    
-//    var inputs = document.querySelectorAll("input");
-//    inputs[0].addEventListener("click", EnregistrementResultat);
-//    aLien1.appendChild(inputs[1]);
-//    aLien2.appendChild(inputs[2]);
-//    document.body.appendChild(aLien1);
-//    document.body.appendChild(aLien2);
-    alert("dd");
+    
     
     if(document.getElementById("enregistrement").checked==true){
 		var exerciceNom = document.getElementById("exercice").innerHTML;
 		var patientNom = document.getElementById("patient").innerHTML;
-		alert(patientNom +" / "+exerciceNom);
-		var url = "/envoiajax?score=" + motsParSeconde + "&exercice="+ exerciceNom +"&patient=" + patientNom + "&bilan=1";
-		
-		EnregistrementResultat(EnvoiDonnees, url);
+		var url = "/envoiajax?score=" + motsParSeconde + "&exercice="+ exerciceNom +"&patient=" + patientNom + "&bilan=null";
+		Enregistrement(EnvoiDonnees, url);
 	}
     
 }
@@ -82,8 +73,8 @@ function ExecutionExercice()
 		//new ElementHtml('input', 'Fini')
 	];
 	CreationElement(elementsHtml);
-	btFin = document.querySelector("input");   
-    btFin.addEventListener("click",ResultatExercice);
+//	btFin = document.querySelector("input");   
+//    btFin.addEventListener("click",ResultatExercice);
     document.body.addEventListener('keydown',ResultatExercice, {once : true});
 }
 var editNbMotsSouhaite = document.getElementById("nbMotsSouhaite");
@@ -98,7 +89,6 @@ for(i=0;i<document.querySelector('select').length;i++)
 
 Requete(RecuperationDonnee); //Recupere un tableau contenant les histoires
 var input = document.getElementById("Lancement");
-//inputs[0].addEventListener("click", EditerHistoire);
 input.addEventListener("click", ExecutionExercice);		//creation d'un evenement click sur le bouton associé à la fonction ExecutionExercice
 editNbMotsSouhaite.addEventListener("click", Redimensionnement);
 
