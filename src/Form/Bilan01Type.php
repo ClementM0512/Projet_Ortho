@@ -6,18 +6,6 @@ use App\Entity\Bilan01;
 use App\Entity\DataODG;
 use App\Entity\Parinaud;
 use App\Entity\Rossano;
-use App\Entity\Stereoscopique;
-use App\Entity\Optotypes;
-use App\Entity\Echelle;
-use App\Entity\Affichages;
-use App\Entity\Distance;
-use App\Entity\Stereo;
-use App\Entity\Couleurs;
-use App\Entity\Couleurs2;
-use App\Entity\Contrastes;
-use App\Entity\Serret;
-use App\Entity\Accomodation;
-use App\Entity\Confrontation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -40,25 +28,36 @@ class Bilan01Type extends AbstractType
                 'choice_label' => 'ODG',
                 'mapped' => false
             ])
-            ->add('optotypes', EntityType::class,[
-                'class' => Optotypes::class,
-                'choice_label' => 'data',
-                'mapped' => false
+            ->add('optotypes', ChoiceType::class, [
+                'choices' => [
+                    ' ' => ' ',
+                    'Lettres' => 'Lettres',
+                    'E' => 'E',
+                    'Dessins' => 'Dessins', 
+                ],
             ])
-            ->add('echelle', EntityType::class,[
-                'class' => Echelle::class,
-                'choice_label' => 'data',
-                'mapped' => false
+            ->add('echelle', ChoiceType::class, [
+                'choices' => [
+                    'Parinaud' => 'Parinaud',
+                    'Rosano' => 'Rosano',
+                ],
             ])
-            ->add('affichages', EntityType::class,[
-                'class' => Affichages::class,
-                'choice_label' => 'data',
-                'mapped' => false
+            ->add('affichages', ChoiceType::class, [
+                'choices' => [
+                    ' ' => ' ',
+                    'Angulaire' => 'Angulaire',
+                    'Linéaire' => 'Linéaire',
+                ],
             ])
-            ->add('distance', EntityType::class,[
-                'class' => Distance::class,
-                'choice_label' => 'data',
-                'mapped' => false
+            ->add('distance', ChoiceType::class, [
+                'choices' => [
+                    ' ' => ' ',
+                    '3m' => '3m',
+                    '3.5m' => '3.5m',
+                    '4m' => '4m',
+                    '4.5m' => '4.5m',
+                    '5m' => '5m',
+                ],
             ])
             ->add('allVL', EntityType::class,[
                 'class' => DataODG::class,
@@ -106,45 +105,76 @@ class Bilan01Type extends AbstractType
                 'mapped' => false
             ])
             ->add('allPO')
-            ->add('stereoscopique', EntityType::class,[
-                'class' => Stereoscopique::class,
-                'choice_label' => 'data',
+            ->add('stereoscopique', ChoiceType::class,[
+                'choices' => [
+                    ' ' => ' ',
+                    'LANG I' => 'LANG I',
+                    'LANG II' => 'LANG II',
+                    'TNO' => 'TNO',
+                ],
+            ])
+            ->add('stereo', ChoiceType::class,[
+                'choices' => [
+                    ' ' => ' ',
+                    '1200" chat, 600" étoile, 550" voiture' => '1200" chat, 600" étoile, 550" voiture',
+                    '600" éléphant, 400" voiture, 200" lune' => '600" éléphant, 400" voiture, 200" lune',
+                    '240", 120", 60", 30"' => '240", 120", 60", 30"',
+                ],
                 'mapped' => false
             ])
-            ->add('stereo', EntityType::class,[
-                'class' => Stereo::class,
-                'choice_label' => 'data',
+            ->add('couleurs', ChoiceType::class,[
+                'choices' => [
+                    ' ' => ' ',
+                    'BabyDalton' => 'BabyDalton',
+                    'Ishihara' => 'Ishihara',
+                ],
+            ])
+            ->add('couleurs2', ChoiceType::class,[
+                'choices' => [
+                    ' ' => ' ',
+                    'Normale' => 'Normale',
+                    'Anormale' => 'Anormale',
+                ],
                 'mapped' => false
             ])
-            ->add('couleurs', EntityType::class,[
-                'class' => Couleurs::class,
-                'choice_label' => 'data',
+            ->add('contrastes', ChoiceType::class,[
+                'choices' => [
+                    ' ' => ' ',
+                    '100%' => '100%',
+                    '75%' => '75%',
+                    '50%' => '50%',
+                    '25%' => '25%',
+                    '10%' => '10%',
+                    '8%' => '8%',
+                    '6%' => '6%',
+                    '5%' => '5%',
+                    '4%' => '4%',
+                    '2%' => '2%',
+                ],
+            ])
+            ->add('SERRET', ChoiceType::class,[
+                'choices' => [
+                    ' ' => ' ',
+                    'Normale' => 'Normale',
+                    'Anormale' => 'Anormale',
+                ],
                 'mapped' => false
             ])
-            ->add('couleurs2', EntityType::class,[
-                'class' => Couleurs2::class,
-                'choice_label' => 'data',
-                'mapped' => false
+            ->add('accomodation', ChoiceType::class,[
+                'choices' => [
+                    ' ' => ' ',
+                    'Elevé (supérieur à 5)' => 'Elevé (supérieur à 5)',
+                    'Normal (3 à 5)' => 'Normal (3 à 5)',
+                    'Bas (inferieur à 3)' => 'Bas (inferieur à 3)',
+                ],
             ])
-            ->add('contrastes', EntityType::class,[
-                'class' => Contrastes::class,
-                'choice_label' => 'data',
-                'mapped' => false
-            ])
-            ->add('SERRET', EntityType::class,[
-                'class' => Serret::class,
-                'choice_label' => 'data',
-                'mapped' => false
-            ])
-            ->add('accomodation', EntityType::class,[
-                'class' => Accomodation::class,
-                'choice_label' => 'data',
-                'mapped' => false
-            ])
-            ->add('confrontation', EntityType::class,[
-                'class' => Confrontation::class,
-                'choice_label' => 'data',
-                'mapped' => false
+            ->add('confrontation', ChoiceType::class, [
+                'choices' => [
+                    ' ' => ' ',
+                    'Semble normal' => 'Semble normal',
+                    'Déficit CV droit' => 'Déficit CV droit',
+                    'Déficit CV gauche' => 'Déficit CV gauche', 
+                ],
             ])
             ->add('fixation')
         ;

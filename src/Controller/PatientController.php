@@ -260,9 +260,9 @@ class PatientController extends AbstractController
             }
                
 
-            $bilan->setStereoscopique($form->get('stereoscopique')->getData()->getId().';'.$form->get('stereo')->getData()->getId());
-            $bilan->setCouleurs($form->get('couleurs')->getData()->getId().';'.$form->get('couleurs2')->getData()->getId());
-            $bilan->setContrastes($form->get('contrastes')->getData()->getId().';'.$form->get('SERRET')->getData()->getId());
+            $bilan->setStereoscopique($form->get('stereoscopique')->getData().';'.$form->get('stereo')->getData());
+            $bilan->setCouleurs($form->get('couleurs')->getData().';'.$form->get('couleurs2')->getData());
+            $bilan->setContrastes($form->get('contrastes')->getData().';'.$form->get('SERRET')->getData());
 
 
             $manager->persist($bilan);
@@ -316,9 +316,9 @@ class PatientController extends AbstractController
             }
                
 
-            $bilan->setStereoscopique($form->get('stereoscopique')->getData()->getId().';'.$form->get('stereo')->getData()->getId());
-            $bilan->setCouleurs($form->get('couleurs')->getData()->getId().';'.$form->get('couleurs2')->getData()->getId());
-            $bilan->setContrastes($form->get('contrastes')->getData()->getId().';'.$form->get('SERRET')->getData()->getId());
+            $bilan->setStereoscopique($form->get('stereoscopique')->getData().';'.$form->get('stereo')->getData());
+            $bilan->setCouleurs($form->get('couleurs')->getData().';'.$form->get('couleurs2')->getData());
+            $bilan->setContrastes($form->get('contrastes')->getData().';'.$form->get('SERRET')->getData());
 
             
             $manager->persist($bilan);
