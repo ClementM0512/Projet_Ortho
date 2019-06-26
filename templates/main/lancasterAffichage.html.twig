@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+
+{% block body %}
+</br>
+<style> #canvasgauche{
+			background-color: white;
+			margin: 400;
+			padding: 0;
+			
+			}
+		#canvasdroit{
+			background-color: white;
+			margin-left: 0px;
+		}
+		#coordonnees{
+			display: none;
+		}
+		</style>
+     
+     <canvas id="canvasgauche" width="600" height="600"></canvas>
+     <canvas id="canvasdroit" width="600" height="600"></canvas>
+     <p id="coordonnees">{{ coordonnees }}</p>
+     
+{% block javascripts %}<script src="/JS/include.js" /></script><script src="/JS/lancasterAffichage.js"></script>{% endblock %}
+
+<div class="btns-rightSide">
+<a href="{{ path('bilansPatient', {'id': idPatient})}}" class="btn btn-success btn-lg btn-create btn-bilan">Revenir aux bilans</a>
+</div>
+
+
+{% endblock %}

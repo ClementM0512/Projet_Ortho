@@ -25,13 +25,13 @@ class ExerciceFixtures extends Fixture
         $exercice = new Exercice();
         $exercice->setName('Tracer droit')
             ->setImage('image/lestraits.png')
-            ->setLien('lestraits')
+            ->setLien('tracer droit')
             ->setDateCreation($faker->dateTime)
             ->setDescription("Tracer un trait sans dépasser les limites");
         $manager->persist($exercice);
         
         $exercice = new Exercice();
-        $exercice->setName('duction')
+        $exercice->setName('Duction')
             ->setImage('image/duction.png')
             ->setLien('duction')
             ->setDateCreation($faker->dateTime)
@@ -39,7 +39,7 @@ class ExerciceFixtures extends Fixture
         $manager->persist($exercice);
         
         $exercice = new Exercice();
-        $exercice->setName('lancaster')
+        $exercice->setName('Lancaster')
             ->setImage('image/lancaster.png')
             ->setLien('lancaster')
             ->setDateCreation($faker->dateTime)
@@ -47,7 +47,7 @@ class ExerciceFixtures extends Fixture
         $manager->persist($exercice);
         
         $exercice = new Exercice();
-        $exercice->setName('cartememoire')
+        $exercice->setName('Cartememoire')
         ->setImage('image/cartememoire.png')
         ->setLien('cartememoire')
         ->setDateCreation($faker->dateTime)
@@ -55,7 +55,7 @@ class ExerciceFixtures extends Fixture
         $manager->persist($exercice);
         
         $exercice = new Exercice();
-        $exercice->setName('poursuite')
+        $exercice->setName('Poursuite')
         ->setImage('image/poursuite.png')
         ->setLien('poursuite')
         ->setDateCreation($faker->dateTime)
@@ -65,7 +65,7 @@ class ExerciceFixtures extends Fixture
         $exercice = new Exercice();
         $exercice->setName('Mots-Outil')
         ->setImage('image/motsoutil.png')
-        ->setLien('motsoutil')
+        ->setLien('mots-outil')
         ->setDateCreation($faker->dateTime)
         ->setDescription("Demande au patient de completer un texte à trou");
         $manager->persist($exercice);
