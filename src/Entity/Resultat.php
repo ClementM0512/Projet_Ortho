@@ -17,7 +17,7 @@ class Resultat
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=400)
      */
     private $score;
 

@@ -10,15 +10,11 @@
 {% endblock %}
 
 {% block body %}
-	
+
 <div class="form-app">
 
-	<h1 class="center titre">Modification d'un bilan</h1>
+	<h1 class="center titre">Modification du bilan du {{ bilan.createAt | date('d/m/y') }}</h1>
 
-<div class="checkbox">
-	<input type="checkbox" id="modiffication" name="modiffication">
-	<label for="modiffication">Modification</label>
-</div>
 
 	{{ form_start(formBilan) }}
 
@@ -63,7 +59,9 @@
 		</div>
 	</div>
 
-	{{ form_row(formBilan.allPO, {'label' : 'Dépistage réactif PlusOptix', 'attr': {'rows' : '4', 'value' : bilan.allPO}}) }}
+	<h4 class="quart AV">Dépistage réactif PlusOptix:</h4>
+	<div id="od">{{ form_row(formBilan.allPO, {'label' : 'OD', 'value' : param[6][0]}) }}</div>
+	<div id="og">{{ form_row(formBilan.allPO2, {'label' : 'OG', 'value' : param[6][1]}) }}</div>
 
 	<div>
 		<div class="stereo stereo-a">{{ form_row(formBilan.stereoscopique, {'label' : 'Acuité stéréoscopique', 'value' : param[3][0]}) }}</div>
@@ -81,7 +79,8 @@
 	</div>
 	
 	{{ form_row(formBilan.accomodation, {'label' : 'Accommodation', 'attr' : {'value' : bilan.accomodation}}) }}
-	{{ form_row(formBilan.confrontation, {'label' : 'Champ visuel par confrontation', 'attr' : {'value' : bilan.confrontation}}) }}
+	{{ form_row(formBilan.confrontation, {'label' : 'Champ visuel', 'value' : param[7][0]}) }}
+	{{ form_row(formBilan.conf, {'label' : false, 'value' : param[7][1], 'attr' : {'rows' : 4}}) }}
 	{{ form_row(formBilan.fixation, { 'attr' : {'value' : bilan.fixation}}) }}
 									
 
@@ -89,30 +88,41 @@
 
 	{{ form_end(formBilan) }}
 </div>
+
+
 {% endblock %}
 
 {% block javascripts %}
 <script>
 window.onload = function()
 {
-	echelle = document.getElementById('echelle');
+	echelle = document.getElementById('echel');
 	Pavp = document.getElementById('Pavp');
+	Parinaud = new Array(document.getElementById('bilan01_allVP'), document.getElementById('bilan01_OGvpP'), document.getElementById('bilan01_ODGvpP'));
+	Rosano = new Array(document.getElementById('bilan01_Rosano'), document.getElementById('bilan01_OGvpR'), document.getElementById('bilan01_ODGvpR'));
+	defaultP = Parinaud[0].options[0];
+	defaultR = Rosano[0].options[0];
 	Ravp = document.getElementById('Ravp');
-	Test();
-	function Test(){
+	ParinaudRosano();
+	function ParinaudRosano(){
 		if(echelle.value == 'Parinaud')
 			{
 				Pavp.style.display = 'inline-block';
 				Ravp.style.display = 'none';
+				Ravp.value = '';
+				Rosano[0].value = defaultR;
+				Rosano[1].value = defaultR;
+				Rosano[2].value = defaultR;
 			}
 		if(echelle.value == 'Rosano')
 		{
 			Pavp.style.display = 'none';
 			Ravp.style.display = 'inline-block';
+			Pavp.value = '';
+			Parinaud[0].value = defaultP;
+			Parinaud[1].value = defaultP;
+			Parinaud[2].value = defaultP;
 		}
-
 	}
-	echelle.addEventListener("change", Test); 
-}
 </script>
 {% endblock %}

@@ -17,7 +17,7 @@
 	<div class="listes">
 		<a href="{{ path('bilan_show', {'idP': patient.id, 'idB': bilan.id}) }}">
 			<button type="submit" class="btn btn-outline-primary btn-patient">
-				Bilan n°{{ bilan.id}}
+				Bilan du {{ bilan.createAt | date('d/m/y H:i')}}
 			</button>
 		</a>
 		{% if resultat %}

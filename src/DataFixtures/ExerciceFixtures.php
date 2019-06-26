@@ -25,7 +25,7 @@ class ExerciceFixtures extends Fixture
         $exercice = new Exercice();
         $exercice->setName('Tracer droit')
             ->setImage('image/lestraits.png')
-            ->setLien('tracer droit')
+            ->setLien('lestraits')
             ->setDateCreation($faker->dateTime)
             ->setDescription("Tracer un trait sans dépasser les limites");
         $manager->persist($exercice);
@@ -65,7 +65,7 @@ class ExerciceFixtures extends Fixture
         $exercice = new Exercice();
         $exercice->setName('Mots-Outil')
         ->setImage('image/motsoutil.png')
-        ->setLien('mots-outil')
+        ->setLien('motsoutil')
         ->setDateCreation($faker->dateTime)
         ->setDescription("Demande au patient de completer un texte à trou");
         $manager->persist($exercice);

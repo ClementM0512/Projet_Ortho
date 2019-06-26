@@ -2,6 +2,28 @@
 {% form_theme formPatient 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+<script>
+window.onload = function()
+{
+	function Remplissage(){
+		var text
+		if(textmotif.value != ''){
+    		if (motif.value){
+    			text = motif.value + '\n' +textmotif.value;
+    		}else{
+    			text = textmotif.value;
+    		}
+    		motif.value = text;
+		}
+	}
+	
+	var textmotif = document.getElementById('textmotif');
+	var motif = document.getElementById('motif');
+
+	textmotif.addEventListener("change", Remplissage); 
+}
+</script>
+
 <div class="form-app">
 	{% if editMode %}
 	<h1 class="center titre">Modification d'une fiche patient</h1>
@@ -10,7 +32,7 @@
 	{% endif %}
 
 	{% set ant = "parents avec forte amétropie ou strabisme, hospitalisation néonatale, prématurité, poids de naissance < 1500g, séroconversion de la toxoplasmose pendant la grossesse, atteinte vasculaire, maladie rare" %}
-	{% set auBilan = "Orthophonique, Psychomoteur, Psychométrique, Neuro-psychologique, d'Ergothérapue, Posturologique" %}
+	{% set auBilan = "Orthophonique, Psychomoteur, Psychométrique, Kinésithérapeute, d'Ergothérapue, Posturologique" %}
 
 	{{ form_start(formPatient) }}
 	{# Début du formulaire #}
@@ -52,25 +74,5 @@
 {% endblock %}
 
 {% block javascripts %}
-<script>
-window.onload = function()
-{
-	function Remplissage(){
-		var text
-		if(textmotif.value != ''){
-    		if (motif.value){
-    			text = motif.value + '\n' +textmotif.value;
-    		}else{
-    			text = textmotif.value;
-    		}
-    		motif.value = text;
-		}
-	}
-	
-	var textmotif = document.getElementById('textmotif');
-	var motif = document.getElementById('motif');
 
-	textmotif.addEventListener("change", Remplissage); 
-}
-</script>
 {% endblock %}

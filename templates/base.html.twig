@@ -4,11 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, target-densitydpi=device-dpi">
 <title>{% block title %}Bouge tes yeux{% endblock %}</title>
+
 {% block stylesheets %}
 <link rel="stylesheet" href="\CSSFiles\stylesbootswatch.css">
 <link rel="stylesheet" href="\CSSFiles\app.css">
 <link rel="stylesheet" href="\CSSFiles\allfontawesome.css">
 {% endblock %}
+
 </head>
 <body>
 {% if app.user %}
@@ -33,7 +35,6 @@
 					href="{{ path('security_admin') }}">Admin</a>
 					</li>
 				    {% endif %}
-{# 				{% endif %}#}
 				<li class="nav-item"><a class="nav-link"
 					href="{{ path('security_logout') }}">Déconnexion</a></li>
 				
@@ -51,9 +52,6 @@
 		{% block body %}{% endblock %}
 	</div>
 
-{# 	{% block javascripts %}#}
-{# 	<script src="/JS/app.js"/>#}
-{# 	<script src="/JS/allfontawesome.js"/>#}
-{# 	{% endblock %}#}
+	{# {% block javascripts %}{% endblock %} #}
 </body>
 </html>

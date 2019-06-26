@@ -10,6 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class Bilan01Type extends AbstractType
@@ -18,14 +20,8 @@ class Bilan01Type extends AbstractType
     {
         $builder
             ->add('corrections')
-            ->add('allC', EntityType::class,[
-                'class' => DataODG::class,
-                'choice_label' => 'ODG',
-                'mapped' => false
-            ])
-            ->add('OG', EntityType::class,[
-                'class' => DataODG::class,
-                'choice_label' => 'ODG',
+            ->add('allC')
+            ->add('OG', null, [
                 'mapped' => false
             ])
             ->add('optotypes', ChoiceType::class, [
@@ -105,6 +101,9 @@ class Bilan01Type extends AbstractType
                 'mapped' => false
             ])
             ->add('allPO')
+            ->add('allPO2', null, [
+                'mapped' => false
+            ])
             ->add('stereoscopique', ChoiceType::class,[
                 'choices' => [
                     ' ' => ' ',
@@ -171,10 +170,13 @@ class Bilan01Type extends AbstractType
             ->add('confrontation', ChoiceType::class, [
                 'choices' => [
                     ' ' => ' ',
-                    'Semble normal' => 'Semble normal',
-                    'Déficit CV droit' => 'Déficit CV droit',
-                    'Déficit CV gauche' => 'Déficit CV gauche', 
+                    'Par confrontation' => 'Par confrontation',
+                    'Recherche d\'amputation' => 'Recherche d\'amputation',
+                    'Goldman' => 'Goldman', 
                 ],
+            ])
+            ->add('conf', TextareaType::class, [
+                'mapped' => false
             ])
             ->add('fixation')
         ;

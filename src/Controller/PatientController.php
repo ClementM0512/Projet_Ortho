@@ -118,6 +118,7 @@ class PatientController extends AbstractController
         if (!$patient)
         {
             $patient = new Patient();
+            $patient->setCreateAt(new \DateTime);
         }
         
         $form = $this->createForm(PatientType::class, $patient); #Crée un formulaire de type patient
@@ -238,6 +239,7 @@ class PatientController extends AbstractController
     {
         if (!$bilan) {
             $bilan = new Bilan01();
+            $bilan->setCreateAt(new \DateTime);
         }
         
         $bilan->setPatient($patient);
@@ -248,8 +250,9 @@ class PatientController extends AbstractController
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------//      
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $bilan->setALLC($form->get('allC')->getData()->getId().';'.$form->get('OG')->getData()->getId());
+            $bilan->setALLC($form->get('allC')->getData().';'.$form->get('OG')->getData());
             $bilan->setALLVL($form->get('allVL')->getData()->getId().';'.$form->get('OGvl')->getData()->getId().';'.$form->get('ODGvl')->getData()->getId());
+            
             
             
             if ($form->get('echelle')->getData() == "Parinaud") {
@@ -259,11 +262,12 @@ class PatientController extends AbstractController
                 $bilan->setALLVP($form->get('Rosano')->getData()->getId().';'.$form->get('OGvpR')->getData()->getId().';'.$form->get('ODGvpR')->getData()->getId());
             }
                
+            $bilan->setAllPO($form->get('allPO')->getData().';'.$form->get('allPO2')->getData());
 
             $bilan->setStereoscopique($form->get('stereoscopique')->getData().';'.$form->get('stereo')->getData());
             $bilan->setCouleurs($form->get('couleurs')->getData().';'.$form->get('couleurs2')->getData());
             $bilan->setContrastes($form->get('contrastes')->getData().';'.$form->get('SERRET')->getData());
-
+            $bilan->setConfrontation($form->get('confrontation')->getData().';'.$form->get('conf')->getData());
 
             $manager->persist($bilan);
             $manager->flush();
@@ -292,20 +296,23 @@ class PatientController extends AbstractController
         $allC = explode(";", $bilan->getALLC());     
         $allVL = explode(";", $bilan->getALLVL());
         $allVP = explode(";", $bilan->getALLVP());
+        $allPO = explode(";", $bilan->getALLPO());
         $stereoscopique = explode(";", $bilan->getStereoscopique());
         $couleurs = explode(";", $bilan->getCouleurs());
         $constrastes = explode(";", $bilan->getContrastes());
+        $conf = explode(";", $bilan->getConfrontation());
 
-        $param = [$allC, $allVL, $allVP, $stereoscopique, $couleurs, $constrastes];
-
+        $param = [$allC, $allVL, $allVP, $stereoscopique, $couleurs, $constrastes, $allPO, $conf];
+        // dd($param);
         $repo = $this->getDoctrine()->getRepository(Patient::class);
         $patient = $repo->find($idP);
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------//
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $bilan->setALLC($form->get('allC')->getData()->getId().';'.$form->get('OG')->getData()->getId());
+            $bilan->setALLC($form->get('allC')->getData().';'.$form->get('OG')->getData());
             $bilan->setALLVL($form->get('allVL')->getData()->getId().';'.$form->get('OGvl')->getData()->getId().';'.$form->get('ODGvl')->getData()->getId());
+            
             
             
             if ($form->get('echelle')->getData() == "Parinaud") {
@@ -315,11 +322,12 @@ class PatientController extends AbstractController
                 $bilan->setALLVP($form->get('Rosano')->getData()->getId().';'.$form->get('OGvpR')->getData()->getId().';'.$form->get('ODGvpR')->getData()->getId());
             }
                
+            $bilan->setALLPO($form->get('ALLPO')->getData().';'.$form->get('ALLPO2')->getData());
 
             $bilan->setStereoscopique($form->get('stereoscopique')->getData().';'.$form->get('stereo')->getData());
             $bilan->setCouleurs($form->get('couleurs')->getData().';'.$form->get('couleurs2')->getData());
             $bilan->setContrastes($form->get('contrastes')->getData().';'.$form->get('SERRET')->getData());
-
+            $bilan->setConfrontation($form->get('confrontation')->getData().';'.$form->get('conf')->getData());
             
             $manager->persist($bilan);
             $manager->flush();

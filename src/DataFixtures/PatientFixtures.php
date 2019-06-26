@@ -11,20 +11,21 @@ class PatientFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create('fr_FR');
+        // $faker = Factory::create('fr_FR');
         
-        for ($i = 0; $i < 20; $i ++) 
-        {
-            $patient = new Patient();
-            $patient->setNom($faker->firstName)
-                    ->setPrenom($faker->lastName)
-                    ->setDateDeNaissance($faker->dateTime)
-                    ->setAdresse($faker->address)
-                    ->setCharge("orthophonie/CMP");
+        // for ($i = 0; $i < 20; $i ++) 
+        // {
+        //     $patient = new Patient();
+        //     $patient->setNom($faker->firstName)
+        //             ->setPrenom($faker->lastName)
+        //             ->setDateDeNaissance($faker->dateTime)
+        //             ->setAdresse($faker->address)
+        //             ->setCharge("orthophonie/CMP")
+        //             ->setCreateAt(new \DateTime());
             
             
-            $manager->persist($patient);
-        }
-        $manager->flush();
+        //     $manager->persist($patient);
+        // }
+        // $manager->flush();
     }
 }

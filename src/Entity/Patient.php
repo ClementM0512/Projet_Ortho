@@ -79,6 +79,11 @@ class Patient
     private $motifs;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createAt;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="id_Patient", orphanRemoval=true)
      */
     private $resultats;
@@ -240,6 +245,18 @@ class Patient
     public function setAdresse(?string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeInterface
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTimeInterface $createAt): self
+    {
+        $this->createAt = $createAt;
 
         return $this;
     }

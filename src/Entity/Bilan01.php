@@ -59,7 +59,7 @@ class Bilan01
     private $allVP;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $allPO;
 
@@ -92,6 +92,11 @@ class Bilan01
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fixation;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Patient", inversedBy="bilan01s")
@@ -289,6 +294,18 @@ class Bilan01
     public function setFixation(?string $fixation): self
     {
         $this->fixation = $fixation;
+
+        return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeInterface
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTimeInterface $createAt): self
+    {
+        $this->createAt = $createAt;
 
         return $this;
     }
